@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const permissionFilter = document.getElementById('permission-filter');
     const searchInput = document.getElementById('search-input');
     let commandsData = [];
+
     fetch('./ressourcen/commands.json')
         .then(response => {
             if (!response.ok) {
@@ -14,11 +15,12 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             commandsData = data;
             initializeFilters(commandsData);
-            renderCommands(commandsData); 
+            renderCommands(commandsData);
         })
         .catch(error => {
             commandsContainer.innerHTML = `<p>Error loading commands: ${error.message}</p>`;
         });
+
     function initializeFilters(commands) {
         const categories = [...new Set(commands.map(command => command.category))].sort();
         categories.forEach(category => {
@@ -27,10 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
             option.textContent = category;
             categoryFilter.appendChild(option);
         });
+
         categoryFilter.addEventListener('change', applyFilters);
         permissionFilter.addEventListener('change', applyFilters);
         searchInput.addEventListener('input', applyFilters);
     }
+
     function renderCommands(commands) {
         commandsContainer.innerHTML = '';
         if (commands.length === 0) {
@@ -50,10 +54,12 @@ document.addEventListener('DOMContentLoaded', () => {
             commandsContainer.appendChild(commandDiv);
         });
     }
+
     function applyFilters() {
         const selectedCategory = categoryFilter.value;
         const selectedPermission = permissionFilter.value;
         const searchTerm = searchInput.value.toLowerCase();
+
         const filteredCommands = commandsData.filter(command => {
             const matchesSearch =
                 command.name.toLowerCase().includes(searchTerm) ||
@@ -63,8 +69,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return matchesSearch && matchesCategory && matchesPermission;
         });
+
         renderCommands(filteredCommands);
     }
+
     function getPermissionLabel(level) {
         const labels = {
             0: 'Jeder',
@@ -77,3 +85,4 @@ document.addEventListener('DOMContentLoaded', () => {
         return labels[level] || 'Unbekannt';
     }
 });
+
