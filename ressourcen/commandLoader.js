@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const commandsContainer = document.getElementById('commands-container');
-    const categoryFilter = document.getElementById('category-filter');
-    const permissionFilter = document.getElementById('permission-filter');
+    const combinedFilter = document.getElementById('combined-filter');
     const searchInput = document.getElementById('search-input');
     let commandsData = [];
 
@@ -14,26 +13,15 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             commandsData = data;
-            initializeFilters(commandsData);
             renderCommands(commandsData);
         })
         .catch(error => {
             commandsContainer.innerHTML = `<p>Error loading commands: ${error.message}</p>`;
         });
 
-    function initializeFilters(commands) {
-        const categories = [...new Set(commands.map(command => command.category))].sort();
-        categories.forEach(category => {
-            const option = document.createElement('option');
-            option.value = category;
-            option.textContent = category;
-            categoryFilter.appendChild(option);
-        });
-
-        categoryFilter.addEventListener('change', applyFilters);
-        permissionFilter.addEventListener('change', applyFilters);
-        searchInput.addEventListener('input', applyFilters);
-    }
+    // Filter anwenden
+    combinedFilter.addEventListener('change', applyFilters);
+    searchInput.addEventListener('input', applyFilters);
 
     function renderCommands(commands) {
         commandsContainer.innerHTML = '';
@@ -56,18 +44,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function applyFilters() {
-        const selectedCategory = categoryFilter.value;
-        const selectedPermission = permissionFilter.value;
+        const selectedFilter = combinedFilter.value;
         const searchTerm = searchInput.value.toLowerCase();
 
         const filteredCommands = commandsData.filter(command => {
             const matchesSearch =
                 command.name.toLowerCase().includes(searchTerm) ||
                 command.aliases.some(alias => alias.toLowerCase().includes(searchTerm));
-            const matchesCategory = !selectedCategory || command.category === selectedCategory;
-            const matchesPermission = !selectedPermission || command.permission == selectedPermission;
+            const matchesFilter =
+                !selectedFilter || command.category === selectedFilter || command.permission == selectedFilter;
 
-            return matchesSearch && matchesCategory && matchesPermission;
+            return matchesSearch && matchesFilter;
         });
 
         renderCommands(filteredCommands);
