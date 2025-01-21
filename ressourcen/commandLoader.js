@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoryFilter = document.getElementById('category-filter');
     const permissionFilter = document.getElementById('permission-filter');
     const searchInput = document.getElementById('search-input');
+
     fetch('./ressourcen/commands.json')
         .then(response => {
             if (!response.ok) {
@@ -18,10 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 option.textContent = category;
                 categoryFilter.appendChild(option);
             });
+
             function applyFilters() {
                 const selectedCategory = categoryFilter.value;
                 const selectedPermission = permissionFilter.value;
                 const searchTerm = searchInput.value.toLowerCase();
+
                 const filteredCommands = commandsData.filter(command => {
                     const matchesCategory = !selectedCategory || command.category === selectedCategory;
                     const matchesPermission = !selectedPermission || command.permission == selectedPermission;
@@ -29,8 +32,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         command.aliases.some(alias => alias.toLowerCase().includes(searchTerm));
                     return matchesCategory && matchesPermission && matchesSearch;
                 });
+
                 renderCommands(filteredCommands);
             }
+
             function renderCommands(commands) {
                 commandsContainer.innerHTML = '';
                 if (commands.length === 0) {
@@ -50,6 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     commandsContainer.appendChild(commandDiv);
                 });
             }
+
             function getPermissionLabel(level) {
                 const labels = {
                     0: 'Jeder',
@@ -61,13 +67,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 };
                 return labels[level] || 'Unbekannt';
             }
+
             categoryFilter.addEventListener('change', applyFilters);
             permissionFilter.addEventListener('change', applyFilters);
             searchInput.addEventListener('input', applyFilters);
+
             renderCommands(commandsData);
         })
         .catch(error => {
             commandsContainer.innerHTML = `<p>Error loading commands: ${error.message}</p>`;
         });
 });
-
