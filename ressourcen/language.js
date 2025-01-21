@@ -6,12 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const switchToGerman = () => {
         titleElement.textContent = 'Befehle';
-        searchInput.placeholder = 'Suchen Sie nach einem Command?';
+        searchInput.placeholder = '🔎 Suchen Sie nach einem Command?';
     };
 
     const switchToEnglish = () => {
         titleElement.textContent = 'Commands';
-        searchInput.placeholder = 'Search for a command?';
+        searchInput.placeholder = '🔎 Search for a command?';
     };
 
     deButton.addEventListener('click', switchToGerman);
