@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-input');
 
     const switchToGerman = () => {
-        titleElement.textContent = 'Befehle';
+        titleElement.textContent = 'Commands';
         searchInput.placeholder = '🔎 Suchen Sie nach einem Command?';
     };
 
