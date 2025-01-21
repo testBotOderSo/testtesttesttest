@@ -97,19 +97,21 @@
             </div>
         </div>
         <div class="search-section">
-            <input id="search-input" type="text" placeholder="Suchen Sie nach einem Command?">
+            <input id="search-input" type="text" placeholder="🔎 Suchen Sie nach einem Command?">
             <div class="filter-section">
-                <select id="category-filter">
-                    <option value="">Kategorie</option>
-                </select>
-                <select id="permission-filter">
-                    <option value="">Berechtigung</option>
+    <select id="combined-filter">
+        <option value="">Filter</option>
+            <optgroup label="Kategorie">
+                <option value="">Kategorie</option>
+                </optgroup>
+                <optgroup label="Berechtigung">
                     <option value="0">Jeder</option>
                     <option value="1">VIP</option>
                     <option value="2">Moderator</option>
                     <option value="3">Broadcaster</option>
                     <option value="4">Entwickler</option>
                     <option value="5">Administrator</option>
+                    </optgroup>
                 </select>
             </div>
         </div>
