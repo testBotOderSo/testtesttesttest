@@ -2,9 +2,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const commandsContainer = document.getElementById('commands-container');
     const title = document.getElementById('title');
 
+    // Überprüfen, ob das Element 'commands-container' existiert
     if (!commandsContainer) {
-        console.error('Element with ID "commands-container" not found');
-        return; // Abbrechen, wenn das Element nicht gefunden wurde
+        console.error('Das Element "commands-container" wurde nicht gefunden!');
+        return; // Skript abbrechen, falls das Element nicht existiert
     }
 
     // Lade die JSON-Datei mit Fetch
