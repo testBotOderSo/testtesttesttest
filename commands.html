@@ -11,85 +11,56 @@
         }
         .container {
             max-width: 800px;
-            margin: 0 auto;
+            margin: 20px auto;
             background: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .navigation {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .language-switch {
-            text-align: right;
-            position: relative;
-        }
-        .language-switch button {
-            background: none;
-            border: none;
-            cursor: pointer;
-            margin: 0 10px;
-            transition: transform 0.3s ease-in-out;
-        }
-        .language-switch img {
-            width: 25px;
-            height: 25px;
-        }
         .filters {
             display: flex;
-            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
             margin-bottom: 20px;
         }
-        .filters select,
-        .filters input {
+        .filters select, .filters input {
             padding: 5px;
-            border-radius: 4px;
             border: 1px solid #ddd;
+            border-radius: 4px;
         }
         .command {
             border-bottom: 1px solid #ddd;
             padding: 10px 0;
         }
-        .command img {
-            height: 20px;
-            vertical-align: middle;
-        }
         .command:last-child {
             border-bottom: none;
+        }
+        .category, .permission {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="navigation">
-            <h1 id="title">Befehle</h1>
-            <div class="language-switch">
-                <button id="de-button"><img src="https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg" alt="Deutsch"></button>
-                <button id="us-button"><img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="English"></button>
-            </div>
-        </div>
         <div class="filters">
-            <div>
-                <label for="permission-filter">Filter by Permissions:</label>
-                <select id="permission-filter">
-                    <option value="all">All</option>
-                    <option value="0">Everyone</option>
-                    <option value="1">VIP</option>
-                    <option value="2">Moderator</option>
-                    <option value="3">Broadcaster</option>
-                    <option value="4">Developer</option>
-                    <option value="5">Admin</option>
-                </select>
-            </div>
-            <div>
-                <label for="search-input">Search:</label>
-                <input type="text" id="search-input" placeholder="Search by name or alias...">
-            </div>
+            <select id="category-filter">
+                <option value="">Alle Kategorien</option>
+            </select>
+            <select id="permission-filter">
+                <option value="">Alle Berechtigungen</option>
+                <option value="0">Jeder</option>
+                <option value="1">VIP</option>
+                <option value="2">Moderator</option>
+                <option value="3">Broadcaster</option>
+                <option value="4">Entwickler</option>
+                <option value="5">Administrator</option>
+            </select>
+            <input type="text" id="search-input" placeholder="Suche nach Name oder Alias">
         </div>
         <div id="commands-container"></div>
     </div>
     <script src="ressourcen/commandloader.js"></script>
 </body>
 </html>
-
