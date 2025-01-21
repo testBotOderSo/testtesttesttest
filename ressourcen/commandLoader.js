@@ -1,86 +1,73 @@
 document.addEventListener('DOMContentLoaded', () => {
     const commandsContainer = document.getElementById('commands-container');
-    const title = document.getElementById('title');
-    const deButton = document.getElementById('de-button');
-    const usButton = document.getElementById('us-button');
-    const categorySelect = document.getElementById('category-select');
-
-    let currentUserPermission = 0; // Zum Testen: Ersetze dies mit der aktuellen Benutzerberechtigung
-    let currentLanguage = 'de';
-    let currentCategoryFilter = 'all';
-
-    // Lade die JSON-Datei mit Fetch
+    const categoryFilter = document.getElementById('category-filter');
+    const permissionFilter = document.getElementById('permission-filter');
+    const searchInput = document.getElementById('search-input');
     fetch('./ressourcen/commands.json')
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to fetch commands.json: ${response.statusText}`);
+            }
+            return response.json();
+        })
         .then(commandsData => {
-            // Funktion zum Rendern der Commands
-            function renderCommands() {
-                commandsContainer.innerHTML = '';
+            const categories = [...new Set(commandsData.map(command => command.category))].sort();
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                categoryFilter.appendChild(option);
+            });
+            function applyFilters() {
+                const selectedCategory = categoryFilter.value;
+                const selectedPermission = permissionFilter.value;
+                const searchTerm = searchInput.value.toLowerCase();
                 const filteredCommands = commandsData.filter(command => {
-                    // Filtere nach Kategorie
-                    const isCategoryMatch = currentCategoryFilter === 'all' || command.category === currentCategoryFilter;
-                    // Filtere nach Berechtigung
-                    const isPermissionMatch = command.permission <= currentUserPermission;
-                    return isCategoryMatch && isPermissionMatch;
+                    const matchesCategory = !selectedCategory || command.category === selectedCategory;
+                    const matchesPermission = !selectedPermission || command.permission == selectedPermission;
+                    const matchesSearch = command.name.toLowerCase().includes(searchTerm) ||
+                        command.aliases.some(alias => alias.toLowerCase().includes(searchTerm));
+                    return matchesCategory && matchesPermission && matchesSearch;
                 });
-
-                const categories = {};
-                filteredCommands.forEach(command => {
-                    if (!categories[command.category]) {
-                        categories[command.category] = [];
-                    }
-                    categories[command.category].push(command);
-                });
-
-                Object.keys(categories).sort().forEach(category => {
-                    const categoryDiv = document.createElement('div');
-                    categoryDiv.classList.add('category');
-                    categoryDiv.innerHTML = `<h2>${category}</h2>`;
-
-                    categories[category].forEach(command => {
-                        const commandDiv = document.createElement('div');
-                        commandDiv.classList.add('command');
-
-                        const description = currentLanguage === 'de' ? command.descriptionDE : command.descriptionUS;
-                        const usage = currentLanguage === 'de' ? command.usageDE : command.usageUS;
-
-                        commandDiv.innerHTML = `
-                            <p><strong>${command.name}</strong></p>
-                            <p>${description}</p>
-                            <p><em>${usage}</em></p>
-                            <p>Link: <a href="${command.link}" target="_blank"><img src="${command.link}" alt="Emote"></a></p>
-                        `;
-
-                        categoryDiv.appendChild(commandDiv);
-                    });
-
-                    commandsContainer.appendChild(categoryDiv);
+                renderCommands(filteredCommands);
+            }
+            function renderCommands(commands) {
+                commandsContainer.innerHTML = '';
+                if (commands.length === 0) {
+                    commandsContainer.innerHTML = '<p>Keine Befehle gefunden.</p>';
+                    return;
+                }
+                commands.forEach(command => {
+                    const commandDiv = document.createElement('div');
+                    commandDiv.classList.add('command');
+                    commandDiv.innerHTML = `
+                        <p><strong>${command.name}</strong> ${command.aliases.length ? `(${command.aliases.join(', ')})` : ''}</p>
+                        <p>${command.descriptionDE}</p>
+                        <p><em>${command.usageDE}</em></p>
+                        <p class="category">Kategorie: ${command.category}</p>
+                        <p class="permission">Berechtigung: ${getPermissionLabel(command.permission)}</p>
+                    `;
+                    commandsContainer.appendChild(commandDiv);
                 });
             }
-
-            // Sprachumschaltung
-            deButton.addEventListener('click', () => {
-                currentLanguage = 'de';
-                title.textContent = 'Befehle';
-                renderCommands();
-            });
-
-            usButton.addEventListener('click', () => {
-                currentLanguage = 'us';
-                title.textContent = 'Commands';
-                renderCommands();
-            });
-
-            // Kategorieumschaltung
-            categorySelect.addEventListener('change', () => {
-                currentCategoryFilter = categorySelect.value;
-                renderCommands();
-            });
-
-            // Initiale Commands anzeigen
-            renderCommands();
+            function getPermissionLabel(level) {
+                const labels = {
+                    0: 'Jeder',
+                    1: 'VIP',
+                    2: 'Moderator',
+                    3: 'Broadcaster',
+                    4: 'Entwickler',
+                    5: 'Administrator'
+                };
+                return labels[level] || 'Unbekannt';
+            }
+            categoryFilter.addEventListener('change', applyFilters);
+            permissionFilter.addEventListener('change', applyFilters);
+            searchInput.addEventListener('input', applyFilters);
+            renderCommands(commandsData);
         })
         .catch(error => {
             commandsContainer.innerHTML = `<p>Error loading commands: ${error.message}</p>`;
         });
 });
+
