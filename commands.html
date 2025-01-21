@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
             background-color: #f4f4f4;
         }
         .container {
@@ -18,14 +18,24 @@
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+        .navigation {
+            text-align: center;
+            margin-bottom: 20px;
+        }
         .language-switch {
             text-align: right;
+            position: relative;
         }
         .language-switch button {
             background: none;
             border: none;
             cursor: pointer;
-            margin: 0 5px;
+            margin: 0 10px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .language-switch img {
+            width: 25px;
+            height: 25px;
         }
         .command {
             border-bottom: 1px solid #ddd;
@@ -41,17 +51,34 @@
         .category {
             margin-top: 20px;
         }
+        .category-filter {
+            margin-top: 20px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="language-switch">
-            <button id="de-button"><img src="https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg" alt="Deutsch" width="25"></button>
-            <button id="us-button"><img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="English" width="25"></button>
+        <div class="navigation">
+            <h1 id="title">Befehle</h1>
+            <div class="language-switch">
+                <button id="de-button"><img src="https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg" alt="Deutsch"></button>
+                <button id="us-button"><img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="English"></button>
+            </div>
         </div>
-        <h1 id="title">Befehle</h1>
-        <script src="ressourcen/commands.js"></script>
+        <div class="category-filter">
+            <label for="category-select">Filter by Category:</label>
+            <select id="category-select">
+                <option value="all">All</option>
+                <option value="Normal">Normal</option>
+                <option value="Admin">Admin</option>
+            </select>
+        </div>
         <div id="commands-container"></div>
+        <div id="main-content">
+            <p>Hauptinhalt kommt hier.</p>
+        </div>
     </div>
+    <script src="ressourcen/commandLoader.js"></script>
 </body>
 </html>
