@@ -1,0 +1,13 @@
+[
+    {
+        "name": "commands",
+        "aliases": [],
+        "descriptionDE": "Link zu Command Seite",
+        "descriptionUS": "Link to Command page",
+        "usageDE": "Schreibe !commands",
+        "usageUS": "Write !commands",
+        "category": "Normal",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/604225c377137b000de9e68b/1x.webp"
+    }
+]
