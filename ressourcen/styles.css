@@ -1,29 +1,25 @@
 body {
     font-family: Arial, sans-serif;
     margin: 0;
-    background-color: #000; /* Schwarzer Hintergrund */
-    color: #fff; /* Weißer Text */
+    background-color: #000; 
+    color: #fff; 
 }
-
 .container {
     max-width: 800px;
     margin: 20px auto;
-    background: #121212; /* Dunkler Container */
+    background: #121212; 
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
-
 .logo img {
     display: block;
     margin: 0 auto;
 }
-
 .navigation {
     text-align: center;
     margin-bottom: 20px;
 }
-
 .language-switch button {
     background: none;
     border: none;
@@ -32,12 +28,10 @@ body {
     padding: 0;
     transition: transform 0.3s ease-in-out;
 }
-
 .language-switch img {
     width: 20px;
     height: 20px;
 }
-
 .search-section input {
     flex: 1;
     padding: 10px;
@@ -47,13 +41,11 @@ body {
     color: #fff;
     margin-right: 10px;
 }
-
 .filter-section {
     display: flex;
     gap: 10px;
     justify-content: center;
 }
-
 select {
     padding: 10px;
     border-radius: 4px;
@@ -61,25 +53,22 @@ select {
     background-color: #1a1a1a;
     color: #fff;
 }
-
-/* Command Bubble Styles */
+/* Commands */
 .command-bubble {
-    border: 6px solid #1e90ff; /* Hellblauer Rand */
+    border: 6px solid #1e90ff; 
     border-radius: 15px;
     padding: 25px;
     margin: 10px 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-    background-color: #121212; /* Dunkler Hintergrund */
-    color: #87cefa; /* Hellblauer Text */
+    background-color: #121212; 
+    color: #87cefa; 
     transition: transform 0.2s;
 }
-
 .command-bubble:hover {
     transform: scale(1.05);
     box-shadow: 0 6px 10px rgba(30, 144, 255, 0.6);
 }
-
-/* Filter Dropdown */
+/* Filter */
 .filter-options {
     display: none;
     position: absolute;
@@ -88,7 +77,32 @@ select {
     padding: 10px;
     border-radius: 6px;
 }
-
 .filter-dropdown.active .filter-options {
     display: block;
 }
+/* Language */
+.language-switch {
+    display: flex;
+    gap: 10px;
+}
+.language-switch button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.language-switch button img {
+    width: 30px;
+    height: 20px;
+    border-radius: 3px;
+}
+.language-switch button.hidden {
+    transform: scale(0);
+    opacity: 0;
+    pointer-events: none;
+}
+.language-switch button.show {
+    transform: scale(1);
+    opacity: 1;
+}
+
