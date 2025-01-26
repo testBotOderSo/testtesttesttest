@@ -9,5 +9,16 @@
         "category": "Normal",
         "permission": 0,
         "link": "https://cdn.7tv.app/emote/604225c377137b000de9e68b/1x.webp"
+    },
+    {
+        "name": "penis",
+        "aliases": [],
+        "descriptionDE": "oooooooooo",
+        "descriptionUS": "kkkkkkkkkkk",
+        "usageDE": "iiiiiiiiiiiiii",
+        "usageUS": "uuuuuuuuuuuuuuu",
+        "category": "Normal",
+        "permission": 2,
+        "link": "https://cdn.7tv.app/emote/604225c377137b000de9e68b/1x.webp"
     }
 ]
