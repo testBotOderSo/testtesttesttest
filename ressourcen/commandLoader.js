@@ -41,9 +41,10 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCommands(commandsData);
     });
     function renderCommands(commands) {
-        commandsContainer.innerHTML = ``;
+        const commandBubble = document.querySelector('.command-bubble');
+        commandBubble.innerHTML = ``;
         if (commands.length === 0) {
-            return (commandsContainer.innerHTML = `<img src="img/shruge.gif"> <p style="font-weight: bold;">${currentLanguage === 'DE' ? 'Kein Command gefunden' : 'No Command found'}</p>`);
+            return (commandBubble.innerHTML = `<img src="img/shruge.gif"> <p style="font-weight: bold;">${currentLanguage === 'DE' ? 'Kein Command gefunden' : 'No Command found'}</p>`);
         }
         commands.forEach(command => {
             const commandDiv = document.createElement('div');
