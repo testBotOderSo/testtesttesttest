@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-input');
     let commandsData = [];
 
+    // Fetch the commands data
     fetch('./ressourcen/commands.json')
         .then(response => {
             if (!response.ok) {
@@ -21,13 +22,17 @@ document.addEventListener('DOMContentLoaded', () => {
             commandsContainer.innerHTML = `<p>Error loading commands: ${error.message}</p>`;
         });
 
+    // Toggle filter dropdown
     filterToggle.addEventListener('click', () => {
         filterToggle.parentElement.classList.toggle('active');
     });
+
+    // Apply filters on change
     categoryFilter.addEventListener('change', applyFilters);
     permissionFilter.addEventListener('change', applyFilters);
     searchInput.addEventListener('input', applyFilters);
 
+    // Render commands
     function renderCommands(commands) {
         commandsContainer.innerHTML = '';
         if (commands.length === 0) {
@@ -52,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Apply filters to commands
     function applyFilters() {
         const selectedCategory = categoryFilter.value;
         const selectedPermission = permissionFilter.value;
@@ -70,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCommands(filteredCommands);
     }
 
+    // Map permission levels to labels
     function getPermissionLabel(level) {
         const labels = {
             0: 'Jeder',
