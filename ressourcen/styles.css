@@ -68,13 +68,6 @@ select {
 .filter-dropdown.active .filter-options {
     display: block;
 }
-/* Alert */ 
-.alert {
-  padding: 20px;
-  background-color: #f44336;
-  color: white;
-  margin-bottom: 15px;
-}
 /* Language */
 .language-switch {
     display: flex;
