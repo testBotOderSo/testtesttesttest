@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     categoryFilter.addEventListener('change', applyFilters);
     permissionFilter.addEventListener('change', applyFilters);
     searchInput.addEventListener('input', applyFilters);
-    
+
     deButton.addEventListener('click', () => {
         currentLanguage = 'DE';
         renderCommands(commandsData);
@@ -43,10 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderCommands(commands) {
         const commandBubble = document.querySelector('.command-bubble');
-        commandBubble.innerHTML = ``;
+        commandBubble.innerHTML = ``; 
+
         if (commands.length === 0) {
             return (commandBubble.innerHTML = `<img src="img/shruge.gif" alt="Keine Befehle"> <p style="font-weight: bold;">${currentLanguage === 'DE' ? 'Kein Command gefunden' : 'No Command found'}</p>`);
         }
+
         commands.forEach(command => {
             const commandDiv = document.createElement('div');
             commandDiv.classList.add('command');
@@ -58,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>Permission:</strong> ${getPermissionLabel(command.permission)}</p>
                 </div>
             `;
-            commandBubble.appendChild(commandDiv);
+            commandBubble.appendChild(commandDiv); 
         });
     }
 
@@ -66,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedCategory = categoryFilter.value;
         const selectedPermission = permissionFilter.value;
         const searchTerm = searchInput.value.toLowerCase();
+
         const filteredCommands = commandsData.filter(command => {
             const matchesSearch =
                 command.name.toLowerCase().includes(searchTerm) ||
@@ -74,6 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const matchesPermission = !selectedPermission || command.permission == selectedPermission;
             return matchesSearch && matchesCategory && matchesPermission;
         });
+
         renderCommands(filteredCommands);
     }
 
