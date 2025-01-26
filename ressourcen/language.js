@@ -5,12 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-input');
 
     const switchToGerman = () => {
-        titleElement.textContent = 'Commands';
+        titleElement.textContent = '<a href="img/notedbotlogo.png" type="image/png">NotedBot Commands';
         searchInput.placeholder = '🔎 Suchen Sie nach einem Command?';
     };
 
     const switchToEnglish = () => {
-        titleElement.textContent = 'Commands';
+        titleElement.textContent = '<a href="img/notedbotlogo.png" type="image/png">NotedBot Commands';
         searchInput.placeholder = '🔎 Search for a command?';
     };
 
