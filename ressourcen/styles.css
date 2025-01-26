@@ -79,3 +79,17 @@ select {
     transform: scale(1.05);
     box-shadow: 0 6px 10px rgba(30, 144, 255, 0.6);
 }
+
+/* Filter Dropdown */
+.filter-options {
+    display: none;
+    position: absolute;
+    background-color: #1a1a1a;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.filter-dropdown.active .filter-options {
+    display: block;
+}
