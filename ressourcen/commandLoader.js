@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderCommands(commands) {
         commandsContainer.innerHTML = ``;
         if (commands.length === 0) {
-            return (commandsContainer.innerHTML = `<img src="img/shruge.gif"> <p style="font-size: 1.5em; font-weight: bold;">${currentLanguage === 'DE' ? 'Kein Command gefunden' : 'No Command found'}</p>`);
+            return (commandsContainer.innerHTML = `<img src="img/shruge.gif"> <p style="font-weight: bold;">${currentLanguage === 'DE' ? 'Kein Command gefunden' : 'No Command found'}</p>`);
         }
         commands.forEach(command => {
             const commandDiv = document.createElement('div');
