@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
         currentLanguage = 'EN';
         renderCommands(commandsData);
     });
+
     function renderCommands(commands) {
         const commandBubble = document.querySelector('.command-bubble');
         commandBubble.innerHTML = ``;
@@ -52,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             commandDiv.innerHTML = `
                 <div class="command-info">
                     <p><strong>Name:</strong> ${command.name} ${command.aliases.length ? `(Alias: ${command.aliases.join(', ')})` : ''}</p>
-                    <p><strong>Beschreibung:</strong> ${currentLanguage === 'DE' ? command.descriptionDE : command.descriptionUS} <img src="${command.link}"></p>
+                    <p><strong>Beschreibung:</strong> ${currentLanguage === 'DE' ? command.descriptionDE : command.descriptionUS} <img src="${command.link}" alt="Emote"></p>
                     <p><strong>Category:</strong> ${command.category}</p>
                     <p><strong>Permission:</strong> ${getPermissionLabel(command.permission)}</p>
                 </div>
@@ -60,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
             commandsContainer.appendChild(commandDiv);
         });
     }
+
     function applyFilters() {
         const selectedCategory = categoryFilter.value;
         const selectedPermission = permissionFilter.value;
@@ -74,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         renderCommands(filteredCommands);
     }
+
     function getPermissionLabel(level) {
         const labels = {
             0: 'Everyone',
@@ -83,6 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
             4: 'Dev',
             5: 'Admin'
         };
-        return labels[level] || 'Unbekannt';
+        return labels[level] || 'Unknown';
     }
 });
