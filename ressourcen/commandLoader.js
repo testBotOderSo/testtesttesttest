@@ -60,19 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>Name:</strong> ${command.name} ${command.aliases.length ? `(Alias: ${command.aliases.join(', ')})` : ''}</p>
                     <p><strong>Kategorie:</strong> ${command.category}</p>
                     <p><strong>Berechtigung:</strong> ${getPermissionLabel(command.permission)}</p>
-                    <p><strong>Beschreibung:</strong> ${
-                        currentLanguage === 'DE' ? command.descriptionDE : command.descriptionUS
-                    }</p>
-                    <p><strong>Verwendung:</strong> ${
-                        currentLanguage === 'DE' ? command.usageDE : command.usageUS
-                    }</p>
-                    ${
-                        command.link
-                            ? isImageLink(command.link)
-                                ? `<p><strong>Link:</strong><br><img src="${command.link}" alt="Image" style="max-width: 100%; max-height: 200px;"/></p>`
-                                : `<p><strong>Link:</strong> <a href="${command.link}" target="_blank">${command.link}</a></p>`
-                            : ''
-                    }
+                    <p><strong>Beschreibung:</strong> ${currentLanguage === 'DE' ? command.descriptionDE : command.descriptionUS}</p>
+                    <p><strong>Verwendung:</strong> ${currentLanguage === 'DE' ? command.usageDE : command.usageUS}</p>${command.link
+                    ? isImageLink(command.link) `<a img src="${command.link}" alt="Image" style="max-width: 100%; max-height: 200px;"/></p>` : ''}
                 </div>
             `;
             commandsContainer.appendChild(commandDiv);
