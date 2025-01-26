@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
             commandsContainer.innerHTML = `<p>Error loading commands: ${error.message}</p>`;
         });
 
-    // Filter anwenden
     filterToggle.addEventListener('click', () => {
         filterToggle.parentElement.classList.toggle('active');
     });
@@ -32,14 +31,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderCommands(commands) {
         commandsContainer.innerHTML = '';
         if (commands.length === 0) {
-            return commandsContainer.innerHTML = '<p>❔ Keine Command gefunden</p>';
+            return commandsContainer.innerHTML = '<p>❔ Keine Commands gefunden</p>';
         }
         commands.forEach(command => {
             const commandDiv = document.createElement('div');
             commandDiv.classList.add('command');
             commandDiv.innerHTML = `
                 <div class="command-info">
-                    <p><strong>${command.name}</strong> ${command.aliases.length ? `(${command.aliases.join(', ')})` : ''} Category: ${command.category} Permissions: ${getPermissionLabel(command.permission)}</p>
+                    <p><strong>Name:</strong> ${command.name} ${command.aliases.length ? `(Alias: ${command.aliases.join(', ')})` : ''}</p>
+                    <p><strong>Kategorie:</strong> ${command.category}</p>
+                    <p><strong>Berechtigung:</strong> ${getPermissionLabel(command.permission)}</p>
+                    <p><strong>Beschreibung (DE):</strong> ${command.descriptionDE}</p>
+                    <p><strong>Beschreibung (EN):</strong> ${command.descriptionUS}</p>
+                    <p><strong>Verwendung (DE):</strong> ${command.usageDE}</p>
+                    <p><strong>Verwendung (EN):</strong> ${command.usageUS}</p>
+                    ${command.link ? `<p><strong>Link:</strong> <a href="${command.link}" target="_blank">${command.link}</a></p>` : ''}
+                </div>
             `;
             commandsContainer.appendChild(commandDiv);
         });
