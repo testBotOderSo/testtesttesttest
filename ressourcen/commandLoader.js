@@ -4,7 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoryFilter = document.getElementById('category-filter');
     const permissionFilter = document.getElementById('permission-filter');
     const searchInput = document.getElementById('search-input');
-    const languageToggle = document.getElementById('language-toggle'); // Sprachumschalter
+    const deButton = document.getElementById('de-button'); // Deutsch-Button
+    const usButton = document.getElementById('us-button'); // Englisch-Button
     let commandsData = [];
     let currentLanguage = 'DE'; // Standard-Sprache Deutsch
 
@@ -34,9 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
     permissionFilter.addEventListener('change', applyFilters);
     searchInput.addEventListener('input', applyFilters);
 
-    // Change language
-    languageToggle.addEventListener('change', () => {
-        currentLanguage = languageToggle.value;
+    // Change language on button click
+    deButton.addEventListener('click', () => {
+        currentLanguage = 'DE';
+        renderCommands(commandsData);
+    });
+
+    usButton.addEventListener('click', () => {
+        currentLanguage = 'EN';
         renderCommands(commandsData);
     });
 
