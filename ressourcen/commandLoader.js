@@ -42,30 +42,34 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     function renderCommands(commands) {
-    const commandsContainer = document.getElementById('commands-container'); 
-    commandsContainer.innerHTML = ''; 
-    if (commands.length === 0) {
-        return (commandsContainer.innerHTML = `<img src="img/shruge.gif" alt="Keine Befehle"> <p style="font-weight: bold;">${currentLanguage === 'DE' ? 'Kein Command gefunden' : 'No Command found'}</p>`);
+        const commandsContainer = document.getElementById('commands-container'); 
+        commandsContainer.innerHTML = ''; 
+        if (commands.length === 0) {
+            return (commandsContainer.innerHTML = `<img src="img/shruge.gif" alt="Keine Befehle"> <p style="font-weight: bold;">${currentLanguage === 'DE' ? 'Kein Command gefunden' : 'No Command found'}</p>`);
+        }
+        try {
+            commands.forEach(command => {
+                const commandBubble = document.createElement('div');
+                commandBubble.classList.add('command-bubble');
+                const commandDiv = document.createElement('div');
+                commandDiv.classList.add('command');
+                commandDiv.innerHTML = `
+                    <div class="command-info">
+                        <p><strong>Name:</strong> ${command.name} ${command.aliases.length ? `(Alias: ${command.aliases.join(', ')})` : ''}</p>
+                        <p><strong>Beschreibung:</strong> ${currentLanguage === 'DE' ? command.descriptionDE : command.descriptionUS} <img src="${command.link}" alt="Emote"></p>
+                        <p><strong>Category:</strong> ${command.category}</p>
+                        <p><strong>Permission:</strong> ${getPermissionLabel(command.permission)}</p>
+                    </div>
+                `;
+                commandBubble.appendChild(commandDiv);
+                commandsContainer.appendChild(commandBubble);
+            });
+        } catch (e) {
+            console.log(`renderCommands | Fehler: ${e}`);
+            commandsContainer.innerHTML = `<p style="font-weight: bold; color: red;">${currentLanguage === 'DE' ? '☝️ Es ist ein Fehler aufgetreten' : '☝️ An error has occurred'}</p>`;
+        }
+            
     }
-
-    commands.forEach(command => {
-        const commandBubble = document.createElement('div');
-        commandBubble.classList.add('command-bubble');
-
-        const commandDiv = document.createElement('div');
-        commandDiv.classList.add('command');
-        commandDiv.innerHTML = `
-            <div class="command-info">
-                <p><strong>Name:</strong> ${command.name} ${command.aliases.length ? `(Alias: ${command.aliases.join(', ')})` : ''}</p>
-                <p><strong>Beschreibung:</strong> ${currentLanguage === 'DE' ? command.descriptionDE : command.descriptionUS} <img src="${command.link}" alt="Emote"></p>
-                <p><strong>Category:</strong> ${command.category}</p>
-                <p><strong>Permission:</strong> ${getPermissionLabel(command.permission)}</p>
-            </div>
-        `;
-        commandBubble.appendChild(commandDiv);
-        commandsContainer.appendChild(commandBubble);
-    });
-}
 
     function applyFilters() {
         const selectedCategory = categoryFilter.value;
