@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const commandBubble = document.querySelector('.command-bubble');
         commandBubble.innerHTML = ``;
         if (commands.length === 0) {
-            return (commandBubble.innerHTML = `<img src="img/shruge.gif"> <p style="font-weight: bold;">${currentLanguage === 'DE' ? 'Kein Command gefunden' : 'No Command found'}</p>`);
+            return (commandBubble.innerHTML = `<img src="img/shruge.gif" alt="Keine Befehle"> <p style="font-weight: bold;">${currentLanguage === 'DE' ? 'Kein Command gefunden' : 'No Command found'}</p>`);
         }
         commands.forEach(command => {
             const commandDiv = document.createElement('div');
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>Permission:</strong> ${getPermissionLabel(command.permission)}</p>
                 </div>
             `;
-            commandsContainer.appendChild(commandDiv);
+            commandBubble.appendChild(commandDiv);
         });
     }
 
