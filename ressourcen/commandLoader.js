@@ -61,8 +61,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p><strong>Kategorie:</strong> ${command.category}</p>
                     <p><strong>Berechtigung:</strong> ${getPermissionLabel(command.permission)}</p>
                     <p><strong>Beschreibung:</strong> ${currentLanguage === 'DE' ? command.descriptionDE : command.descriptionUS}</p>
-                    <p><strong>Verwendung:</strong> ${currentLanguage === 'DE' ? command.usageDE : command.usageUS}</p>${command.link
-                    ? isImageLink(command.link) `<a img src="${command.link}" alt="Image" style="max-width: 100%; max-height: 200px;"/></p>` : ''}
+                    <p><strong>Verwendung:</strong> ${currentLanguage === 'DE' ? command.usageDE : command.usageUS}
+                    </p><img src="${command.link}">
                 </div>
             `;
             commandsContainer.appendChild(commandDiv);
@@ -99,10 +99,5 @@ document.addEventListener('DOMContentLoaded', () => {
             5: 'Administrator'
         };
         return labels[level] || 'Unbekannt';
-    }
-
-    // Check if a link points to an image
-    function isImageLink(link) {
-        return /\.(png|jpg|jpeg|gif|webp)$/i.test(link);
     }
 });
