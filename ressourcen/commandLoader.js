@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             applyFiltersFromURL();
         })
         .catch(error => {
-            commandsContainer.innerHTML = `<p style="font-weight: bold; color: red;">${currentLanguage === 'de' ? '☝️ Es ist ein Fehler aufgetreten' : '☝️ An error has occurred'}</p>`;
+            commandsContainer.innerHTML = `<img src="img/apu.png" alt="joa1"> <p style="font-weight: bold; color: red;">${currentLanguage === 'de' ? '☝️ Es ist ein Fehler aufgetreten' : '☝️ An error has occurred'}</p>`;
             console.log(`Error Beim Fetching: ${error}`);
         });
 
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const commandsContainer = document.getElementById('commands-container'); 
         commandsContainer.innerHTML = ''; 
         if (commands.length === 0) {
-            return (commandsContainer.innerHTML = `<img src="img/shruge.gif" alt="joa"> <p style="font-weight: bold;">${currentLanguage === 'de' ? 'Kein Command gefunden' : 'No Command found'}</p>`);
+            return (commandsContainer.innerHTML = `<img src="img/shruge.gif" alt="joa2"> <p style="font-weight: bold;">${currentLanguage === 'de' ? 'Kein Command gefunden' : 'No Command found'}</p>`);
         }
         try {
             commands.forEach(command => {
