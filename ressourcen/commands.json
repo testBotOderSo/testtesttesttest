@@ -19,6 +19,39 @@
         "usageUS": "Write !vanity [username]",
         "category": "Fun",
         "permission": 0,
-        "link": "https://cdn.7tv.app/emote/604225c377137b000de9e68b/1x.webp"
+        "link": ""
+    },
+    {
+        "name": "userid",
+        "aliases": ["uid"],
+        "descriptionDE": "Gibt username von einer Twitch id zurück.",
+        "descriptionUS": "Returns username from a Twitch id.",
+        "usageDE": "Schreibe !commands",
+        "usageUS": "Write !uid [username]",
+        "category": "Info",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/662b8d3b2485bfc4e57966ff/1x.webp"
+    },
+    {
+        "name": "user",
+        "aliases": ["u"],
+        "descriptionDE": "Gibt Informationen über einen Benutzer zurück.",
+        "descriptionUS": "Returns information about a user.",
+        "usageDE": "Schreibe !u [username]",
+        "usageUS": "Write !u [username]",
+        "category": "Info",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/60c83239c6eb576276e73f0a/1x.webp"
+    },
+    {
+        "name": "test",
+        "aliases": [],
+        "descriptionDE": "Testet ob der Bot da ist.",
+        "descriptionUS": "Tests whether the bot is there.",
+        "usageDE": "Schreibe !test",
+        "usageUS": "Write !test",
+        "category": "Normal",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/62eee8d9ff98fd00209b96ec/1x.webp"
     }
 ]
