@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const userLanguage = navigator.language || navigator.userLanguage;
+    const urlParams = new URLSearchParams(window.location.search);
+    const languageParam = urlParams.get('language');
     const deButton = document.getElementById('de-button');
     const usButton = document.getElementById('us-button');
     const searchInput = document.getElementById('search-input');
@@ -18,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         permissionLabel.textContent = 'Permission:';
     };
     // Language
-    if (userLanguage.startsWith('de')) {
+    if (languageParam === 'de') {
         switchToGerman();
     } else {
         switchToEnglish(); 
