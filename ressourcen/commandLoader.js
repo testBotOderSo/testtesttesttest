@@ -68,6 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderCommands(commands) {
         const commandsContainer = document.getElementById('commands-container'); 
         commandsContainer.innerHTML = ''; 
+        commands.sort((a, b) => {
+            return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+        });
         if (commands.length === 0) {
             return (commandsContainer.innerHTML = `<img src="img/shruge.gif" alt="joa2"> <p style="font-weight: bold;">${currentLanguage === 'de' ? 'Kein Command gefunden' : 'No Command found'}</p>`);
         }
