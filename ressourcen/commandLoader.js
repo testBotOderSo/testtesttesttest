@@ -81,7 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         try {
             commands.forEach(command => {
-                console.log(`Test: ${command.usageDE}`);
+                console.log(`Test DE: ${command.usageDE}`);
+                console.log(`Test US: ${command.usageUS}`);
                 const commandBubble = document.createElement('div');
                 commandBubble.classList.add('command-bubble');
                 const commandDiv = document.createElement('div');
