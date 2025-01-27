@@ -7,14 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // switchToGerman
     const switchToGerman = () => {
         searchInput.placeholder = '🔎 Suchen Sie nach einem Command?';
-        categoryFilter.placeholder = 'Kategorie';
-        permissionFilter.placeholder = 'Berechtigung';
+        categoryFilter.options[0].text = 'Kategorie';
+        permissionFilter.options[0].text  = 'Berechtigung';
     };
     // switchToEnglish
     const switchToEnglish = () => {
         searchInput.placeholder = '🔎 Search for a command?';
-        categoryFilter.placeholder = 'Category';
-        permissionFilter.placeholder = 'Permission';
+        categoryFilter.options[0].text = 'Category';
+        permissionFilter.options[0].text  = 'Permission';
     };
 
     deButton.addEventListener('click', switchToGerman);
