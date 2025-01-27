@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
             applyFiltersFromURL();
         })
         .catch(error => {
-            commandsContainer.innerHTML = `<img src="img/apu.png" alt="joa1"> <p style="font-weight: bold; color: red;">${currentLanguage === 'de' ? '☝️ Es ist ein Fehler aufgetreten' : '☝️ An error has occurred'}</p>`;
+            commandsContainer.innerHTML = `<img src="img/apu.png" alt="joa1"> ☝️ <p style="font-weight: bold; color: red;">${currentLanguage === 'de' ? 'Es ist ein Fehler aufgetreten' : 'An error has occurred'}</p>`;
             console.log(`Error Beim Fetching: ${error}`);
         });
 
