@@ -85,7 +85,7 @@
         "usageUS": "Write !spamstop",
         "category": "Normal",
         "permission": 2,
-        "linki": "https://cdn.7tv.app/emote/01GB564N2G0001D8M8TD1CNQHG/1x.avif"
+        "linki": "https://cdn.7tv.app/emote/01GB564N2G0001D8M8TD1CNQHG/1x.webp"
     },
     {
         "name": "spam",
@@ -97,5 +97,60 @@
         "category": "Normal",
         "permission": 2,
         "link": "https://cdn.7tv.app/emote/01GMKP2YPG000864JVBRJKP568/1x.webp"
+    },
+    {
+        "name": "setlanguage",
+        "aliases": ["setlang"],
+        "descriptionDE": "Ändert die Sprache für deinen Channel.",
+        "descriptionUS": "Changes the language for your channel.",
+        "usageDE": "Schreibe !setlanguage <de/en>",
+        "usageUS": "Write !setlanguage <en/de>",
+        "category": "Utils",
+        "permission": 3,
+        "link": "https://cdn.7tv.app/emote/01H1MTDWV80005DBYT6M85RJPZ/1x.webp"
+    },
+    {
+        "name": "pyramid",
+        "aliases": [],
+        "descriptionDE": "Erstelle Eine Pyramide mit einen Emote.",
+        "descriptionUS": "Create a pyramid with an emote.",
+        "usageDE": "Schreibe !pyramid <emoteName>(Maximal 15 Buchstaben) <Große>(Maximal 25)",
+        "usageUS": "Write !pyramid <emoteName>(Maximum 15 letters) <Large>(Maximum 25)",
+        "category": "Fun",
+        "permission": 1,
+        "link": "https://cdn.7tv.app/emote/01GQYH0H700007ARYHXQJM3Y65/1x.webp"
+    },
+    {
+        "name": "prefix",
+        "aliases": [],
+        "descriptionDE": "Ändern Dein Channel prefix vom bot.",
+        "descriptionUS": "Change your channel prefix from the bot.",
+        "usageDE": "Schreibe !prefix <newPrefix>",
+        "usageUS": "Write !prefix <newPrefix>",
+        "category": "Utils",
+        "permission": 3,
+        "link": "https://cdn.7tv.app/emote/01G05M9FC00008WN11V1V5AEV9/1x.webp"
+    }, 
+    {
+        "name": "ping",
+        "aliases": ["pang", "peng", "pong", "pung"],
+        "descriptionDE": "Sagt wie lange der bot online ist an. ( TooSmart Tag > 1 Tage ) ",
+        "descriptionUS": "Tells how long the bot has been online.",
+        "usageDE": "Schreibe !ping",
+        "usageUS": "Write !ping",
+        "category": "Normal",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/6154d7d86251d7e000db1727/1x.webp"
+    },
+    {
+        "name": "notis",
+        "aliases": [],
+        "descriptionDE": "Zeigt die notis stats von einen User an.",
+        "descriptionUS": "Displays the notis stats of a user.",
+        "usageDE": "Schreibe !notis",
+        "usageUS": "Write !notis",
+        "category": "Fun",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01J3SWQRY0000FEMV6VS56KVHP/1x.webp"
     }
 ]
