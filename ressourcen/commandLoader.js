@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function applyFilters() {
         const selectedCategory = categoryFilter.value;
-        const selectedPermission = permissionFilter.value;
+        const selectedPermission = parseInt(permissionFilter.value, 10);
         const searchTerm = searchInput.value.toLowerCase();
 
         const filteredCommands = commandsData.filter(command => {
