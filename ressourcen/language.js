@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const userLanguage = navigator.language || navigator.userLanguage;
     const deButton = document.getElementById('de-button');
     const usButton = document.getElementById('us-button');
     const searchInput = document.getElementById('search-input');
@@ -16,9 +17,15 @@ document.addEventListener('DOMContentLoaded', () => {
         categoryLabel.textContent = 'Category:';
         permissionLabel.textContent = 'Permission:';
     };
-
+    // Language
+    if (userLanguage.startsWith('de')) {
+        switchToGerman();
+    } else {
+        switchToEnglish(); 
+    }
+    // Events
     deButton.addEventListener('click', switchToGerman);
     usButton.addEventListener('click', switchToEnglish);
-
+    // switchToGerman
     switchToGerman(); 
 });
