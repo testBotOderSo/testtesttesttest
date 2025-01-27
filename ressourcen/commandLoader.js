@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const deButton = document.getElementById('de-button'); 
     const usButton = document.getElementById('us-button'); 
     let commandsData = [];
-    let currentLanguage = 'DE'; 
+    let currentLanguage = 'de'; 
 
     fetch('./ressourcen/commands.json')
         .then(response => {
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderCommands(commandsData);
         })
         .catch(error => {
-            commandsContainer.innerHTML = `<p style="font-weight: bold; color: red;">${currentLanguage === 'DE' ? '☝️ Es ist ein Fehler aufgetreten' : '☝️ An error has occurred'}</p>`;
+            commandsContainer.innerHTML = `<p style="font-weight: bold; color: red;">${currentLanguage === 'de' ? '☝️ Es ist ein Fehler aufgetreten' : '☝️ An error has occurred'}</p>`;
         });
 
     filterToggle.addEventListener('click', () => {
@@ -33,11 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
     searchInput.addEventListener('input', applyFilters);
 
     deButton.addEventListener('click', () => {
-        currentLanguage = 'DE';
+        currentLanguage = 'de';
         renderCommands(commandsData);
     });
     usButton.addEventListener('click', () => {
-        currentLanguage = 'EN';
+        currentLanguage = 'en';
         renderCommands(commandsData);
     });
 
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const commandsContainer = document.getElementById('commands-container'); 
         commandsContainer.innerHTML = ''; 
         if (commands.length === 0) {
-            return (commandsContainer.innerHTML = `<img src="img/shruge.gif" alt="joa"> <p style="font-weight: bold;">${currentLanguage === 'DE' ? 'Kein Command gefunden' : 'No Command found'}</p>`);
+            return (commandsContainer.innerHTML = `<img src="img/shruge.gif" alt="joa"> <p style="font-weight: bold;">${currentLanguage === 'de' ? 'Kein Command gefunden' : 'No Command found'}</p>`);
         }
         try {
             commands.forEach(command => {
@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 commandDiv.innerHTML = `
                     <div class="command-info">
                         <p><strong>Name:</strong> ${command.name} ${command.aliases.length ? `(Alias: ${command.aliases.join(', ')})` : ''}</p>
-                        <p><strong>Beschreibung:</strong> ${currentLanguage === 'DE' ? command.descriptionDE : command.descriptionUS} <img src="${command.link}" alt="Emote"></p>
+                        <p><strong>Beschreibung:</strong> ${currentLanguage === 'de' ? command.descriptionDE : command.descriptionUS} <img src="${command.link}" alt="Emote"></p>
                         <p><strong>Category:</strong> ${command.category}</p>
                         <p><strong>Permission:</strong> ${getPermissionLabel(command.permission)}</p>
                     </div>
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         } catch (e) {
             console.log(`renderCommands | Fehler: ${e}`);
-            commandsContainer.innerHTML = `<p style="font-weight: bold; color: red;">${currentLanguage === 'DE' ? '☝️ Es ist ein Fehler aufgetreten' : '☝️ An error has occurred'}</p>`;
+            commandsContainer.innerHTML = `<p style="font-weight: bold; color: red;">${currentLanguage === 'de' ? '☝️ Es ist ein Fehler aufgetreten' : '☝️ An error has occurred'}</p>`;
         }
             
     }
