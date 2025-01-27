@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="command-info">
                         <p><strong>Name:</strong> ${command.name} ${command.aliases.length ? `(Alias: ${command.aliases.join(', ')})` : ''}</p>
                         <p><strong>${currentLanguage === 'de' ? 'Beschreibung' : 'Description'}:</strong> ${currentLanguage === 'de' ? command.descriptionDE : command.descriptionUS} <img src="${command.link}" alt="Emote"></p>
-                        <p><strong>${currentLanguage === 'de' ? 'Verwendung' : 'Usage'}:</strong> ${currentLanguage === 'de' ? command.usageDE : command.usageUS} </p>
+                        <p><strong>${currentLanguage === 'de' ? 'Verwendung' : 'Usage'}:</strong> ${currentLanguage === 'de' ? (command.usageDE || 'Keine Verwendung verfügbar') : (command.usageUS || 'No usage available')}</p>
                         <p><strong>Category:</strong> ${command.category}</p>
                         <p><strong>Permission:</strong> ${getPermissionLabel(command.permission)}</p>
                     </div>
