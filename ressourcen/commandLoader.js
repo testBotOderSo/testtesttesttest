@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let commandsData = [];
     let currentLanguage = 'de'; 
 
+    // getQueryParams
     function getQueryParams() {
         const params = new URLSearchParams(window.location.search);
         return {
@@ -17,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    // fetch
     fetch('./ressourcen/commands.json')
         .then(response => {
             if (!response.ok) {
@@ -34,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`Error Beim Fetching: ${error}`);
         });
 
+    // applyFilters
     function applyFilters() {
         const selectedCategory = categoryFilter.value;
         const selectedPermission = parseInt(permissionFilter.value, 10);
@@ -51,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         renderCommands(filteredCommands);
     }
 
+    // applyFiltersFromURL
     function applyFiltersFromURL() {
         const { category, permission } = getQueryParams();
 
@@ -65,6 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         applyFilters();
     }
 
+    // renderCommands
     function renderCommands(commands) {
         const commandsContainer = document.getElementById('commands-container'); 
         commandsContainer.innerHTML = ''; 
@@ -83,7 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 commandDiv.innerHTML = `
                     <div class="command-info">
                         <p><strong>Name:</strong> ${command.name} ${command.aliases.length ? `(Alias: ${command.aliases.join(', ')})` : ''}</p>
-                        <p><strong>Beschreibung:</strong> ${currentLanguage === 'de' ? command.descriptionDE : command.descriptionUS} <img src="${command.link}" alt="Emote"></p>
+                        <p><strong>${currentLanguage === 'de' ? 'Beschreibung' : 'Description'}:</strong> ${currentLanguage === 'de' ? command.descriptionDE : command.descriptionUS} <img src="${command.link}" alt="Emote"></p>
+                        <p><strong>${currentLanguage === 'de' ? 'Verwendung' : 'Usage'}:</strong> ${currentLanguage === 'de' ? command.usageDE : command.usageUS} </p>
                         <p><strong>Category:</strong> ${command.category}</p>
                         <p><strong>Permission:</strong> ${getPermissionLabel(command.permission)}</p>
                     </div>
@@ -97,6 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // getPermissionLabel
     function getPermissionLabel(level) {
         const labels = {
             0: 'Everyone',
@@ -109,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return labels[level] || 'Unknown';
     }
 
+    // Events
     window.addEventListener('popstate', () => { applyFiltersFromURL(); });
 
     filterToggle.addEventListener('click', () => { filterToggle.parentElement.classList.toggle('active'); });
