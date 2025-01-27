@@ -19,7 +19,7 @@
         "usageUS": "Write !vanity [username]",
         "category": "Fun",
         "permission": 0,
-        "link": ""
+        "link": "https://cdn.7tv.app/emote/01FZQE0ZD000071FYZ4ZNMJSAH/1x.webp"
     },
     {
         "name": "userid",
@@ -53,5 +53,49 @@
         "category": "Normal",
         "permission": 0,
         "link": "https://cdn.7tv.app/emote/62eee8d9ff98fd00209b96ec/1x.webp"
+    },
+    {
+        "name": "suggest",
+        "aliases": [],
+        "descriptionDE": "Erstell einen Vorschlag oder Reporte ein Bug.",
+        "descriptionUS": "Create a suggestion or report a bug.",
+        "usageDE": "Schreibe !suggest <Vorschlag/Report> (Mehr als ein Wort)",
+        "usageUS": "Write !suggest <suggestion/report> (More than one word)",
+        "category": "Normal",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01H4EF11600004N7HS6ABR8BNY/1x.webp"
+    },
+    {
+        "name": "subage",
+        "aliases": ["sa", "subadge"],
+        "descriptionDE": "Sagt wie lange du Sub bist in einen Channel.",
+        "descriptionUS": "Tells how long you have been a sub in a channel.",
+        "usageDE": "Schreibe !subage <username> [Channel]",
+        "usageUS": "Write !subage <username> [Channel]",
+        "category": "Info",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/61a2a0c3ffa9aba101bb6f99/1x.webp"
+    },
+    {
+        "name": "spamstop",
+        "aliases": [],
+        "descriptionDE": "Stoppt den aktuellen Spam.",
+        "descriptionUS": "Stops current spam.",
+        "usageDE": "Schreibe !spamstop",
+        "usageUS": "Write !spamstop",
+        "category": "Normal",
+        "permission": 2,
+        "linki": "https://cdn.7tv.app/emote/01GB564N2G0001D8M8TD1CNQHG/1x.avif"
+    },
+    {
+        "name": "spam",
+        "aliases": [],
+        "descriptionDE": "Classic Spammer wie immer.",
+        "descriptionUS": "Classic spammer as always.",
+        "usageDE": "Schreibe !spam <count (1-100)> <message>",
+        "usageUS": "Write !spam <count (1-100)> <message>",
+        "category": "Normal",
+        "permission": 2,
+        "link": "https://cdn.7tv.app/emote/01GMKP2YPG000864JVBRJKP568/1x.webp"
     }
 ]
