@@ -8,10 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const usButton = document.getElementById('us-button'); 
     let commandsData = [];
     let currentLanguage = 'de'; 
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const initialCategory = urlParams.get('category');
-    const initialPermission = urlParams.get('permission');
     
     fetch('./ressourcen/commands.json')
         .then(response => {
@@ -23,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             commandsData = data;
             renderCommands(commandsData);
-            applyFilters();
         })
         .catch(error => {
             commandsContainer.innerHTML = `<p style="font-weight: bold; color: red;">${currentLanguage === 'de' ? '☝️ Es ist ein Fehler aufgetreten' : '☝️ An error has occurred'}</p>`;
@@ -104,12 +99,4 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         return labels[level] || 'Unknown';
     }
-
-    if (initialCategory) {
-        categoryFilter.value = initialCategory;
-    }
-    if (initialPermission) {
-        permissionFilter.value = initialPermission;
-    }
-    categoryFilter.dispatchEvent(new Event('change'));
 });
