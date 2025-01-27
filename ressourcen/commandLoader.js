@@ -1,25 +1,3 @@
-function getQueryParams() {
-    const params = new URLSearchParams(window.location.search);
-    return {
-        category: params.get('category') || '',
-        permission: params.get('permission') || ''
-    };
-}
-
-function applyFiltersFromURL() {
-    const { category, permission } = getQueryParams();
-
-    if (category) {
-        const categoryFilter = document.getElementById('category-filter');
-        categoryFilter.value = category;
-    }
-    if (permission) {
-        const permissionFilter = document.getElementById('permission-filter');
-        permissionFilter.value = permission;
-    }
-    applyFilters(); 
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     const commandsContainer = document.getElementById('commands-container');
     const filterToggle = document.getElementById('filter-toggle');
@@ -48,22 +26,36 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`Error Beim Fetching: ${error}`);
         });
 
-    filterToggle.addEventListener('click', () => {
-        filterToggle.parentElement.classList.toggle('active');
-    });
+    function applyFilters() {
+        const selectedCategory = categoryFilter.value;
+        const selectedPermission = parseInt(permissionFilter.value, 10);
+        const searchTerm = searchInput.value.toLowerCase();
 
-    categoryFilter.addEventListener('change', applyFilters);
-    permissionFilter.addEventListener('change', applyFilters);
-    searchInput.addEventListener('input', applyFilters);
+        const filteredCommands = commandsData.filter(command => {
+            const matchesSearch =
+                command.name.toLowerCase().includes(searchTerm) ||
+                command.aliases.some(alias => alias.toLowerCase().includes(searchTerm));
+            const matchesCategory = !selectedCategory || command.category === selectedCategory;
+            const matchesPermission = !selectedPermission || command.permission == selectedPermission;
+            return matchesSearch && matchesCategory && matchesPermission;
+        });
 
-    deButton.addEventListener('click', () => {
-        currentLanguage = 'de';
-        renderCommands(commandsData);
-    });
-    usButton.addEventListener('click', () => {
-        currentLanguage = 'en';
-        renderCommands(commandsData);
-    });
+        renderCommands(filteredCommands);
+    }
+
+    function applyFiltersFromURL() {
+        const { category, permission } = getQueryParams();
+
+        if (category) {
+            const categoryFilter = document.getElementById('category-filter');
+            categoryFilter.value = category;
+        }
+        if (permission) {
+            const permissionFilter = document.getElementById('permission-filter');
+            permissionFilter.value = permission;
+        }
+        applyFilters();
+    }
 
     function renderCommands(commands) {
         const commandsContainer = document.getElementById('commands-container'); 
@@ -94,24 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
             
     }
-
-    function applyFilters() {
-        const selectedCategory = categoryFilter.value;
-        const selectedPermission = parseInt(permissionFilter.value, 10);
-        const searchTerm = searchInput.value.toLowerCase();
-
-        const filteredCommands = commandsData.filter(command => {
-            const matchesSearch =
-                command.name.toLowerCase().includes(searchTerm) ||
-                command.aliases.some(alias => alias.toLowerCase().includes(searchTerm));
-            const matchesCategory = !selectedCategory || command.category === selectedCategory;
-            const matchesPermission = !selectedPermission || command.permission == selectedPermission;
-            return matchesSearch && matchesCategory && matchesPermission;
-        });
-
-        renderCommands(filteredCommands);
-    }
-
+    
     function getPermissionLabel(level) {
         const labels = {
             0: 'Everyone',
@@ -123,7 +98,20 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         return labels[level] || 'Unknown';
     }
-    window.addEventListener('popstate', () => {
-        applyFiltersFromURL(); 
+    window.addEventListener('popstate', () => { applyFiltersFromURL(); });
+
+    filterToggle.addEventListener('click', () => { filterToggle.parentElement.classList.toggle('active'); });
+
+    categoryFilter.addEventListener('change', applyFilters);
+    permissionFilter.addEventListener('change', applyFilters);
+    searchInput.addEventListener('input', applyFilters);
+
+    deButton.addEventListener('click', () => {
+        currentLanguage = 'de';
+        renderCommands(commandsData);
+    });
+    usButton.addEventListener('click', () => {
+        currentLanguage = 'en';
+        renderCommands(commandsData);
     });
 });
