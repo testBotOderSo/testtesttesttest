@@ -122,4 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         return labels[level] || 'Unknown';
     }
+    window.addEventListener('popstate', () => {
+        applyFiltersFromURL(); 
+    });
 });
