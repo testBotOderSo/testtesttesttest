@@ -1,3 +1,25 @@
+function getQueryParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        category: params.get('category') || '',
+        permission: params.get('permission') || ''
+    };
+}
+
+function applyFiltersFromURL() {
+    const { category, permission } = getQueryParams();
+
+    if (category) {
+        const categoryFilter = document.getElementById('category-filter');
+        categoryFilter.value = category;
+    }
+    if (permission) {
+        const permissionFilter = document.getElementById('permission-filter');
+        permissionFilter.value = permission;
+    }
+    applyFilters(); 
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const commandsContainer = document.getElementById('commands-container');
     const filterToggle = document.getElementById('filter-toggle');
@@ -19,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             commandsData = data;
             renderCommands(commandsData);
+            applyFiltersFromURL();
         })
         .catch(error => {
             commandsContainer.innerHTML = `<p style="font-weight: bold; color: red;">${currentLanguage === 'de' ? '☝️ Es ist ein Fehler aufgetreten' : '☝️ An error has occurred'}</p>`;
