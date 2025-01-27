@@ -8,7 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const usButton = document.getElementById('us-button'); 
     let commandsData = [];
     let currentLanguage = 'de'; 
-    
+
+    function getQueryParams() {
+        const params = new URLSearchParams(window.location.search);
+        return {
+            category: params.get('category') || '',
+            permission: params.get('permission') || ''
+        };
+    }
+
     fetch('./ressourcen/commands.json')
         .then(response => {
             if (!response.ok) {
@@ -84,9 +92,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log(`renderCommands | Fehler: ${e}`);
             commandsContainer.innerHTML = `<p style="font-weight: bold; color: red;">${currentLanguage === 'de' ? '☝️ Es ist ein Fehler aufgetreten' : '☝️ An error has occurred'}</p>`;
         }
-            
     }
-    
+
     function getPermissionLabel(level) {
         const labels = {
             0: 'Everyone',
@@ -98,6 +105,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         return labels[level] || 'Unknown';
     }
+
     window.addEventListener('popstate', () => { applyFiltersFromURL(); });
 
     filterToggle.addEventListener('click', () => { filterToggle.parentElement.classList.toggle('active'); });
