@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => {
             commandsContainer.innerHTML = `<p style="font-weight: bold; color: red;">${currentLanguage === 'de' ? '☝️ Es ist ein Fehler aufgetreten' : '☝️ An error has occurred'}</p>`;
+            console.log(`Error Beim Fetching: ${error}`);
         });
 
     filterToggle.addEventListener('click', () => {
