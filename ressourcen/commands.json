@@ -11,14 +11,13 @@
         "link": "https://cdn.7tv.app/emote/604225c377137b000de9e68b/1x.webp"
     },
     {
-        "name": "penis",
-        "aliases": [],
-        "descriptionDE": "oooooooooo",
-        "descriptionUS": "kkkkkkkkkkk",
-        "usageDE": "iiiiiiiiiiiiii",
-        "usageUS": "uuuuuuuuuuuuuuu",
-        "category": "Normal",
-        "permission": 2,
-        "link": "https://cdn.7tv.app/emote/604225c377137b000de9e68b/1x.webp"
+        "name": "vanity",
+        "aliases": "['style']",
+        "descriptionDE": "Schickt einen Link zu einer Seite wo du deinen Style Sehen kannst.",
+        "descriptionUS": "Sends a link to a page where you can see your style.",
+        "usageDE": "Schreibe !vanity [username]",
+        "usageUS": "Write !vanity [username]",
+        "category": "Fun",
+        "permission": 0,
     }
 ]
