@@ -152,5 +152,126 @@
         "category": "Fun",
         "permission": 0,
         "link": "https://cdn.7tv.app/emote/01J3SWQRY0000FEMV6VS56KVHP/1x.webp"
+    },
+    {
+        "name": "mine",
+        "aliases": ["m"],
+        "descriptionDE": "Mine für Notis.",
+        "descriptionUS": "Mine for Notis.",
+        "usageDE": "Schreibe !mine",
+        "usageUS": "Write !mine",
+        "category": "Fun",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/60b10b4dee5ea4cc15ccbfcc/1x.webp"
+    },
+    {
+        "name": "liveping",
+        "aliases": [],
+        "descriptionDE": "Lass dich Pingen wenn ein Streamer Live geht.",
+        "descriptionUS": "Get pinged when a streamer goes live.",
+        "usageDE": "Schreibe !liveping <streamer>",
+        "usageUS": "Write !liveping <streamer>",
+        "category": "Beta",
+        "permission": 4, 
+        "link": "https://cdn.7tv.app/emote/01G36Y1810000DV7XNSS6CCCD0/1x.webp"
+    },
+    {
+        "name": "livemsg",
+        "aliases": [],
+        "descriptionDE": "Erstellt eine neue Liveping Benachrichtigung für einen Streamer.",
+        "descriptionUS": "Creates a new liveping notification for a streamer.",
+        "usageDE": "Schreibe !livemsg <Streamer>",
+        "usageUS": "Write !livemsg <Streamer>",
+        "category": "Beta",
+        "permission": 4,
+        "link": "https://cdn.7tv.app/emote/01HH82FQ8R000B2GQNSE7J2NFD/1x.webp"
+    },
+    {
+        "name": "leaderboard",
+        "aliases": ["lb"],
+        "descriptionDE": "Zeigt die Top Notis User an.",
+        "descriptionUS": "Displays the Top Notis users.",
+        "usageDE": "Schreibe !leaderboard",
+        "usageUS": "Write !leaderboard",
+        "category": "Fun",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01J8QTZVM0000E0691W9XKCSTX/1x.webp"
+    },
+    {
+        "name": "kok",
+        "aliases": [],
+        "descriptionDE": "Gibt deine kok große an.",
+        "descriptionUS": "Indicates your coke size.",
+        "usageDE": "Schreibe !kok [username]",
+        "usageUS": "Write !kok [username]",
+        "category": "Fun",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/60af03597e8706b57220e8ce/1x.webp"
+    },
+    {
+        "name": "id",
+        "aliases": [],
+        "descriptionDE": "Gibt id über einen Benutzer zurück.",
+        "descriptionUS": "Returns id about a user.",
+        "usageDE": "Schreibe !id [username]",
+        "usageUS": "Write !id [username]",
+        "category": "Info",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/6041e1b789b604000d19fbbb/1x.webp"
+    },
+    {
+        "name": "give",
+        "aliases": [],
+        "descriptionDE": "Sei ein Gönner und gifte ein Paar usern deine Notis.",
+        "descriptionUS": "Be a patron and give your Notis to a few users.",
+        "usageDE": "Schreibe !give <username> <amount | all | half>",
+        "usageUS": "Write !give <username> <amount | all | half>",
+        "category": "Fun",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01GHR5AGZR00058M1GCX0RKE23/1x.webp"
+    },
+    {
+        "name": "gemini",
+        "aliases": ["gpt"],
+        "descriptionDE": "Stelle deine Frage an die Googles Ki Gemini.",
+        "descriptionUS": "Ask your question to Googles Ki Gemini.",
+        "usageDE": "Schreibe !gpt <frage>",
+        "usageUS": "Write !gpt <question>",
+        "category": "Fun",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01FA3ZHPPR0004NX9H3QEFMN9P/1x.webp"
+    },
+    {
+        "name": "gamble",
+        "aliases": ["gamble"],
+        "descriptionDE": "Spielsucht.",
+        "descriptionUS": "Gambling addiction.",
+        "usageDE": "Schreibe !gamble <amount | all | half>",
+        "usageUS": "Write !gamble <amount | all | half>",
+        "category": "Fun",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01FJT4HEXG000FZHS49NWQT5DZ/1x.webp"
+    },
+    {
+        "name": "followage",
+        "aliases": ["fa"],
+        "descriptionDE": "Zeigt dir, wie lange ein Nutzer einem Kanal folgt.",
+        "descriptionUS": "Shows how long a user has been following a channel.",
+        "usageDE": "Schreibe !fa <username> [channel]",
+        "usageUS": "Write !fa <username> [channel]",
+        "category": "Info",
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01G3GTE440000DSQYHZEZBZ1AR/1x.webp"
+    },
+    {
+        "name": "eval",
+        "aliases": ["e"],
+        "descriptionDE": "Teste einen Kleinen code.",
+        "descriptionUS": "Test a small code.",
+        "usageDE": "Schreibe !e const T = `test`; msg.say(T);",
+        "usageUS": "Write !e const T = `test`; msg.say(T);",
+        "category": "Utils",
+        "permission": 4,
+        "link": "https://cdn.7tv.app/emote/01GX8X0DY8000E1BVGZK9A6E0Y/1x.webp"
     }
 ]
