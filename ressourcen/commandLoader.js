@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetch('./ressourcen/commands.json')
         .then(response => {
             if (!response.ok) {
-                throw new Error(`Failed to fetch commands.json: ${response.statusText}`);
+                console.log(`Fehler beim Fetching von commands.json: ${response.statusText}`);
             }
             return response.json();
         })
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
             renderCommands(commandsData);
         })
         .catch(error => {
-            commandsContainer.innerHTML = `<p>Error loading commands: ${error.message}</p>`;
+            commandsContainer.innerHTML = `<p style="font-weight: bold; color: red;">${currentLanguage === 'DE' ? '☝️ Es ist ein Fehler aufgetreten' : '☝️ An error has occurred'}</p>`;
         });
 
     filterToggle.addEventListener('click', () => {
