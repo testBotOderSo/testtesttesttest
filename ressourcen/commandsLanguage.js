@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
         permissionLabel.textContent = 'Permission:';
     }
 
-    deButton.addEventListener('click', switchToGerman());
-    usButton.addEventListener('click', switchToEnglish());
+    deButton.addEventListener('click', switchToGerman);
+    usButton.addEventListener('click', switchToEnglish);
     
     switchToGerman(); 
 });
