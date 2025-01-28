@@ -13,6 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const p5 = document.getElementById('p5');
     const p6 = document.getElementById('p6');
     const p7 = document.getElementById('p7');
+    const p8 = document.getElementById('p8');
+    const p9 = document.getElementById('p9');
+    const p10 = document.getElementById('p10');
 
     const switchToGerman = () => {
         text1.textContent = 'NotedBot Ein Twitch Chat Bot der für Spaß und Hilfe sorgen soll.';
@@ -23,11 +26,13 @@ document.addEventListener('DOMContentLoaded', () => {
         text3.textContent = 'Channel Management';
         p3.innerHTML = 'Füge NotedBot mit dem Befehl <code>!join</code> zu deinem Channel hinzu.';
         text4.innerHTM  = 'Erste Schritte';
-        p4.innerHTML = 'Commands können mit dem Präfix <code>!</code> verwendet werden.';
-        p5.innerHTML = 'Bei Fragen zum Bot melde dich gerne bei <a href="https://twitch.tv/wydios" target="_blank">Mir (Wydios)</a>';
-        p6.innerHTML = 'Die/Der Seite/Bot würde mit 🩵 von ';
-        p7.innerHTML = 'entwickelt';
-        p8.innerHTML = 'Diese Seite und der Bot steht in keiner rechtlichen Verbindung zu Twitch Interactive (Braucht man das eigentlich zu sagen?)';
+        p4.innerHTML = 'Der Bot benötigt keine Moderatorenrechte, aber es wird empfohlen, sie zu vergeben, um den vollen Funktionsumfang nutzen zu können.';
+        p5.innerHTML = 'Commands können mit dem Präfix <code>!</code> verwendet werden.';
+        p6.innerHTML = '<p>Das Präfix kann pro Kanal mit dem Befehl <code>!prefix</code> geändert werden.<br/>';
+        p7.innerHTML = 'Bei Fragen zum Bot melde dich gerne bei <a href="https://twitch.tv/wydios" target="_blank">Mir (Wydios)</a>';
+        p8.innerHTML = 'Die/Der Seite/Bot würde mit 🩵 von ';
+        p9.innerHTML = 'entwickelt';
+        p10.innerHTML = 'Diese Seite und der Bot steht in keiner rechtlichen Verbindung zu Twitch Interactive (Braucht man das eigentlich zu sagen?)';
     }
 
     const switchToEnglish = () => {
@@ -39,11 +44,13 @@ document.addEventListener('DOMContentLoaded', () => {
         text3.textContent = 'Channel Management';
         p3.innerHTML = 'Add NotedBot to your channel with the command <code>!join</code>.';
         text4.innerHTML = 'Getting Started';
-        p4.innerHTML = 'Commands can be used with the prefix <code>!</code>.';
-        p5.innerHTML = 'For questions about the bot, feel free to contact <a href="https://twitch.tv/wydios" target="_blank">Me (Wydios)</a>';
-        p6.innerHTML = 'The site/bot would be marked with 🩵 by ';
-        p7.innerHTML = 'developed';
-        p8.innerHTML = 'This site and the bot have no legal connection to Twitch Interactive (Do we actually need to say that?)';
+        p4.innerHTML = 'The bot does not require moderator rights, but it is recommended to grant them in order to use the full functionality.';
+        p5.innerHTML = 'Commands can be used with the prefix <code>!</code>.';
+        p6.innerHTML = '<p>The prefix can be changed per channel with the command <code>!prefix</code>.<br/>';
+        p7.innerHTML = 'If you have any questions about the bot, please contact <a href="https://twitch.tv/wydios" target="_blank">Mir (Wydios)</a>';
+        p8.innerHTML = 'The site/bot would be marked with 🩵 by ';
+        p9.innerHTML = 'developed';
+        p10.innerHTML = 'This site and the bot have no legal connection to Twitch Interactive (Do we actually need to say that?)';
     }
 
     deButton.addEventListener('click', switchToGerman);
