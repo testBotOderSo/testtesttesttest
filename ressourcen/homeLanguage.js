@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const text4 = document.getElementById('text4');
     const p4 = document.getElementById('p4');
     const p5 = document.getElementById('p5');
+    const p6 = document.getElementById('p6');
+    const p7 = document.getElementById('p7');
 
     const switchToGerman = () => {
         text1.textContent = 'NotedBot Ein Twitch Chat Bot der für Spaß und Hilfe sorgen soll.';
@@ -23,6 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
         text4.innerHTM  = 'Erste Schritte';
         p4.innerHTML = 'Commands können mit dem Präfix <code>!</code> verwendet werden.';
         p5.innerHTML = 'Bei Fragen zum Bot melde dich gerne bei <a href="https://twitch.tv/wydios" target="_blank">Mir (Wydios)</a>';
+        p6.innerHTML = 'Die/Der Seite/Bot würde mit 🩵 von ';
+        p7.innerHTML = 'entwickelt';
+        p8.innerHTML = 'Diese Seite und der Bot steht in keiner rechtlichen Verbindung zu Twitch Interactive (Braucht man das eigentlich zu sagen?)';
     }
 
     const switchToEnglish = () => {
@@ -36,6 +41,9 @@ document.addEventListener('DOMContentLoaded', () => {
         text4.innerHTML = 'Getting Started';
         p4.innerHTML = 'Commands can be used with the prefix <code>!</code>.';
         p5.innerHTML = 'For questions about the bot, feel free to contact <a href="https://twitch.tv/wydios" target="_blank">Me (Wydios)</a>';
+        p6.innerHTML = 'The site/bot would be marked with 🩵 by ';
+        p7.innerHTML = 'developed';
+        p8.innerHTML = 'This site and the bot have no legal connection to Twitch Interactive (Do we actually need to say that?)';
     }
 
     deButton.addEventListener('click', switchToGerman);
