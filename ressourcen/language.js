@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const text2 = document.getElementById('text2');
     const p1 = document.getElementById('p1');
 
+    // Übersetzungen für Deutsch und Englisch
     const translations = {
         de: {
             searchInputPlaceholder: '🔎 Suchen Sie nach einem Command?',
@@ -43,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    // Funktion um die Sprache umzuschalten
     const switchLanguage = (language) => {
         searchInput.placeholder = translations[language].searchInputPlaceholder;
         categoryLabel.textContent = translations[language].categoryLabel;
@@ -60,17 +62,20 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('questions-text').innerHTML = translations[language].questionsText;
         document.getElementById('more-info-link').textContent = translations[language].moreInfoLinkText;
     };
+
+    // Überprüfe die URL-Parameter und stelle die Sprache entsprechend ein
     if (languageParam === 'de') {
         switchLanguage('de');
     } else {
         switchLanguage('en');
     }
-    // switchToGerman
+
+    // Events für die Buttons
     deButton.addEventListener('click', () => {
         switchLanguage('de');
         window.history.pushState({}, '', '?language=de');
     });
-    // switchToEnglish
+
     usButton.addEventListener('click', () => {
         switchLanguage('en');
         window.history.pushState({}, '', '?language=en');
