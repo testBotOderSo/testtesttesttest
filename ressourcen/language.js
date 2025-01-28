@@ -1,6 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const languageParam = urlParams.get('language');
     const deButton = document.getElementById('de-button');
     const usButton = document.getElementById('us-button');
     const searchInput = document.getElementById('search-input');
@@ -47,14 +45,8 @@ document.addEventListener('DOMContentLoaded', () => {
         questionsText.textContent = 'For questions about the bot, feel free to contact <a href="https://twitch.tv/wydios" target="_blank">Me (Wydios)</a>'
     }
 
-    if (languageParam.startsWith('de')) {
-        switchToGerman();
-    } else {
-        switchToEnglish(); 
-    }
-
     deButton.addEventListener('click', switchToGerman());
     usButton.addEventListener('click', switchToEnglish());
-
+    
     switchToGerman(); 
 });
