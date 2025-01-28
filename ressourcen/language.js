@@ -9,75 +9,52 @@ document.addEventListener('DOMContentLoaded', () => {
     const text1 = document.getElementById('text1');
     const text2 = document.getElementById('text2');
     const p1 = document.getElementById('p1');
+    const moreInfoLinkText = document.getElementById('more-info-link');
+    const commandChannelManagement = document.getElementById('command-channel-management');
+    const channelManagementText = document.getElementById('channel-management-text');
+    const commandSteps = document.getElementById('command-steps');
+    const stepsText = document.getElementById('steps-text');
+    const questionsText = document.getElementById('questions-text');
 
-    // Übersetzungen für Deutsch und Englisch
-    const translations = {
-        de: {
-            searchInputPlaceholder: '🔎 Suchen Sie nach einem Command?',
-            categoryLabel: 'Kategorie:',
-            permissionLabel: 'Berechtigung:',
-            text1: 'NotedBot Ein Twitch Chat Bot der für Spaß und Hilfe sorgen soll.',
-            text2: 'Funktion vom Bot:',
-            p1: 'Notis ist die interne Währung von NotedBot.',
-            moreInfoLinkText: 'Mehr zu Notis Commands',
-            commandNotis: 'Notis',
-            commandChannelManagement: 'Channel Management',
-            channelManagementText: 'Füge NotedBot mit dem Befehl <code>!join</code> zu deinem Channel hinzu.',
-            commandSteps: 'Erste Schritte',
-            stepsText: 'Commands können mit dem Präfix <code>!</code> verwendet werden.',
-            questionsText: 'Bei Fragen zum Bot melde dich gerne bei <a href="https://twitch.tv/wydios" target="_blank">Mir (Wydios)</a>'
-        },
-        en: {
-            searchInputPlaceholder: '🔎 Search for a command?',
-            categoryLabel: 'Category:',
-            permissionLabel: 'Permission:',
-            text1: 'NotedBot A Twitch chat bot that is intended to provide fun and help.',
-            text2: 'Function of the bot:',
-            p1: 'Notis is the internal currency of NotedBot.',
-            moreInfoLinkText: 'More on Notis Commands',
-            commandNotis: 'Notis',
-            commandChannelManagement: 'Channel Management',
-            channelManagementText: 'Add NotedBot to your channel with the command <code>!join</code>.',
-            commandSteps: 'Getting Started',
-            stepsText: 'Commands can be used with the prefix <code>!</code>.',
-            questionsText: 'For questions about the bot, feel free to contact <a href="https://twitch.tv/wydios" target="_blank">Me (Wydios)</a>'
-        }
-    };
-
-    // Funktion um die Sprache umzuschalten
-    const switchLanguage = (language) => {
-        searchInput.placeholder = translations[language].searchInputPlaceholder;
-        categoryLabel.textContent = translations[language].categoryLabel;
-        permissionLabel.textContent = translations[language].permissionLabel;
-        text1.textContent = translations[language].text1;
-        text2.textContent = translations[language].text2;
-        p1.textContent = translations[language].p1;
-
-        // Weitere Texte
-        document.getElementById('command-notis').textContent = translations[language].commandNotis;
-        document.getElementById('command-channel-management').textContent = translations[language].commandChannelManagement;
-        document.getElementById('channel-management-text').innerHTML = translations[language].channelManagementText;
-        document.getElementById('command-steps').textContent = translations[language].commandSteps;
-        document.getElementById('steps-text').innerHTML = translations[language].stepsText;
-        document.getElementById('questions-text').innerHTML = translations[language].questionsText;
-        document.getElementById('more-info-link').textContent = translations[language].moreInfoLinkText;
-    };
-
-    // Überprüfe die URL-Parameter und stelle die Sprache entsprechend ein
-    if (languageParam === 'de') {
-        switchLanguage('de');
-    } else {
-        switchLanguage('en');
+    const switchToGerman = () => {
+        searchInput.placeholder = '🔎 Suchen Sie nach einem Command?',
+        categoryLabel.textContent = 'Kategorie:',
+        permissionLabel.textContent = 'Berechtigung:',
+        text1.textContent = 'NotedBot Ein Twitch Chat Bot der für Spaß und Hilfe sorgen soll.',
+        text2.textContent = 'Funktion vom Bot:',
+        p1.textContent = 'Notis ist die interne Währung von NotedBot.',
+        moreInfoLinkText.textContent = 'Mehr zu Notis Commands',
+        commandChannelManagement.textContent = 'Channel Management',
+        channelManagementText.textContent = 'Füge NotedBot mit dem Befehl <code>!join</code> zu deinem Channel hinzu.',
+        commandSteps.textContent = 'Erste Schritte',
+        stepsText.textContent = 'Commands können mit dem Präfix <code>!</code> verwendet werden.',
+        questionsText.textContent = 'Bei Fragen zum Bot melde dich gerne bei <a href="https://twitch.tv/wydios" target="_blank">Mir (Wydios)</a>'
+        
     }
 
-    // Events für die Buttons
-    deButton.addEventListener('click', () => {
-        switchLanguage('de');
-        window.history.pushState({}, '', '?language=de');
-    });
+    const switchToEnglish = () => {
+        searchInput.placeholder = '🔎 Search for a command?',
+        categoryLabel.textContent = 'Category:',
+        permissionLabel.textContent = 'Permission:',
+        text1.textContent = 'NotedBot A Twitch chat bot that is intended to provide fun and help.',
+        text2.textContent = 'Function of the bot:',
+        p1.textContent = 'Notis is the internal currency of NotedBot.',
+        moreInfoLinkText.textContent ='More on Notis Commands',
+        commandChannelManagement.textContent = 'Channel Management',
+        channelManagementText.textContent = 'Add NotedBot to your channel with the command <code>!join</code>.',
+        commandSteps.textContent = 'Getting Started',
+        stepsText.textContent = 'Commands can be used with the prefix <code>!</code>.',
+        questionsText.textContent = 'For questions about the bot, feel free to contact <a href="https://twitch.tv/wydios" target="_blank">Me (Wydios)</a>'
+    }
 
-    usButton.addEventListener('click', () => {
-        switchLanguage('en');
-        window.history.pushState({}, '', '?language=en');
-    });
+    if (languageParam.startsWith('de')) {
+        switchToGerman();
+    } else {
+        switchToEnglish(); 
+    }
+
+    deButton.addEventListener('click', switchToGerman());
+    usButton.addEventListener('click', switchToEnglish());
+
+    switchToGerman(); 
 });
