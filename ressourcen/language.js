@@ -27,7 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
         commandSteps.textContent = 'Erste Schritte';
         stepsText.textContent = 'Commands können mit dem Präfix <code>!</code> verwendet werden.';
         questionsText.textContent = 'Bei Fragen zum Bot melde dich gerne bei <a href="https://twitch.tv/wydios" target="_blank">Mir (Wydios)</a>';
-        
     }
 
     const switchToEnglish = () => {
@@ -37,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         text1.textContent = 'NotedBot A Twitch chat bot that is intended to provide fun and help.';
         text2.textContent = 'Function of the bot:';
         p1.textContent = 'Notis is the internal currency of NotedBot.';
-        moreInfoLinkText.textContent ='More on Notis Commands';
+        moreInfoLinkText.textContent = 'More on Notis Commands';
         commandChannelManagement.textContent = 'Channel Management';
         channelManagementText.textContent = 'Add NotedBot to your channel with the command <code>!join</code>.';
         commandSteps.textContent = 'Getting Started';
@@ -45,8 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
         questionsText.textContent = 'For questions about the bot, feel free to contact <a href="https://twitch.tv/wydios" target="_blank">Me (Wydios)</a>';
     }
 
-    deButton.addEventListener('click', switchToGerman());
-    usButton.addEventListener('click', switchToEnglish());
+    deButton.addEventListener('click', switchToGerman);
+    usButton.addEventListener('click', switchToEnglish);
     
     switchToGerman(); 
 });
