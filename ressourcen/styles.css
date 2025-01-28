@@ -1,3 +1,4 @@
+/* Body */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -42,6 +43,16 @@ select {
     background-color: #1a1a1a;
     color: #fff;
 }
+/* Code */
+code {
+    padding: .1rem .3rem;
+    border-radius: .2rem;
+    background: #1a1b1e;
+    color: #b9bbbe;
+    font-family: Consolas,Courier New,Courier,monospace;
+    white-space: nowrap
+}
+
 /* Commands */
 .command-bubble {
     border: 6px solid #1e90ff; 
@@ -94,4 +105,3 @@ select {
     transform: scale(1);
     opacity: 1;
 }
-
