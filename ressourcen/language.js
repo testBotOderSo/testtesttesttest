@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const questionsText = document.getElementById('questions-text');
 
     const switchToGerman = () => {
-        searchInput.placeholder = '🔎 Suchen Sie nach einem Command?',
+        searchInput.placeholder = '🔎 Suchen Sie nach einem Command?';
         categoryLabel.textContent = 'Kategorie:';
         permissionLabel.textContent = 'Berechtigung:';
         text1.textContent = 'NotedBot Ein Twitch Chat Bot der für Spaß und Hilfe sorgen soll.';
