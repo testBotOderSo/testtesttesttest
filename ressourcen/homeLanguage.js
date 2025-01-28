@@ -21,20 +21,21 @@ document.addEventListener('DOMContentLoaded', () => {
         commandChannelManagement.textContent = 'Channel Management';
         channelManagementText.textContent = 'Füge NotedBot mit dem Befehl <code>!join</code> zu deinem Channel hinzu.';
         commandSteps.textContent = 'Erste Schritte';
-        stepsText.textContent = 'Commands können mit dem Präfix <code>!</code> verwendet werden.';
-        questionsText.textContent = 'Bei Fragen zum Bot melde dich gerne bei <a href="https://twitch.tv/wydios" target="_blank">Mir (Wydios)</a>';
+        stepsText.textContent = '<p>Commands können mit dem Präfix <code>!</code> verwendet werden.</p>';
+        questionsText.textContent = '<p>Bei Fragen zum Bot melde dich gerne bei <a href="https://twitch.tv/wydios" target="_blank">Mir (Wydios)</a></p>';
     }
 
     const switchToEnglish = () => {
         text1.textContent = 'NotedBot A Twitch chat bot that is intended to provide fun and help.';
         text2.textContent = 'Function of the bot:';
         p1.textContent = 'Notis is the internal currency of NotedBot.';
+        p2.textContent = 'Earn Notis through various activities and use them to get to the top of the leaderboard!';
         moreInfoLinkText.textContent = 'More on Notis Commands';
         commandChannelManagement.textContent = 'Channel Management';
         channelManagementText.textContent = 'Add NotedBot to your channel with the command <code>!join</code>.';
         commandSteps.textContent = 'Getting Started';
-        stepsText.textContent = 'Commands can be used with the prefix <code>!</code>.';
-        questionsText.textContent = 'For questions about the bot, feel free to contact <a href="https://twitch.tv/wydios" target="_blank">Me (Wydios)</a>';
+        stepsText.textContent = '<p>Commands can be used with the prefix <code>!</code>.</p>';
+        questionsText.textContent = '<p>For questions about the bot, feel free to contact <a href="https://twitch.tv/wydios" target="_blank">Me (Wydios)</a></p>';
     }
 
     deButton.addEventListener('click', switchToGerman);
