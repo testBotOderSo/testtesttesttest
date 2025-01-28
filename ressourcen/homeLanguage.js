@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const text1 = document.getElementById('text1');
     const text2 = document.getElementById('text2');
     const p1 = document.getElementById('p1');
+    const p2 = document.getElementById('p2');
     const moreInfoLinkText = document.getElementById('more-info-link');
     const commandChannelManagement = document.getElementById('command-channel-management');
     const channelManagementText = document.getElementById('channel-management-text');
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         text1.textContent = 'NotedBot Ein Twitch Chat Bot der für Spaß und Hilfe sorgen soll.';
         text2.textContent = 'Funktion vom Bot:';
         p1.textContent = 'Notis ist die interne Währung von NotedBot.';
+        p2.textContent = 'Verdiene dir Notis durch verschiedene Aktivitäten und verwende sie, um an die Spitze der Rangliste zu gelangen!';
         moreInfoLinkText.textContent = 'Mehr zu Notis Commands';
         commandChannelManagement.textContent = 'Channel Management';
         channelManagementText.textContent = 'Füge NotedBot mit dem Befehl <code>!join</code> zu deinem Channel hinzu.';
@@ -35,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
         questionsText.textContent = 'For questions about the bot, feel free to contact <a href="https://twitch.tv/wydios" target="_blank">Me (Wydios)</a>';
     }
 
-    deButton.addEventListener('click', switchToGerman());
-    usButton.addEventListener('click', switchToEnglish());
+    deButton.addEventListener('click', switchToGerman);
+    usButton.addEventListener('click', switchToEnglish);
     
     switchToGerman(); 
 });
