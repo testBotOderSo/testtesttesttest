@@ -5,24 +5,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const text2 = document.getElementById('text2');
     const p1 = document.getElementById('p1');
     const p2 = document.getElementById('p2');
-    const moreInfoLinkText = document.getElementById('more-info-link');
-    const commandChannelManagement = document.getElementById('command-channel-management');
-    const channelManagementText = document.getElementById('channel-management-text');
-    const commandSteps = document.getElementById('command-steps');
-    const stepsText = document.getElementById('steps-text');
-    const questionsText = document.getElementById('questions-text');
+    const a1 = document.getElementById('a1');
+    const text3 = document.getElementById('text3');
+    const p3 = document.getElementById('p3');
+    const text4 = document.getElementById('text4');
+    const p4 = document.getElementById('p4');
+    const p5 = document.getElementById('p5');
 
     const switchToGerman = () => {
         text1.textContent = 'NotedBot Ein Twitch Chat Bot der für Spaß und Hilfe sorgen soll.';
         text2.textContent = 'Funktion vom Bot:';
         p1.textContent = 'Notis ist die interne Währung von NotedBot.';
         p2.textContent = 'Verdiene dir Notis durch verschiedene Aktivitäten und verwende sie, um an die Spitze der Rangliste zu gelangen!';
-        moreInfoLinkText.textContent = 'Mehr zu Notis Commands';
-        commandChannelManagement.textContent = 'Channel Management';
-        channelManagementText.textContent = 'Füge NotedBot mit dem Befehl <code>!join</code> zu deinem Channel hinzu.';
-        commandSteps.textContent = 'Erste Schritte';
-        stepsText.textContent = '<p>Commands können mit dem Präfix <code>!</code> verwendet werden.</p>';
-        questionsText.textContent = '<p>Bei Fragen zum Bot melde dich gerne bei <a href="https://twitch.tv/wydios" target="_blank">Mir (Wydios)</a></p>';
+        a1.textContent = 'Mehr zu Notis Commands';
+        text3.textContent = 'Channel Management';
+        p3.innerHTML = 'Füge NotedBot mit dem Befehl <code>!join</code> zu deinem Channel hinzu.';
+        text4.innerHTM  = 'Erste Schritte';
+        p4.innerHTML = 'Commands können mit dem Präfix <code>!</code> verwendet werden.';
+        p5.innerHTML = 'Bei Fragen zum Bot melde dich gerne bei <a href="https://twitch.tv/wydios" target="_blank">Mir (Wydios)</a>';
     }
 
     const switchToEnglish = () => {
@@ -30,12 +30,12 @@ document.addEventListener('DOMContentLoaded', () => {
         text2.textContent = 'Function of the bot:';
         p1.textContent = 'Notis is the internal currency of NotedBot.';
         p2.textContent = 'Earn Notis through various activities and use them to get to the top of the leaderboard!';
-        moreInfoLinkText.textContent = 'More on Notis Commands';
-        commandChannelManagement.textContent = 'Channel Management';
-        channelManagementText.textContent = 'Add NotedBot to your channel with the command <code>!join</code>.';
-        commandSteps.textContent = 'Getting Started';
-        stepsText.textContent = '<p>Commands can be used with the prefix <code>!</code>.</p>';
-        questionsText.textContent = '<p>For questions about the bot, feel free to contact <a href="https://twitch.tv/wydios" target="_blank">Me (Wydios)</a></p>';
+        a1.textContent = 'More on Notis Commands';
+        text3.textContent = 'Channel Management';
+        p3.innerHTML = 'Add NotedBot to your channel with the command <code>!join</code>.';
+        text4.innerHTML = 'Getting Started';
+        p4.innerHTML = 'Commands can be used with the prefix <code>!</code>.';
+        p5.innerHTML = 'For questions about the bot, feel free to contact <a href="https://twitch.tv/wydios" target="_blank">Me (Wydios)</a>';
     }
 
     deButton.addEventListener('click', switchToGerman);
