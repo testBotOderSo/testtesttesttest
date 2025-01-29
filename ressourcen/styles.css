@@ -30,9 +30,16 @@ body {
     display: flex; 
     gap: 20px; 
 }
-
 .navigation ul li {
     display: inline; 
+}
+/* Select */
+select {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #333;
+    background-color: #1a1a1a;
+    color: #fff;
 }
 .search-section input {
     flex: 1;
@@ -44,13 +51,32 @@ body {
     color: #fff;
     margin-right: 10px;
 }
-/* Select */
-select {
+#search-input {
+    flex: 1;
+    max-width: 600px; 
     padding: 10px;
     border-radius: 4px;
     border: 1px solid #333;
     background-color: #1a1a1a;
     color: #fff;
+}
+#filter-toggle {
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: 1px solid #333;
+    background-color: #1a1a1a;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s;
+}
+#filter-toggle:hover {
+    background-color: #333;
+}
+.search-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; 
 }
 /* Code */
 code {
@@ -61,7 +87,6 @@ code {
     font-family: Consolas,Courier New,Courier,monospace;
     white-space: nowrap
 }
-
 /* Commands */
 .command-bubble {
     border: 6px solid #1e90ff; 
