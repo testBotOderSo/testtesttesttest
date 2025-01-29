@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
         p4.innerHTML = 'Der Bot benötigt keine Moderatorenrechte, aber es wird empfohlen, sie zu vergeben, um den vollen Funktionsumfang nutzen zu können.';
         p5.innerHTML = 'Commands können mit dem Präfix <code>!</code> verwendet werden.';
         p6.innerHTML = '<p>Das Präfix kann pro Kanal mit dem Befehl <code>!prefix</code> geändert werden.</br>';
-        p7.innerHTML = 'Bei Fragen zum Bot melde dich gerne bei <a href="https://twitch.tv/wydios" target="_blank">Mir (Wydios)</a>';
+        p7.innerHTML = 'Bei Fragen zum Bot melde dich gerne bei <a href="https://twitch.tv/wydios" target="_blank" style="color: #4876ff;">Mir (Wydios)</a>';
         p8.innerHTML = 'Die/Der Seite/Bot würde mit 🩵 von <a href="https://twitch.tv/wydios" target="_blank" style="color: #4876ff;">Wydios</a> entwickelt';
         p9.innerHTML = 'Diese Seite und der Bot steht in keiner rechtlichen Verbindung zu Twitch Interactive (Braucht man das eigentlich zu sagen?)';
     }
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         p4.innerHTML = 'The bot does not require moderator rights, but it is recommended to grant them in order to use the full functionality.';
         p5.innerHTML = 'Commands can be used with the prefix <code>!</code>.';
         p6.innerHTML = '<p>The prefix can be changed per channel with the command <code>!prefix</code>.<br/>';
-        p7.innerHTML = 'If you have any questions about the bot, please contact <a href="https://twitch.tv/wydios" target="_blank">Mir (Wydios)</a>';
+        p7.innerHTML = 'If you have any questions about the bot, please contact <a href="https://twitch.tv/wydios" target="_blank" style="color: #4876ff;">Mir (Wydios)</a>';
         p8.innerHTML = 'The site/bot would be marked with 🩵 by <a href="https://twitch.tv/wydios" target="_blank" style="color: #4876ff;">Wydios</a> developed';
         p9.innerHTML = 'This site and the bot have no legal connection to Twitch Interactive (Do we actually need to say that?)';
     }
