@@ -334,8 +334,8 @@
         "aliases": [],
         "descriptionDE": "Damit Joint Der bot in deinen Chat.",
         "descriptionUS": "So that Joint Der bot into your chat.",
-        "usageDE": "Schreibe <code>!join</code>",
-        "usageUS": "Write <code>!join</code>",
+        "usageDE": "Schreibe !join",
+        "usageUS": "Write !join",
         "category": "Normal",
         "permission": 0,
         "link": "https://cdn.7tv.app/emote/01GZ2CTDQ000093EMR4AKWQ462/1x.webp"
