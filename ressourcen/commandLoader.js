@@ -86,11 +86,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 commandBubble.classList.add('command-bubble');
                 const commandDiv = document.createElement('div');
                 commandDiv.classList.add('command');
+                const usageDE = command.usageDE ? command.usageDE.replace(/!([a-zA-Z0-9]+)/g, '<code>!$1</code>') : 'Keine Verwendung verfügbar';
+                const usageUS = command.usageUS ? command.usageUS.replace(/!([a-zA-Z0-9]+)/g, '<code>!$1</code>') : 'No usage available';
                 commandDiv.innerHTML = `
                     <div class="command-info">
                         <p><strong>Name:</strong> ${command.name} ${command.aliases.length ? `(Alias: ${command.aliases.join(', ')})` : ''}</p>
                         <p><strong>${currentLanguage === 'de' ? 'Beschreibung' : 'Description'}:</strong> ${currentLanguage === 'de' ? command.descriptionDE : command.descriptionUS} <img src="${command.link}" alt="Emote"></p>
-                        <p><strong>${currentLanguage === 'de' ? 'Verwendung' : 'Usage'}:</strong> ${currentLanguage === 'de' ? (command.usageDE || 'Keine Verwendung verfügbar') : (command.usageUS || 'No usage available')}</p>
+                        <p><strong>${currentLanguage === 'de' ? 'Verwendung' : 'Usage'}:</strong> ${currentLanguage === 'de' ? usageDE : usageUS}</p>
                         <p><strong>Category:</strong> ${command.category}</p>
                         <p><strong>Permission:</strong> ${getPermissionLabel(command.permission)}</p>
                     </div>
