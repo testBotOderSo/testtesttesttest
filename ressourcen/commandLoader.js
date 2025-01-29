@@ -110,11 +110,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function getPermissionLabel(level) {
         const labels = {
             0: 'Everyone',
-            1: 'Vip',
-            2: 'Moderator',
-            3: 'Broadcaster',
-            4: 'Dev',
-            5: 'Admin'
+            1: 'Vip <img src="https://badges.kappa.lol/cgD1Y"alt="Badge">',
+            2: 'Moderator <img src="https://badges.kappa.lol/G07pb"alt="Badge">',
+            3: 'Broadcaster <img src="https://badges.kappa.lol/TCe8B"alt="Badge">',
+            4: 'Dev <img src="https://badges.kappa.lol/obwTL"alt="Badge">',
+            5: 'Admin <img src="https://badges.kappa.lol/eE-mI"alt="Badge">'
         };
         return labels[level] || 'Unknown';
     }
