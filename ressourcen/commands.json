@@ -1,5 +1,17 @@
 [
     {
+        "name": "7tvcheck",
+        "aliases": ["stvu", "7tvu", "stvcheck"],
+        "descriptionDE": "Zeigt Allgemeine Infos zu einen 7tv Acc an.",
+        "descriptionUS": "Shows general information about a 7tv Acc.",
+        "usageDE": "Schreibe !7tvcheck [username]",
+        "usageUS": "Write !7tvcheck [username]",
+        "category": "7tv",
+        "cooldown": 5,
+        "permission": 0, 
+        "link": "https://cdn.7tv.app/emote/01FQ98H8080002MA0YZNBVDXNM/1x.webp" 
+    },
+    {
         "name": "7tvsa",
         "aliases": ["stvsa"],
         "descriptionDE": "Schau wie Lange du 7tv sub bist.",
@@ -10,6 +22,18 @@
         "cooldown": 5,
         "permission": 0,
         "link": "https://cdn.7tv.app/emote/01GZE6Y07R000F13379QV4EDK1/1x.webp"
+    },
+    {
+        "name": "7tvset",
+        "aliases": ["stvset", "set"],
+        "descriptionDE": "Zeigt Infos zu deinen 7tv Set an.",
+        "descriptionUS": "Shows information about your 7tv set.",
+        "usageDE": "Schreibe !7tvset [channel]",
+        "usageUS": "Write !7tvset [channel]",
+        "category": "7tv",
+        "cooldown": 5,
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01GHYYHRE8000EXZEN9BBAP074/1x.webp"
     },
     {
         "name": "afk",
@@ -27,6 +51,18 @@
         ]
     },
     {
+        "name": "animal",
+        "aliases": ["randomanimal"],
+        "descriptionDE": "Zeigt ein zufälliges Tierbild an bei !animal oder ein spezifisches Tierbild bei !animal <tiername>.",
+        "descriptionUS": "Displays a random animal image for !animal or a specific animal image for !animal <animalname>.",
+        "usageDE": "Schreibe !animal [tiername]",
+        "usageUS": "Write !animal [animalname]",
+        "category": "Fun",
+        "cooldown": 5,
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01HVA3E7QG0006FBV1QSYDVZSP/1x.webp"
+    },
+    {
         "name": "chatters",
         "aliases": [],
         "descriptionDE": "Zeigt an, wie viele Chatter in einem Channel sind.",
@@ -37,6 +73,18 @@
         "cooldown": 5,
         "permission": 0,
         "link": "https://cdn.7tv.app/emote/613f56eb962a609048643e6e/1x.webp"
+    },
+    {
+        "name": "clear",
+        "aliases": [],
+        "descriptionDE": "Schickt eine Nuke in dein Chat zum Clearn.",
+        "descriptionUS": "Sends a nuke into your chat to the Clearn.",
+        "usageDE": "Schreibe !clear",
+        "usageUS": "Write !clear",
+        "category": "Normal",
+        "cooldown": 30,
+        "permission": 2,
+        "link": "https://cdn.7tv.app/emote/01HTSANJD8000ED7XZG6NXM5B9/1x.webp"
     },
     {
         "name": "eval",
@@ -105,7 +153,7 @@
         "descriptionUS": "Creates or delete a liveping notification for a streamer.",
         "usageDE": "➜ Schreibe !livemsg enable [streamer] oder !livemsg disable [streamer]",
         "usageUS": "➜ Write !livemsg enable [streamer] or !livemsg disable [streamer]",
-        "category": "Utils",
+        "category": "Utils(Beta)",
         "cooldown": 10,
         "permission": 2,
         "link": "https://cdn.7tv.app/emote/01HH82FQ8R000B2GQNSE7J2NFD/1x.webp"
@@ -117,7 +165,7 @@
         "descriptionUS": "Get pinged when a streamer goes live.",
         "usageDE": "➜ Schreibe !liveping [streamer]",
         "usageUS": "➜ Write !liveping [streamer]",
-        "category": "Utils",
+        "category": "Utils(Beta)",
         "cooldown": 10,
         "permission": 0,
         "link": "https://cdn.7tv.app/emote/01G36Y1810000DV7XNSS6CCCD0/1x.webp"
