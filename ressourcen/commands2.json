@@ -1,0 +1,161 @@
+[
+    {
+        "name": "7tvsa",
+        "aliases": ["stvsa"],
+        "descriptionDE": "Schau wie Lange du 7tv sub bist.",
+        "descriptionUS": "Look how long you have been a 7tv sub.",
+        "usageDE": "➜ Schreibe !7tvsa [username]",
+        "usageUS": "➜ Write !7tvsa [username]",
+        "category": "7tv",
+        "cooldown": 5,
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01GZE6Y07R000F13379QV4EDK1/1x.webp"
+    },
+    {
+        "name": "afk",
+        "aliases": ["gn"],
+        "descriptionDE": "Stell dich Afk oder Gehe Schlafen.",
+        "descriptionUS": "Set yourself AFK or Go to sleep.",
+        "usageDE": "➜ Schreibe !afk [Nachricht] oder !gn [Nachricht]",
+        "usageUS": "➜ Write !afk [Message] or !gn [Message]",
+        "category": "Normal",
+        "cooldown": 5,
+        "permission": 0,
+        "link": [
+            "https://cdn.7tv.app/emote/01GADBKWVG000BCR9ZQWV61DWE/1x.webp",
+            "https://cdn.7tv.app/emote/01J89WV72R0006NP3M7JY4FZF9/1x.webp"
+        ]
+    },
+    {
+        "name": "chatters",
+        "aliases": [],
+        "descriptionDE": "Zeigt an, wie viele Chatter in einem Channel sind.",
+        "descriptionUS": "Shows how many chatters are in a channel.",
+        "usageDE": "➜ Schreibe !chatters [channel]",
+        "usageUS": "➜ Write !chatters [channel]",
+        "category": "Info",
+        "cooldown": 5,
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/613f56eb962a609048643e6e/1x.webp"
+    },
+    {
+        "name": "eval",
+        "aliases": ["e"],
+        "descriptionDE": "Teste einen Kleinen code.",
+        "descriptionUS": "Test a small code.",
+        "usageDE": "➜ Schreibe !e [code] (Beispiel: const T = `test`; msg.say(T);) oder !e list (für eine Kleine liste)",
+        "usageUS": "➜ Write !e [code] (example: const T = `test`; msg.say(T);) or !e list (for a Small List)",
+        "category": "Utils",
+        "cooldown": 5,
+        "permission": 4,
+        "link": "https://cdn.7tv.app/emote/01GX8X0DY8000E1BVGZK9A6E0Y/1x.webp"
+    },
+    {
+        "name": "followage",
+        "aliases": ["fa"],
+        "descriptionDE": "Zeigt dir, wie lange ein Nutzer einem Kanal folgt.",
+        "descriptionUS": "Shows how long a user has been following a channel.",
+        "usageDE": "➜ Schreibe !fa <username> [channel]",
+        "usageUS": "➜ Write !fa <username> [channel]",
+        "category": "Info",
+        "cooldown": 5,
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01G3GTE440000DSQYHZEZBZ1AR/1x.webp"
+    },
+    {
+        "name": "gemini",
+        "aliases": ["gpt"],
+        "descriptionDE": "Stelle deine Frage an die Googles Ki Gemini.",
+        "descriptionUS": "Ask your question to Googles Ki Gemini.",
+        "usageDE": "➜ Schreibe !gpt <frage>",
+        "usageUS": "➜ Write !gpt <question>",
+        "category": "Fun",
+        "cooldown": 5,
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01FA3ZHPPR0004NX9H3QEFMN9P/1x.webp"
+    },
+    {
+        "name": "help",
+        "aliases": [],
+        "descriptionDE": "Gibt dir Infos zu Commands an.",
+        "descriptionUS": "give your info to a Command.",
+        "usageDE": "➜ Schreibe !help <CommandName>",
+        "usageUS": "➜ Write !help <CommandName>",
+        "category": "Normal",
+        "cooldown": 5,
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01HE3XP8AR0005TGMJQ0WHSRVR/1x.webp"
+    },
+    {
+        "name": "!join",
+        "aliases": ["rejoin"],
+        "descriptionDE": "Damit Joint Der bot in deinen Chat.",
+        "descriptionUS": "So that Joint Der bot into your chat.",
+        "usageDE": "➜ Schreibe !join oder !rejoin",
+        "usageUS": "➜ Write !join or !rejoin",
+        "category": "Normal",
+        "cooldown": 5,
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01GZ2CTDQ000093EMR4AKWQ462/1x.webp"
+    },
+    {
+        "name": "livemsg",
+        "aliases": [],
+        "descriptionDE": "Erstellt oder Lösch eine Liveping Benachrichtigung für einen Streamer.",
+        "descriptionUS": "Creates or delete a liveping notification for a streamer.",
+        "usageDE": "➜ Schreibe !livemsg enable <streamer> oder !livemsg disable <streamer>",
+        "usageUS": "➜ Write !livemsg enable <streamer> or !livemsg disable <streamer>",
+        "category": "Utils",
+        "cooldown": 10,
+        "permission": 2,
+        "link": "https://cdn.7tv.app/emote/01HH82FQ8R000B2GQNSE7J2NFD/1x.webp"
+    },
+    {
+        "name": "liveping",
+        "aliases": [],
+        "descriptionDE": "Lass dich Pingen wenn ein Streamer Live geht.",
+        "descriptionUS": "Get pinged when a streamer goes live.",
+        "usageDE": "➜ Schreibe !liveping <streamer>",
+        "usageUS": "➜ Write !liveping <streamer>",
+        "category": "Utils",
+        "cooldown": 10,
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01G36Y1810000DV7XNSS6CCCD0/1x.webp"
+    },
+    {
+        "name": "massping",
+        "aliases": ["mass"],
+        "descriptionDE": "Ping Jeden User im Chat.",
+        "descriptionUS": "Ping every user in chat.",
+        "usageDE": "➜ Schreibe !mass [Nachricht]",
+        "usageUS": "➜ Write !mass [Message]",
+        "category": "Fun",
+        "cooldown": 60,
+        "permission": 3,
+        "link": "https://cdn.7tv.app/emote/01GXQ0W9RG000EWVRD9JZZAY71/1x.webp"
+    },
+    {
+        "name": "pepe",
+        "aliases": ["pepel", "pepew", "pepewl", "pepelw"],
+        "descriptionDE": "pepel oder pepew oder doch pepewl/lw",
+        "descriptionUS": "pepel or pepew or at least pepewl/lw",
+        "usageDE": "➜ Schreibe !pepel oder !pepew oder !pepelw/wl",
+        "usageUS": "➜ Write !pepel or !pepew or !pepelw/wl",
+        "category": "Fun",
+        "cooldown": 10,
+        "permission": 1,
+        "link": "https://cdn.7tv.app/emote/01F8YMB8Z000020Q7P7HZ3REDT/1x.webp"
+    },
+    {
+        "name": "avatar",
+        "aliases": ["pfp"],
+        "descriptionDE": "Schickt das Twtich und 7tv Profilbild eines Users rein.",
+        "descriptionUS": "Send in a users Twtich and 7tv profile picture.",
+        "usageDE": "➜ Schreibe !pfp [username]",
+        "usageUS": "➜ Write !pfp [username]",
+        "category": "Info",
+        "cooldown": 5,
+        "permission": 0,
+        "link": "https://cdn.7tv.app/emote/01H5WS32Z80001VN9PVKA20HKZ/1x.webp"
+    }
+]
