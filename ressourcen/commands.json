@@ -155,7 +155,7 @@
         "usageUS": "➜ Write !livemsg enable [streamer] or !livemsg disable [streamer]",
         "category": [
             "Utils",
-            "(Beta)"
+            "Beta"
         ],
         "cooldown": 10,
         "permission": 2,
@@ -170,7 +170,7 @@
         "usageUS": "➜ Write !liveping [streamer]",
         "category": [
             "Utils",
-            "(Beta)"
+            "Beta"
         ],
         "cooldown": 10,
         "permission": 0,
