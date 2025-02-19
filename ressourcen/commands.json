@@ -153,7 +153,10 @@
         "descriptionUS": "Creates or delete a liveping notification for a streamer.",
         "usageDE": "➜ Schreibe !livemsg enable [streamer] oder !livemsg disable [streamer]",
         "usageUS": "➜ Write !livemsg enable [streamer] or !livemsg disable [streamer]",
-        "category": "Utils(Beta)",
+        "category": [
+            "Utils",
+            "(Beta)"
+        ],
         "cooldown": 10,
         "permission": 2,
         "link": "https://cdn.7tv.app/emote/01HH82FQ8R000B2GQNSE7J2NFD/1x.webp"
@@ -165,7 +168,10 @@
         "descriptionUS": "Get pinged when a streamer goes live.",
         "usageDE": "➜ Schreibe !liveping [streamer]",
         "usageUS": "➜ Write !liveping [streamer]",
-        "category": "Utils(Beta)",
+        "category": [
+            "Utils",
+            "(Beta)"
+        ],
         "cooldown": 10,
         "permission": 0,
         "link": "https://cdn.7tv.app/emote/01G36Y1810000DV7XNSS6CCCD0/1x.webp"
