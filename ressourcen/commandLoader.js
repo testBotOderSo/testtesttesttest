@@ -43,8 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const matchesSearch =
                 command.name.toLowerCase().includes(searchTerm) ||
                 command.aliases.some(alias => alias.toLowerCase().includes(searchTerm));
-            const matchesCategory = !selectedCategory || command.category === selectedCategory;
+            const categoryArray = Array.isArray(command.category) ? command.category : [command.category];
+            const matchesCategory = !selectedCategory || categoryArray.includes(selectedCategory);
+    
             const matchesPermission = !selectedPermission || command.permission == selectedPermission;
+            
             return matchesSearch && matchesCategory && matchesPermission;
         });
 
@@ -76,7 +79,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         try {
             commands.forEach(command => {
-                const emoteImages = (Array.isArray(command.link) ? command.link : [command.link] || []).map(link => `<img src="${link}" alt="Emote">`).join(' ');
+                const emoteImages = (Array.isArray(command.link) ? command.link : [command.link] || [])
+                    .map(link => `<img src="${link}" alt="Emote">`)
+                    .join(' ');
+                const categoryLabel = Array.isArray(command.category)
+                    ? command.category.join(', ')
+                    : command.category;
                 const commandBubble = document.createElement('div');
                 commandBubble.classList.add('command-bubble');
                 const commandDiv = document.createElement('div');
@@ -89,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p><strong>${currentLanguage === 'de' ? 'Beschreibung' : 'Description'}:</strong> ${currentLanguage === 'de' ? command.descriptionDE : command.descriptionUS} ${emoteImages}</p>
                         <p><strong>${currentLanguage === 'de' ? 'Verwendung' : 'Usage'}</strong> ${currentLanguage === 'de' ? usageDE : usageUS}</p>
                         <p><strong>${currentLanguage === 'de' ? 'Cooldown' : 'Cooldown'}:</strong> ${currentLanguage === 'de' ? `${command.cooldown} Sekunden` : `${command.cooldown} Seconds`}</p>
-                        <p><strong>Category:</strong> ${command.category}</p>
+                        <p><strong>Category:</strong> ${categoryLabel}</p>
                         <p><strong>Permission:</strong> ${getPermissionLabel(command.permission)}</p>
                     </div>
                 `;
