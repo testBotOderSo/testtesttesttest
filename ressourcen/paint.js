@@ -1,16 +1,16 @@
 function getUrlParams() {
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get('name');
-    const elementId = urlParams.get('paint');
-    const paintId = urlParams.get('PaintID');
-    return { name, elementId, paintId };
+    const elementID = urlParams.get('paint');
+    const paintID = urlParams.get('PaintID');
+    return { name, elementID, paintID };
 };
 
 function loadPaint() {
-    const { name, elementID, paintID } = getUrlParams();
+    const { name, elementId, paintId } = getUrlParams();
     
-    if (elementID && paintID) {
-        const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
+    if (elementId && paintId) {
+        const paintUrl = `https://cdn.7tv.app/paint/${elementId}/layer/${paintId}/1x.webp`;
         
         const paintElements = document.querySelectorAll('.paint-text');
         paintElements.forEach((element) => {
