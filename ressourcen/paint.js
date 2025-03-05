@@ -18,7 +18,7 @@ function loadPaint() {
             element.style.backgroundClip = 'text'; 
             element.style.webkitBackgroundClip = 'text';
             element.style.backgroundImage = `url('${paintUrl}')`; 
-            element.style.backgroundSize = '100% auto';
+            element.style.backgroundSize = '100% auto'; 
             element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)'; 
         });
     }
@@ -31,8 +31,8 @@ function loadPaint() {
         spanElement.textContent = name;
         nameElement.appendChild(spanElement); 
         
-        nameElement.style.fontSize = '3em'; 
-        nameElement.style.fontWeight = 'bold';
+        nameElement.style.fontSize = '5em'; 
+        nameElement.style.fontWeight = 'bold'; 
     }
 };
 
