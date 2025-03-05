@@ -2,7 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NotedBot │ Home</title>
+    <title>NotedBot │ Paint</title>
     <link rel="icon" href="img/notedbotlogo.png" type="image/png">
     <link rel="stylesheet" href="./ressourcen/styles.css">
 </head>
@@ -28,11 +28,7 @@
         </div>
 
         <div class="pyramid">
-            <!-- Dynamische Anzeige der Paints -->
             <div id="sample1" class="paint-text">Wydios</div>
-            <div id="sample2" class="paint-text">Wydios</div>
-            <div id="sample3" class="paint-text">Wydios</div>
-            <div id="sample4" class="paint-text">Wydios</div>
             <div id="sample5" class="paint-text">██████</div>
         </div>
         
@@ -41,48 +37,8 @@
             <p id="p9">PlatzHalter12</p>
         </footer>
     </div>
-
-   <script>
-    // Funktion zum Extrahieren der URL-Parameter (Name, ElementID und PaintID)
-    function getUrlParams() {
-        const urlParams = new URLSearchParams(window.location.search); // Holt die Query-Parameter der URL
-        const name = urlParams.get('name'); // Holt den Namen
-        const elementId = urlParams.get('paint'); // Holt die Paint (ElementID)
-        const paintId = urlParams.get('PaintID'); // Holt die PaintID
-        return { name, elementId, paintId };
-    }
-
-    // Funktion zum Laden der Paints und des Namens
-    function loadPaints() {
-        const { name, elementId, paintId } = getUrlParams();
-        
-        if (elementId && paintId) {
-            const paintUrl = `https://cdn.7tv.app/paint/${elementId}/layer/${paintId}/1x.webp`;
-            
-            // Dynamische URL für das Paint
-            const paintElements = document.querySelectorAll('.paint-text');
-            paintElements.forEach((element) => {
-                element.style.color = 'transparent';
-                element.style.backgroundClip = 'text';
-                element.style.webkitBackgroundClip = 'text';
-                element.style.backgroundImage = `url('${paintUrl}')`;
-                element.style.backgroundSize = '100% auto';
-                element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
-            });
-        }
-
-        // Den Namen auf der Seite anzeigen und größer machen
-        if (name) {
-            const nameElement = document.getElementById('name-display');
-            nameElement.textContent = name; // Den Namen auf der Seite anzeigen
-            nameElement.style.fontSize = '3em'; // Den Namen größer machen
-            nameElement.style.fontWeight = 'bold'; // Den Namen fett darstellen
-            nameElement.style.color = '#0036d8'; // Optional: Farbe des Namens
-        }
-    }
-
-    // Lädt die Paints und den Namen beim Laden der Seite
-    window.onload = loadPaints;
-</script>
+    <script src="./ressourcen/homeLanguage.js"></script>
+    <script src="./ressourcen/animation.js"></script>
+    <script src="./ressourcen/paint.js"></script>
 </body>
 </html>
