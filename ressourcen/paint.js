@@ -14,12 +14,12 @@ function loadPaint() {
         
         const paintElements = document.querySelectorAll('.paint-text');
         paintElements.forEach((element) => {
-            element.style.color = 'transparent';
-            element.style.backgroundClip = 'text';
+            element.style.color = 'transparent'; 
+            element.style.backgroundClip = 'text'; 
             element.style.webkitBackgroundClip = 'text';
-            element.style.backgroundImage = `url('${paintUrl}')`;
+            element.style.backgroundImage = `url('${paintUrl}')`; 
             element.style.backgroundSize = '100% auto';
-            element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
+            element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)'; 
         });
     }
 
@@ -27,9 +27,12 @@ function loadPaint() {
         const nameElement = document.getElementById('sample1');
         nameElement.textContent = name;
         
-        nameElement.style.fontSize = '3em';
+        const spanElement = document.createElement('span');
+        spanElement.textContent = name;
+        nameElement.appendChild(spanElement); 
+        
+        nameElement.style.fontSize = '3em'; 
         nameElement.style.fontWeight = 'bold';
-        nameElement.style.color = '#0036d8'; 
     }
 };
 
