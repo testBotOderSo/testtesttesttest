@@ -152,9 +152,9 @@ span {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 80vh;
+    height: 80vh; 
     text-align: center;
-    width: 100%; 
+    width: 50%; 
 }
 .paint-text {
     font-size: 3em; 
@@ -168,9 +168,22 @@ span {
     margin: 0 20px; 
     filter: drop-shadow(0px 0px 10px #39d21eff);
     text-align: center;
-    height: 150px;
+    height: 150px; 
+    position: relative;
+}
+
+.paint-text span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: #0036d8; 
+    font-size: inherit;
+    font-weight: inherit;
+    z-index: 2;
 }
 footer {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
 }
