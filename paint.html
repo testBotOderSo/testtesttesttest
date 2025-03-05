@@ -42,18 +42,19 @@
         </footer>
     </div>
 
-    <script>
-    // Funktion zum Extrahieren der ElementID und PaintID aus den URL-Parametern
+   <script>
+    // Funktion zum Extrahieren der URL-Parameter (Name, ElementID und PaintID)
     function getUrlParams() {
         const urlParams = new URLSearchParams(window.location.search); // Holt die Query-Parameter der URL
-        const elementId = urlParams.get('Paint'); // Holt die Paint (ElementID)
+        const name = urlParams.get('name'); // Holt den Namen
+        const elementId = urlParams.get('paint'); // Holt die Paint (ElementID)
         const paintId = urlParams.get('PaintID'); // Holt die PaintID
-        return { elementId, paintId };
+        return { name, elementId, paintId };
     }
 
-    // Funktion zum Laden der Paints
+    // Funktion zum Laden der Paints und des Namens
     function loadPaints() {
-        const { elementId, paintId } = getUrlParams();
+        const { name, elementId, paintId } = getUrlParams();
         
         if (elementId && paintId) {
             const paintUrl = `https://cdn.7tv.app/paint/${elementId}/layer/${paintId}/1x.webp`;
@@ -68,12 +69,19 @@
                 element.style.backgroundSize = '100% auto';
                 element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
             });
-        } else {
-            console.error('ElementID und/oder PaintID fehlen in der URL.');
+        }
+
+        // Den Namen auf der Seite anzeigen und größer machen
+        if (name) {
+            const nameElement = document.getElementById('name-display');
+            nameElement.textContent = name; // Den Namen auf der Seite anzeigen
+            nameElement.style.fontSize = '3em'; // Den Namen größer machen
+            nameElement.style.fontWeight = 'bold'; // Den Namen fett darstellen
+            nameElement.style.color = '#0036d8'; // Optional: Farbe des Namens
         }
     }
 
-    // Lädt die Paints beim Laden der Seite
+    // Lädt die Paints und den Namen beim Laden der Seite
     window.onload = loadPaints;
 </script>
 </body>
