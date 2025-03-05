@@ -24,19 +24,12 @@ function loadPaint() {
     }
 
     if (name) {
-        const nameElement1 = document.getElementById('sample1');
-        const nameElement2 = document.getElementById('sample2');
+        const nameElement = document.getElementById('sample1');
+        nameElement.textContent = name;
         
-        nameElement1.textContent = name;
-        nameElement2.textContent = name;
-
-        nameElement1.style.fontSize = '3em';
-        nameElement1.style.fontWeight = 'bold'; 
-        nameElement1.style.color = '#0036d8';
-        
-        nameElement2.style.fontSize = '3em';
-        nameElement2.style.fontWeight = 'bold'; 
-        nameElement2.style.color = '#0036d8';
+        nameElement.style.fontSize = '3em';
+        nameElement.style.fontWeight = 'bold';
+        nameElement.style.color = '#0036d8'; 
     }
 };
 
