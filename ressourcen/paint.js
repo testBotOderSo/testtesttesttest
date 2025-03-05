@@ -24,7 +24,7 @@ function loadPaint() {
     }
   
     if (name) {
-        const nameElement = document.getElementById('name-display');
+        const nameElement = document.getElementById('sample1');
         nameElement.textContent = name; 
         nameElement.style.fontSize = '3em';
         nameElement.style.fontWeight = 'bold'; 
