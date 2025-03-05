@@ -38,10 +38,11 @@ function loadPaint() {
 
     if (paintName) {
         const paintNameElement = document.getElementById('paint-name');
-        paintNameElement.textContent = `Paint Name: ${paintName}`;
+        paintNameElement.textContent = paintName;
         paintNameElement.style.fontSize = '2em';
         paintNameElement.style.fontWeight = 'normal';
         paintNameElement.style.color = '#0036d8';
+        document.title = `NotedBot │ 7TV "${paintName}" Paint`;
     }
 };
 
