@@ -7,10 +7,10 @@ function getUrlParams() {
 };
 
 function loadPaint() {
-    const { name, elementId, paintId } = getUrlParams();
+    const { name, elementID, paintID } = getUrlParams();
     
-    if (elementId && paintId) {
-        const paintUrl = `https://cdn.7tv.app/paint/${elementId}/layer/${paintId}/1x.webp`;
+    if (elementID && paintID) {
+        const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
         
         const paintElements = document.querySelectorAll('.paint-text');
         paintElements.forEach((element) => {
@@ -22,13 +22,21 @@ function loadPaint() {
             element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
         });
     }
-  
+
     if (name) {
-        const nameElement = document.getElementById('sample1');
-        nameElement.textContent = name; 
-        nameElement.style.fontSize = '3em';
-        nameElement.style.fontWeight = 'bold'; 
-        nameElement.style.color = '#0036d8';
+        const nameElement1 = document.getElementById('sample1');
+        const nameElement2 = document.getElementById('sample2');
+        
+        nameElement1.textContent = name;
+        nameElement2.textContent = name;
+
+        nameElement1.style.fontSize = '3em';
+        nameElement1.style.fontWeight = 'bold'; 
+        nameElement1.style.color = '#0036d8';
+        
+        nameElement2.style.fontSize = '3em';
+        nameElement2.style.fontWeight = 'bold'; 
+        nameElement2.style.color = '#0036d8';
     }
 };
 
