@@ -157,12 +157,12 @@ span {
     width: 100%; 
 }
 .paint-text {
-    font-size: 5em;
+    font-size: 5em; 
     font-weight: bold;
-    color: transparent;
+    color: transparent; 
     background-clip: text; 
-    -webkit-background-clip: text;
-    background-size: cover;
+    -webkit-background-clip: text; 
+    background-size: cover; 
     background-position: center;
     display: inline-block;
     margin: 0 20px; 
@@ -170,6 +170,7 @@ span {
     text-align: center;
     height: 150px; 
     position: relative;
+    background-image: none; 
 }
 .paint-text span {
     position: absolute;
@@ -177,7 +178,7 @@ span {
     left: 0;
     right: 0;
     bottom: 0;
-    color: #0036d8; 
+    color: transparent; 
     font-size: inherit; 
     font-weight: inherit; 
     z-index: 2;
