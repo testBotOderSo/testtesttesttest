@@ -46,8 +46,8 @@
     // Funktion zum Extrahieren der ElementID und PaintID aus den URL-Parametern
     function getUrlParams() {
         const urlParams = new URLSearchParams(window.location.search); // Holt die Query-Parameter der URL
-        const elementId = urlParams.get('elementID'); // Holt die elementID
-        const paintId = urlParams.get('paintID'); // Holt die paintID
+        const elementId = urlParams.get('Paint'); // Holt die Paint (ElementID)
+        const paintId = urlParams.get('PaintID'); // Holt die PaintID
         return { elementId, paintId };
     }
 
@@ -76,6 +76,5 @@
     // Lädt die Paints beim Laden der Seite
     window.onload = loadPaints;
 </script>
-
 </body>
 </html>
