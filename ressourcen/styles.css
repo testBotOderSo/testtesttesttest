@@ -185,13 +185,3 @@ span {
     font-weight: inherit; 
     z-index: 2;
 }
-#paint-name {
-    font-size: 5em;
-    font-weight: bold;
-    color: transparent;
-    background-clip: text;
-    -webkit-background-clip: text;
-    margin-bottom: 20px; 
-    display: block;
-    text-align: center;
-}
