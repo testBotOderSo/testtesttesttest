@@ -17,6 +17,15 @@ let dy = 1.2;
 let score = 0;
 
 let particles = [];
+let paintColor = "rgba(0, 150, 255, 0.7)";
+
+function setPaintColor() {
+    const paintNameElement = document.getElementById('paint-name');
+    if (paintNameElement) {
+        const computedStyle = getComputedStyle(paintNameElement);
+        paintColor = computedStyle.color;
+    }
+}
 
 function createExplosion(px, py) {
     for (let i = 0; i < 20; i++) {
@@ -55,8 +64,8 @@ function drawParticles() {
 }
 
 function drawDino(x, y) {
-    ctx.fillStyle = "rgba(0, 150, 255, 0.7)";
-    
+    ctx.fillStyle = paintColor;
+
     ctx.beginPath();
     ctx.arc(x, y, 25, 0, Math.PI * 2);
     ctx.fill();
@@ -70,7 +79,7 @@ function drawDino(x, y) {
     ctx.arc(x + 25, y - 25, 3, 0, Math.PI * 2);
     ctx.fill();
     
-    ctx.fillStyle = "rgba(0, 150, 255, 0.7)";
+    ctx.fillStyle = paintColor;
     ctx.fillRect(x - 10, y + 20, 8, 15);
     ctx.fillRect(x + 5, y + 20, 8, 15);
 
@@ -116,7 +125,10 @@ function animate() {
     requestAnimationFrame(animate);
 }
 
-animate();
+if (window.location.pathname.includes("paint.html")) {
+    setPaintColor();
+    animate();
+}
 
 window.addEventListener("resize", () => {
     canvas.width = window.innerWidth;
