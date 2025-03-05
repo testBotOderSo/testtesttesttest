@@ -22,6 +22,7 @@ function loadPaint() {
             element.style.backgroundSize = '100% auto'; 
             element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)'; 
         });
+        
         const img = new Image();
         img.src = paintUrl;
         img.onload = () => {
@@ -58,6 +59,33 @@ function loadPaint() {
         document.title = `NotedBot │ 7TV "${paintName}" Paint`;
     }
 };
+
+function getDominantColorFromImage(img) {
+    // Wir können eine einfache Implementierung für die dominante Farbe machen, indem wir
+    // Canvas verwenden und die Pixel analysieren. Eine Bibliothek wie "color-thief" könnte helfen.
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = img.width;
+    canvas.height = img.height;
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+    const pixelData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+
+    // Durchschnittsfarbe berechnen
+    let r = 0, g = 0, b = 0;
+    let total = pixelData.length / 4;
+
+    for (let i = 0; i < pixelData.length; i += 4) {
+        r += pixelData[i];
+        g += pixelData[i + 1];
+        b += pixelData[i + 2];
+    }
+
+    r = Math.floor(r / total);
+    g = Math.floor(g / total);
+    b = Math.floor(b / total);
+
+    return `rgb(${r}, ${g}, ${b})`;
+}
 
 function changeDinoColor(color) {
     const canvas = document.createElement("canvas");
@@ -144,7 +172,7 @@ function changeDinoColor(color) {
     }
 
     function drawScore() {
-        ctx.fillStyle = "blue";
+        ctx.fillStyle = color;  // Die Farbe des Scoreboards anpassen
         ctx.font = "20px Arial";
         ctx.fillText(`Score: ${score}`, 20, 30);
     }
