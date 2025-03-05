@@ -39,9 +39,17 @@ function loadPaint() {
     if (paintName) {
         const paintNameElement = document.getElementById('paint-name');
         paintNameElement.textContent = paintName;
-        paintNameElement.style.fontSize = '2em';
-        paintNameElement.style.fontWeight = 'normal';
-        paintNameElement.style.color = '#0036d8';
+        paintNameElement.style.fontSize = '5em'; 
+        paintNameElement.style.fontWeight = 'bold'; 
+        paintNameElement.style.color = 'transparent';
+        paintNameElement.style.backgroundClip = 'text';
+        paintNameElement.style.webkitBackgroundClip = 'text';
+
+        const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
+        paintNameElement.style.backgroundImage = `url('${paintUrl}')`;
+        paintNameElement.style.backgroundSize = '100% auto';
+        paintNameElement.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
+        
         document.title = `NotedBot │ 7TV "${paintName}" Paint`;
     }
 };
