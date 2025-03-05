@@ -39,7 +39,6 @@ function loadPaint() {
     if (paintName) {
         const paintNameElement = document.getElementById('paint-name');
         paintNameElement.textContent = paintName;
-        paintNameElement.style.fontSize = '5em'; 
         paintNameElement.style.fontWeight = 'bold'; 
         paintNameElement.style.color = 'transparent';
         paintNameElement.style.backgroundClip = 'text';
