@@ -148,14 +148,6 @@ span {
     transform: scale(1);
     opacity: 1;
 }
-.samples {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh; 
-    text-align: center;
-    width: 50%; 
-}
 .paint-text {
     font-size: 3em; 
     font-weight: bold;
@@ -164,12 +156,6 @@ span {
     -webkit-background-clip: text;
     background-size: cover;
     background-position: center;
-    display: inline-block;
-    margin: 0 20px; 
-    filter: drop-shadow(0px 0px 10px #39d21eff);
-    text-align: center;
-    height: 150px; 
-    position: relative;
 }
 
 .paint-text span {
