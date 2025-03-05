@@ -3,11 +3,12 @@ function getUrlParams() {
     const name = urlParams.get('name');
     const elementID = urlParams.get('paint');
     const paintID = urlParams.get('PaintID');
-    return { name, elementID, paintID };
+    const paintName = urlParams.get('paintName');
+    return { name, elementID, paintID, paintName };
 };
 
 function loadPaint() {
-    const { name, elementID, paintID } = getUrlParams();
+    const { name, elementID, paintID, paintName } = getUrlParams();
     
     if (elementID && paintID) {
         const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
@@ -33,6 +34,14 @@ function loadPaint() {
         
         nameElement.style.fontSize = '5em'; 
         nameElement.style.fontWeight = 'bold'; 
+    }
+
+    if (paintName) {
+        const paintNameElement = document.getElementById('paint-name');
+        paintNameElement.textContent = `Paint Name: ${paintName}`;
+        paintNameElement.style.fontSize = '2em';
+        paintNameElement.style.fontWeight = 'normal';
+        paintNameElement.style.color = '#0036d8';
     }
 };
 
