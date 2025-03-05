@@ -43,34 +43,39 @@
     </div>
 
     <script>
-        function getUrlParams() {
-            const url = window.location.pathname; 
-            const pathParts = url.split('/'); 
-            const elementId = pathParts[pathParts.length - 2]; 
-            const paintId = pathParts[pathParts.length - 1]; 
-            return { elementId, paintId };
-        }
+    // Funktion zum Extrahieren der ElementID und PaintID aus den URL-Parametern
+    function getUrlParams() {
+        const urlParams = new URLSearchParams(window.location.search); // Holt die Query-Parameter der URL
+        const elementId = urlParams.get('elementID'); // Holt die elementID
+        const paintId = urlParams.get('paintID'); // Holt die paintID
+        return { elementId, paintId };
+    }
 
-        function loadPaints() {
-            const { elementId, paintId } = getUrlParams();
+    // Funktion zum Laden der Paints
+    function loadPaints() {
+        const { elementId, paintId } = getUrlParams();
+        
+        if (elementId && paintId) {
+            const paintUrl = `https://cdn.7tv.app/paint/${elementId}/layer/${paintId}/1x.webp`;
             
-            if (elementId && paintId) {
-                const paintUrl = `https://cdn.7tv.app/paint/${elementId}/layer/${paintId}/1x.webp`;
-                
-                const paintElements = document.querySelectorAll('.paint-text');
-                paintElements.forEach((element) => {
-                    element.style.color = 'transparent';
-                    element.style.backgroundClip = 'text';
-                    element.style.webkitBackgroundClip = 'text';
-                    element.style.backgroundImage = `url('${paintUrl}')`;
-                    element.style.backgroundSize = '100% auto';
-                    element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
-                });
-            } else {
-                console.error('ElementID und/oder PaintID fehlen in der URL.');
-            }
+            // Dynamische URL für das Paint
+            const paintElements = document.querySelectorAll('.paint-text');
+            paintElements.forEach((element) => {
+                element.style.color = 'transparent';
+                element.style.backgroundClip = 'text';
+                element.style.webkitBackgroundClip = 'text';
+                element.style.backgroundImage = `url('${paintUrl}')`;
+                element.style.backgroundSize = '100% auto';
+                element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
+            });
+        } else {
+            console.error('ElementID und/oder PaintID fehlen in der URL.');
         }
-        window.onload = loadPaints;
-    </script>
+    }
+
+    // Lädt die Paints beim Laden der Seite
+    window.onload = loadPaints;
+</script>
+
 </body>
 </html>
