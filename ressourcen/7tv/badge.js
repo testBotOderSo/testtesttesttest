@@ -1,3 +1,5 @@
+import { fetchTwitchColor } from '../twitch/color.js';
+
 function getUrlParams() {
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get('name');
@@ -6,20 +8,26 @@ function getUrlParams() {
     return { name, badgeID, badgeName };
 }
 
-function loadBadge() {
+async function loadBadge() {
     const { name, badgeID, badgeName } = getUrlParams();
+    let chatColor = '#FFFFFF';
+
+    if (name) {
+        chatColor = await fetchTwitchColor(name);
+    }
     
     if (badgeID) {
-        const badgeUrl = `https://cdn.7tv.app/badge/${badgeID}/4x.avif`;
+        const badgeUrl = `https://cdn.7tv.app/badge/${badgeID}`;
         
+
         const sample1 = document.getElementById('sample1');
         if (sample1) {
             sample1.style.color = 'transparent';
             sample1.style.backgroundClip = 'text';
             sample1.style.webkitBackgroundClip = 'text';
-            sample1.style.backgroundImage = `url('${badgeUrl}')`;
+            sample1.style.backgroundImage = `url('${badgeUrl}/3x.avif')`;
             sample1.style.backgroundSize = '100% auto';
-            sample1.style.filter = 'drop-shadow(#ffd700 0px 0px 1px) drop-shadow(#ff8800 1px 1px 1px)';
+            sample1.style.filter = `drop-shadow(${chatColor} 0px 0px 1px) drop-shadow(#ff8800 1px 1px 1px)`;
             if (name) {
                 sample1.textContent = name;
             }
@@ -29,7 +37,7 @@ function loadBadge() {
         if (sample3) {
             sample3.style.width = '100px';
             sample3.style.height = '100px';
-            sample3.style.backgroundImage = `url('${badgeUrl}')`;
+            sample3.style.backgroundImage = `url('${badgeUrl}/4x.avif')`;
             sample3.style.backgroundSize = 'contain';
             sample3.style.backgroundRepeat = 'no-repeat';
             sample3.style.display = 'inline-block';
