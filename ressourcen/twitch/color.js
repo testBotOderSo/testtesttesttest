@@ -1,4 +1,4 @@
-async function fetchTwitchColor(username) {
+export async function fetchTwitchColor(username) {
     try {
         const response = await fetch(`https://api.ivr.fi/v2/twitch/user?login=${username}`, {
             method: 'GET',
@@ -7,7 +7,7 @@ async function fetchTwitchColor(username) {
             }
         });
         if (!response.ok) {
-            console.error(`Fehler beim fetchen von Twtich Farbe: ${response.status}`);
+            console.error(`Fehler beim Fetchen von Twitch Farbe: ${response.status}`);
             return null;
         }
         const data = await response.json();
