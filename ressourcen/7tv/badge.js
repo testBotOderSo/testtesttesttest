@@ -4,7 +4,7 @@ function getUrlParams() {
     const nameColor = urlParams.get('nameColor');
     const badgeID = urlParams.get('badgeID');
     const badgeName = urlParams.get('badgeName');
-    return { name, badgeID, badgeName };
+    return { name, nameColor, badgeID, badgeName };
 }
 
 async function loadBadge() {
