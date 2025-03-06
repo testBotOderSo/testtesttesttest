@@ -1,43 +1,23 @@
-async function fetchTwitchColor(username) {
-    try {
-        const response = await fetch(`https://api.ivr.fi/v2/twitch/user?login=${username}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        });
-        if (!response.ok) {
-            console.error(`Fehler beim Fetchen von Twitch Farbe: ${response.status}`);
-            return null;
-        }
-        const data = await response.json();
-        return data[0]?.chatColor || '#FFFFFF';
-    } catch (error) {
-        console.error(`Fehler: ${error}`);
-        return '#FFFFFF';
-    }
-}
-
 function getUrlParams() {
     const urlParams = new URLSearchParams(window.location.search);
     const name = urlParams.get('name');
+    const nameColor = urlParams.get('nameColor');
     const badgeID = urlParams.get('badgeID');
     const badgeName = urlParams.get('badgeName');
     return { name, badgeID, badgeName };
 }
 
 async function loadBadge() {
-    const { name, badgeID, badgeName } = getUrlParams();
+    const { name, nameColor, badgeID, badgeName } = getUrlParams();
     let chatColor = '#FFFFFF';
 
-    if (name) {
-        chatColor = await fetchTwitchColor(name);
+    if (nameColor) {
+        chatColor = `#${nameColor}`;
     }
     
     if (badgeID) {
         const badgeUrl = `https://cdn.7tv.app/badge/${badgeID}`;
         
-
         const sample1 = document.getElementById('sample1');
         if (sample1) {
             sample1.style.color = 'transparent';
