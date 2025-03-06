@@ -23,13 +23,13 @@ function getUrlParams() {
     }
 
     return { name, elementID, paintID, paintName, shadows };
-};
+}
 
 function generateShadowStyle(shadows) {
     return shadows.map(shadow =>
         `drop-shadow(${shadow.color} ${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px)`
     ).join(" ");
-};
+}
 
 function loadPaint() {
     const { name, elementID, paintID, paintName, shadows } = getUrlParams();
@@ -44,6 +44,7 @@ function loadPaint() {
             element.style.webkitBackgroundClip = 'text';
             element.style.backgroundImage = `url('${paintUrl}')`;
             element.style.backgroundSize = '100% auto';
+            element.style.textShadow = 'none';
         });
 
     } else if (elementID && shadows.length > 0) {
@@ -52,6 +53,11 @@ function loadPaint() {
         paintElements.forEach((element) => {
             element.style.color = shadows[0].color;
             element.style.textShadow = shadowStyle;
+
+            const shadowSpan = document.createElement('span');
+            shadowSpan.textContent = element.textContent;
+            shadowSpan.style.textShadow = shadowStyle;
+            element.appendChild(shadowSpan);
         });
     } else {
         paintElements.forEach((element) => {
@@ -63,11 +69,9 @@ function loadPaint() {
     if (name) {
         const nameElement = document.getElementById('sample1');
         nameElement.textContent = name;
-
         const spanElement = document.createElement('span');
         spanElement.textContent = name;
         nameElement.appendChild(spanElement);
-
         nameElement.style.fontSize = '5em';
         nameElement.style.fontWeight = 'bold';
     }
@@ -76,9 +80,6 @@ function loadPaint() {
         const paintNameElement = document.getElementById('paint-name');
         paintNameElement.textContent = paintName;
         paintNameElement.style.fontWeight = 'bold';
-        paintNameElement.style.color = 'transparent';
-        paintNameElement.style.backgroundClip = 'text';
-        paintNameElement.style.webkitBackgroundClip = 'text';
 
         if (paintID) {
             const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
@@ -94,6 +95,6 @@ function loadPaint() {
 
         document.title = `NotedBot │ 7TV ${paintName} Paint`;
     }
-};
+}
 
 window.onload = loadPaint;
