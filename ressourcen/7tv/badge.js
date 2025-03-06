@@ -1,4 +1,4 @@
-import { fetchTwitchColor } from '../twitch/color.js';
+import { fetchTwitchColor } from './color.js';
 
 function getUrlParams() {
     const urlParams = new URLSearchParams(window.location.search);
