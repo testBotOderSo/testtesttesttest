@@ -14,18 +14,19 @@ async function loadBadge() {
     if (nameColor) {
         chatColor = `#${nameColor}`;
     }
-    
+
     if (badgeID) {
         const badgeUrl = `https://cdn.7tv.app/badge/${badgeID}`;
-        
+        console.log(badgeUrl); // Überprüfe, ob die URL korrekt ist
+
         const sample1 = document.getElementById('sample1');
         if (sample1) {
             sample1.style.color = 'transparent';
             sample1.style.backgroundClip = 'text';
             sample1.style.webkitBackgroundClip = 'text';
             sample1.style.backgroundImage = `url('${badgeUrl}/3x.avif')`;
-            sample1.style.backgroundSize = '100% auto';
-            sample1.style.filter = `drop-shadow(${chatColor} 0px 0px 1px) drop-shadow(#ff8800 1px 1px 1px)`;
+            sample1.style.backgroundSize = 'contain'; // Setze die Hintergrundgröße auf contain
+            sample1.style.filter = `drop-shadow(0px 0px 1px ${chatColor}) drop-shadow(1px 1px 1px #ff8800)`; // Entferne grünen Rand
             if (name) {
                 sample1.textContent = name;
             }
