@@ -1,64 +1,41 @@
 function getUrlParams() {
     const urlParams = new URLSearchParams(window.location.search);
-    const params = {};
+    const name = urlParams.get('name');
+    const elementID = urlParams.get('paint');
+    const paintID = urlParams.get('PaintID');
+    const paintName = urlParams.get('paintName');
 
-    // Standardwerte abrufen
-    params.name = urlParams.get('name') || 'Wydios';
-    params.elementID = urlParams.get('paint');
-    params.paintID = urlParams.get('PaintID');
-    params.paintName = urlParams.get('paintName');
-
-    // Farbverlauf (Gradient)
-    params.gradientFunction = urlParams.get('gradientFunction'); // LINEAR_GRADIENT, RADIAL_GRADIENT
-    params.gradientAngle = urlParams.get('angle') || '0'; // Winkel für linear-gradient
-    params.gradientRepeat = urlParams.get('repeat') === 'true';
-
-    params.stops = [];
-    for (let i = 1; urlParams.has(`color${i}`) && urlParams.has(`at${i}`); i++) {
-        params.stops.push({
-            color: `#${urlParams.get(`color${i}`)}`,
-            at: parseFloat(urlParams.get(`at${i}`))
-        });
-    }
-
-    // Schatten (Shadows)
-    params.shadows = [];
+    const shadows = [];
     for (let i = 1; urlParams.has(`offsetX${i}`) && urlParams.has(`color${i}`); i++) {
-        params.shadows.push({
-            offsetX: parseFloat(urlParams.get(`offsetX${i}`)),
-            offsetY: parseFloat(urlParams.get(`offsetY${i}`)),
-            blur: parseFloat(urlParams.get(`blur${i}`)),
-            color: `#${urlParams.get(`color${i}`)}`
-        });
+        const offsetX = parseFloat(urlParams.get(`offsetX${i}`));
+        const offsetY = parseFloat(urlParams.get(`offsetY${i}`));
+        const blur = parseFloat(urlParams.get(`blur${i}`));
+        let color = urlParams.get(`color${i}`);
+
+        if (!/^([A-Fa-f0-9]{6}|[A-Fa-f0-9]{8})$/.test(color)) continue;
+        color = color.length === 8 ? `#${color.slice(0, 6)}` : `#${color}`;
+
+        shadows.push({ offsetX, offsetY, blur, color });
     }
 
-    return params;
+    return { name, elementID, paintID, paintName, shadows };
 }
 
-function createGradientStops(stops) {
-    return stops.map(stop => `${stop.color} ${stop.at * 100}%`).join(', ');
-}
-
-function applyGradient(type, direction, stops, repeat) {
-    if (type === 'RADIAL_GRADIENT') {
-        return `${repeat ? 'repeating-radial-gradient' : 'radial-gradient'}(${stops})`;
-    }
-    return `${repeat ? 'repeating-linear-gradient' : 'linear-gradient'}(${direction}, ${stops})`;
-}
-
-function applyShadows(shadows) {
-    return shadows.map(shadow =>
-        `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${shadow.color})`
-    ).join(' ');
+function generateGlowEffect(color) {
+    return `
+        0px 0px 5px ${color},
+        0px 0px 10px ${color}AA,
+        0px 0px 20px ${color}88,
+        0px 0px 40px ${color}66
+    `;
 }
 
 function loadPaint() {
-    const params = getUrlParams();
+    const { name, elementID, paintID, paintName, shadows } = getUrlParams();
     const paintElements = document.querySelectorAll('.paint-text');
 
-    if (params.elementID && params.paintID) {
-        // Falls eine Paint-ID vorhanden ist, wird das 7TV-Bild genutzt
-        const paintUrl = `https://cdn.7tv.app/paint/${params.elementID}/layer/${params.paintID}/1x.webp`;
+    if (elementID && paintID) {
+        const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
 
         paintElements.forEach((element) => {
             element.style.color = 'transparent';
@@ -69,72 +46,54 @@ function loadPaint() {
             element.style.textShadow = 'none';
         });
 
-    } else if (params.gradientFunction && params.stops.length > 0) {
-        // Falls ein Farbverlauf angegeben wurde
-        const gradientStops = createGradientStops(params.stops);
-        const gradientDirection = `${params.gradientAngle}deg`;
-        const gradientStyle = applyGradient(params.gradientFunction, gradientDirection, gradientStops, params.gradientRepeat);
+    } else if (shadows.length > 0) {
+        const mainColor = shadows[0].color;
+        const glowEffect = generateGlowEffect(mainColor);
 
         paintElements.forEach((element) => {
-            element.style.color = 'transparent';
-            element.style.backgroundClip = 'text';
-            element.style.webkitBackgroundClip = 'text';
-            element.style.backgroundImage = gradientStyle;
-            element.style.textShadow = 'none';
-        });
-
-    } else if (params.shadows.length > 0) {
-        // Falls Schatten definiert sind, aber kein Gradient oder Paint
-        const shadowStyle = applyShadows(params.shadows);
-
-        paintElements.forEach((element) => {
-            element.style.color = params.shadows[0].color;
-            element.style.textShadow = shadowStyle;
+            element.style.color = mainColor;
+            element.style.textShadow = glowEffect;
+            element.style.filter = "blur(0.5px)";
 
             const shadowSpan = document.createElement('span');
             shadowSpan.textContent = element.textContent;
-            shadowSpan.style.textShadow = shadowStyle;
+            shadowSpan.style.textShadow = glowEffect;
             element.appendChild(shadowSpan);
         });
     } else {
-        // Falls keine Daten vorhanden sind, Standard setzen
         paintElements.forEach((element) => {
             element.style.color = "#FFFFFF";
             element.style.textShadow = "2px 2px 5px rgba(0,0,0,0.5)";
         });
     }
 
-    if (params.name) {
+    if (name) {
         const nameElement = document.getElementById('sample1');
-        nameElement.textContent = params.name;
-        const spanElement = document.createElement('span');
-        spanElement.textContent = params.name;
-        nameElement.appendChild(spanElement);
+        nameElement.textContent = name;
         nameElement.style.fontSize = '5em';
         nameElement.style.fontWeight = 'bold';
     }
 
-    if (params.paintName) {
+    if (paintName) {
         const paintNameElement = document.getElementById('paint-name');
-        paintNameElement.textContent = params.paintName;
+        paintNameElement.textContent = paintName;
         paintNameElement.style.fontWeight = 'bold';
 
-        if (params.paintID) {
-            const paintUrl = `https://cdn.7tv.app/paint/${params.elementID}/layer/${params.paintID}/1x.webp`;
+        if (paintID) {
+            const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
             paintNameElement.style.backgroundImage = `url('${paintUrl}')`;
             paintNameElement.style.backgroundSize = '100% auto';
-        } else if (params.stops.length > 0) {
-            paintNameElement.style.backgroundImage = applyGradient(params.gradientFunction, `${params.gradientAngle}deg`, createGradientStops(params.stops), params.gradientRepeat);
-        } else if (params.shadows.length > 0) {
-            paintNameElement.style.color = params.shadows[0].color;
-            paintNameElement.style.textShadow = applyShadows(params.shadows);
+        } else if (shadows.length > 0) {
+            paintNameElement.style.color = shadows[0].color;
+            paintNameElement.style.textShadow = generateGlowEffect(shadows[0].color);
         } else {
             paintNameElement.style.color = "#FFFFFF";
             paintNameElement.style.textShadow = "2px 2px 5px rgba(0,0,0,0.5)";
         }
 
-        document.title = `NotedBot │ 7TV ${params.paintName} Paint`;
+        document.title = `NotedBot │ 7TV ${paintName} Paint`;
     }
 }
 
 window.onload = loadPaint;
+
