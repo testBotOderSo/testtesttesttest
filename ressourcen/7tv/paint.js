@@ -63,23 +63,37 @@ function loadPaint() {
             img.src = paintUrl;
     
             img.onload = function () {
+                const gif = new GIF({
+                    workers: 2,
+                    quality: 10
+                });
+    
                 const canvas = document.createElement('canvas');
                 const ctx = canvas.getContext('2d');
                 canvas.width = img.width;
                 canvas.height = img.height;
-    
+
+                // Hier fügen wir den Text für jedes Frame hinzu
                 ctx.drawImage(img, 0, 0);
                 ctx.font = 'bold 60px Arial';
                 ctx.fillStyle = 'white';
                 ctx.textAlign = 'center';
                 ctx.fillText(name, canvas.width / 2, canvas.height / 2);
-    
-                const imageURL = canvas.toDataURL('image/png'); // Hier wird das Bild als PNG exportiert
-    
-                const link = document.createElement('a');
-                link.href = imageURL;
-                link.download = `PaintWithName-${name}.png`; // Der Downloadname des Bildes
-                link.click();
+
+                // Füge das erste Frame zum GIF hinzu
+                gif.addFrame(canvas, { delay: 200, copy: true });
+
+                // Jetzt kannst du Frames hinzufügen, wenn du mehr Animationsbilder hast
+                // gif.addFrame(...); Hier kannst du weitere Bilder oder Animationslogik hinzufügen
+                
+                gif.on('finished', function(blob) {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = `PaintWithName-${name}.gif`; // GIF-Download
+                    link.click();
+                });
+
+                gif.render(); // Rendering starten
             };
     
             img.onerror = function () {
