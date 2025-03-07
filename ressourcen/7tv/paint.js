@@ -53,7 +53,7 @@ function loadPaint() {
     }
 
     function downloadPaintImage() {
-        const { elementID, paintID } = getUrlParams();
+        const { elementID, paintID, name } = getUrlParams();
 
         if (elementID && paintID) {
             const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
@@ -64,6 +64,7 @@ function loadPaint() {
             });
 
             const img = new Image();
+            img.crossOrigin = 'anonymous';
             img.src = paintUrl;
 
             img.onload = function () {
@@ -90,6 +91,10 @@ function loadPaint() {
                 });
 
                 gif.render();
+            };
+
+            img.onerror = function () {
+                alert('Fehler beim Laden des Bildes');
             };
         }
     }
