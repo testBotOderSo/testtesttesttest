@@ -53,13 +53,13 @@ function loadPaint() {
     }
 
     function downloadPaintImage() {
-        const { elementID, paintID, name } = getUrlParams();
+        const { elementID, paintID, paintName } = getUrlParams();
     
         if (elementID && paintID) {
             const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
     
             const img = new Image();
-            img.crossOrigin = 'anonymous'; // Stellt sicher, dass das Bild ohne CORS-Fehler geladen wird
+            img.crossOrigin = 'anonymous';
             img.src = paintUrl;
     
             img.onload = function () {
@@ -73,41 +73,34 @@ function loadPaint() {
                 canvas.width = img.width;
                 canvas.height = img.height;
 
-                // Hier fügen wir den Text für jedes Frame hinzu
                 ctx.drawImage(img, 0, 0);
-                ctx.font = 'bold 60px Arial';
-                ctx.fillStyle = 'white';
-                ctx.textAlign = 'center';
-                ctx.fillText(name, canvas.width / 2, canvas.height / 2);
 
-                // Füge das erste Frame zum GIF hinzu
+                if (paintName) {
+                    ctx.font = 'bold 60px Arial';
+                    ctx.fillStyle = 'white';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(paintName, canvas.width / 2, canvas.height / 2);
+                }
+
                 gif.addFrame(canvas, { delay: 200, copy: true });
-
-                // Jetzt kannst du Frames hinzufügen, wenn du mehr Animationsbilder hast
-                // gif.addFrame(...); Hier kannst du weitere Bilder oder Animationslogik hinzufügen
                 
                 gif.on('finished', function(blob) {
                     const link = document.createElement('a');
                     link.href = URL.createObjectURL(blob);
-                    link.download = `PaintWithName-${name}.gif`; // GIF-Download
+                    link.download = `PaintColor-${paintName}.gif`; 
                     link.click();
                 });
 
-                gif.render(); // Rendering starten
+                gif.render();
             };
     
             img.onerror = function () {
-                alert('Fehler beim Laden des Bildes. Überprüfe die URL und den CORS-Header.');
+                alert('Fehler beim Laden des Bildes');
             };
         }
     }
-
-    // Event Listener für die Buttons, die den Download auslösen
     const downloadBtn = document.getElementById('download-btn');
     downloadBtn.addEventListener('click', downloadPaintImage);
-
-    const downloadNameBtn = document.getElementById('download-name-btn');
-    downloadNameBtn.addEventListener('click', downloadPaintImage);
 };
 
 window.onload = loadPaint;
