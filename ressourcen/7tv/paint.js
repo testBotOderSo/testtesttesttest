@@ -64,7 +64,9 @@ function downloadPaintImage() {
 
     const link = document.createElement('a');
     link.href = paintUrl;
-    link.download = `${paintName}.webp`;
+
+    link.download = `${paintName || 'image'}.webp`;
+
     link.click();
 }
 
