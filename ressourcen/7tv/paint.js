@@ -57,70 +57,48 @@ function loadPaint() {
 
         if (elementID && paintID) {
             const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
-            const link = document.createElement('a');
-            link.href = paintUrl;
-            link.download = `Paint-${paintID}.webp`;
-            link.click();
-        }
-    }
 
-    function downloadPaintName() {
-        const { name, elementID, paintID } = getUrlParams();
-
-        if (name && elementID && paintID) {
-            const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
-
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
+            const gif = new GIF({
+                workers: 2,
+                quality: 10
+            });
 
             const img = new Image();
             img.src = paintUrl;
 
             img.onload = function () {
+                gif.addFrame(img, { delay: 200, copy: true });
+
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
                 canvas.width = img.width;
                 canvas.height = img.height;
 
                 ctx.drawImage(img, 0, 0);
-
                 ctx.font = 'bold 60px Arial';
                 ctx.fillStyle = 'white';
                 ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
                 ctx.fillText(name, canvas.width / 2, canvas.height / 2);
 
-                const dataUrl = canvas.toDataURL('image/png');
+                gif.addFrame(canvas, { delay: 200 });
 
-                const link = document.createElement('a');
-                link.href = dataUrl;
-                link.download = `PaintWithName-${name}.png`;
-                link.click();
+                gif.on('finished', function(blob) {
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(blob);
+                    link.download = `PaintWithName-${name}.gif`;
+                    link.click();
+                });
+
+                gif.render();
             };
         }
     }
 
-    const downloadBtn = document.createElement('button');
-    downloadBtn.id = 'download-btn';
-    downloadBtn.textContent = 'Download Paint';
-    downloadBtn.style.color = 'transparent';
-    downloadBtn.style.backgroundClip = 'text';
-    downloadBtn.style.webkitBackgroundClip = 'text';
-    downloadBtn.style.backgroundImage = `url('${paintUrl}')`;
-    downloadBtn.style.backgroundSize = '100% auto';
-    downloadBtn.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
+    const downloadBtn = document.getElementById('download-btn');
     downloadBtn.addEventListener('click', downloadPaintImage);
-    document.body.appendChild(downloadBtn);
 
-    const downloadNameBtn = document.createElement('button');
-    downloadNameBtn.id = 'download-name-btn';
-    downloadNameBtn.textContent = 'Download Name + Paint';
-    downloadNameBtn.style.color = 'transparent';
-    downloadNameBtn.style.backgroundClip = 'text';
-    downloadNameBtn.style.webkitBackgroundClip = 'text';
-    downloadNameBtn.style.backgroundImage = `url('${paintUrl}')`;
-    downloadNameBtn.style.backgroundSize = '100% auto';
-    downloadNameBtn.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
-    downloadNameBtn.addEventListener('click', downloadPaintName);
-    document.body.appendChild(downloadNameBtn);
+    const downloadNameBtn = document.getElementById('download-name-btn');
+    downloadNameBtn.addEventListener('click', downloadPaintImage);
 };
 
 window.onload = loadPaint;
