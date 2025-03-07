@@ -99,7 +99,7 @@ function loadPaint() {
             };
         }
     }
-    const downloadBtn = document.getElementById('download-btn');
+    const downloadBtn = document.getElementById('download-btn').style.display = 'block';
     downloadBtn.addEventListener('click', downloadPaintImage);
 };
 
