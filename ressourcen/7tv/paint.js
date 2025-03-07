@@ -59,7 +59,7 @@ function loadPaint() {
             const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
     
             const img = new Image();
-            img.crossOrigin = 'anonymous';
+            img.crossOrigin = 'anonymous'; // Stellt sicher, dass das Bild ohne CORS-Fehler geladen wird
             img.src = paintUrl;
     
             img.onload = function () {
@@ -74,11 +74,11 @@ function loadPaint() {
                 ctx.textAlign = 'center';
                 ctx.fillText(name, canvas.width / 2, canvas.height / 2);
     
-                const imageURL = canvas.toDataURL('image/png');
+                const imageURL = canvas.toDataURL('image/png'); // Hier wird das Bild als PNG exportiert
     
                 const link = document.createElement('a');
                 link.href = imageURL;
-                link.download = `PaintWithName-${name}.png`;
+                link.download = `PaintWithName-${name}.png`; // Der Downloadname des Bildes
                 link.click();
             };
     
@@ -88,6 +88,7 @@ function loadPaint() {
         }
     }
 
+    // Event Listener für die Buttons, die den Download auslösen
     const downloadBtn = document.getElementById('download-btn');
     downloadBtn.addEventListener('click', downloadPaintImage);
 
