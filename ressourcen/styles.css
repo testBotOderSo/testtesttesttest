@@ -189,10 +189,11 @@ span {
     margin-top: -50px;
 }
 .download {
-    display: none;
+    display: block;
     position: absolute;
     background-color: #1a1a1a;
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
     padding: 10px;
     border-radius: 6px;
+    color: #fff;
 }
