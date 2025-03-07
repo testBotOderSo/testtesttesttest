@@ -9,7 +9,8 @@ function getUrlParams() {
 
 function loadPaint() {
     const { name, elementID, paintID, paintName } = getUrlParams();
-    
+    const downloadBtn = document.getElementById('download-btn');
+
     if (elementID && paintID) {
         const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
         
@@ -52,17 +53,19 @@ function loadPaint() {
         document.title = `NotedBot │ 7TV ${paintName} Paint`;
     }
 
-    function downloadPaintImage() {
-        const { elementID, paintID, paintName } = getUrlParams();
-        const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
-    
-        const link = document.createElement('a');
-        link.href = paintUrl;
-        link.download = `${paintName}.webp`;
-        link.click();
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', downloadPaintImage);
     }
-    
-    document.getElementById('download-btn').addEventListener('click', downloadPaintImage);
 };
+
+function downloadPaintImage() {
+    const { elementID, paintID, paintName } = getUrlParams();
+    const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
+
+    const link = document.createElement('a');
+    link.href = paintUrl;
+    link.download = `${paintName}.webp`;
+    link.click();
+}
 
 window.onload = loadPaint;
