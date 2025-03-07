@@ -58,20 +58,13 @@ function loadPaint() {
         if (elementID && paintID) {
             const paintUrl = `https://cdn.7tv.app/paint/${elementID}/layer/${paintID}/1x.webp`;
     
-            const gif = new GIF({
-                workers: 2,
-                quality: 10
-            });
-    
             const img = new Image();
             img.crossOrigin = 'anonymous';
             img.src = paintUrl;
     
             img.onload = function () {
-                gif.addFrame(img, { delay: 200, copy: true });
-    
                 const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d', { willReadFrequently: true }); 
+                const ctx = canvas.getContext('2d');
                 canvas.width = img.width;
                 canvas.height = img.height;
     
@@ -81,24 +74,19 @@ function loadPaint() {
                 ctx.textAlign = 'center';
                 ctx.fillText(name, canvas.width / 2, canvas.height / 2);
     
-                gif.addFrame(canvas, { delay: 200 });
+                const imageURL = canvas.toDataURL('image/png');
     
-                gif.on('finished', function(blob) {
-                    const link = document.createElement('a');
-                    link.href = URL.createObjectURL(blob);
-                    link.download = `PaintWithName-${name}.gif`;
-                    link.click();
-                });
-    
-                gif.render();
+                const link = document.createElement('a');
+                link.href = imageURL;
+                link.download = `PaintWithName-${name}.png`;
+                link.click();
             };
     
             img.onerror = function () {
-                alert('Fehler beim Laden des Bildes');
+                alert('Fehler beim Laden des Bildes. Überprüfe die URL und den CORS-Header.');
             };
         }
     }
-    
 
     const downloadBtn = document.getElementById('download-btn');
     downloadBtn.addEventListener('click', downloadPaintImage);
