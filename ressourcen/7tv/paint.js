@@ -152,6 +152,7 @@ function applyPaint(paintData, sample1Div, sample2Div) {
                 if (layer.ty.images && layer.ty.images.length > 0) {
                     sample1Div.style.backgroundImage = `url('${layer.ty.images[0].url.replace('/1x.', '/3x.')}')`;
                     sample2Div.style.backgroundImage = `url('${layer.ty.images[0].url.replace('/1x.', '/3x.')}')`;
+                    // Hier könnten wir versuchen, eine dominante Farbe aus dem Bild zu extrahieren, aber das ist komplex.
                 } else if (layer.ty.stops && layer.ty.stops.length > 0) {
                     if (layer.ty.angle !== undefined) {
                         const gradientStops = createGradientStops(layer.ty.stops);
@@ -163,9 +164,11 @@ function applyPaint(paintData, sample1Div, sample2Div) {
                         sample1Div.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, layer.ty.repeating);
                         sample2Div.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, layer.ty.repeating);
                     }
+                    // Verwende die Farben des Gradienten für den Text.
                     sample1Div.style.color = convertToHex(layer.ty.stops[0].color);
                     sample2Div.style.color = convertToHex(layer.ty.stops[layer.ty.stops.length - 1].color);
                 } else if (layer.ty.color) {
+                    // Verwende die Single Color für den Text.
                     sample1Div.style.color = convertToHex(layer.ty.color);
                     sample2Div.style.color = convertToHex(layer.ty.color);
                 }
@@ -182,4 +185,4 @@ function applyPaint(paintData, sample1Div, sample2Div) {
     }
 }
 
-getPaint(); // lol4
+getPaint(); // lol5
