@@ -10,6 +10,56 @@ function getPaint() {
                         layers {
                             id
                             opacity
+                            ty {
+                                ... on PaintLayerTypeImage {
+                                    images {
+                                        url
+                                        mime
+                                        size
+                                        scale
+                                        width
+                                        height
+                                        frameCount
+                                    }
+                                }
+                                ... on PaintLayerTypeRadialGradient {
+                                    repeating
+                                    shape
+                                    stops {
+                                        at
+                                        color {
+                                            hex
+                                            r
+                                            g
+                                            b
+                                            a
+                                        }
+                                    }
+                                }
+                                ... on PaintLayerTypeLinearGradient {
+                                    angle
+                                    repeating
+                                    stops {
+                                        at
+                                        color {
+                                            hex
+                                            r
+                                            g
+                                            b
+                                            a
+                                        }
+                                    }
+                                }
+                                ... on PaintLayerTypeSingleColor {
+                                    color {
+                                        hex
+                                        r
+                                        g
+                                        b
+                                        a
+                                    }
+                                }
+                            }
                         }
                         shadows {
                             offsetX
@@ -77,46 +127,59 @@ const convertToHex = (color) => {
     return '#000000';
 };
 
-const applyShadows = (shadows) => {
-    if (shadows && shadows.length > 0) {
-        return shadows.map(shadow => {
-            const colorString = convertToHex(shadow.color);
-            return `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${colorString})`;
-        }).join(' ');
-    }
-    return '';
+const createGradientStops = (stops) => {
+    return stops.map(stop => `${convertToHex(stop.color)} ${stop.at * 100}%`).join(', ');
 };
 
-function applyPaint(paintData, sample1Elem, sample2Elem) {
-    if (sample1Elem && sample2Elem && paintData) {
-        let color = null;
+const applyGradient = (type, direction, stops, repeat) => {
+    if (type.includes('radial-gradient')) {
+        return `${repeat ? `repeating-${type}` : type}(${stops})`;
+    }
+    return `${repeat ? `repeating-${type}` : type}(${direction}, ${stops})`;
+};
 
-        if (paintData.shadows && paintData.shadows.length > 0 && paintData.shadows[0].color) {
-            color = paintData.shadows[0].color;
-        }
+const applyShadows = (shadows) => {
+    return shadows.map(shadow => {
+        const colorString = convertToHex(shadow.color);
+        return `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${colorString})`;
+    }).join(' ');
+};
 
-        if (color) {
-            console.log("Hex Color:", convertToHex(color));
-            sample1Elem.style.color = convertToHex(color) + " !important";
-            sample2Elem.style.color = convertToHex(color) + " !important";
-            console.log("Sample 1 Text Color:", sample1Elem.style.color);
-            console.log("Sample 2 Text Color:", sample2Elem.style.color);
-            console.log("Sample 1 Element:", sample1Elem);
-            console.log("Sample 2 Element:", sample2Elem);
-        } else {
-            console.error("Keine Farbinformationen in den Shadows gefunden.");
-        }
+function applyPaint(paintData, sample1Div, sample2Div) {
+    if (paintData && paintData.layers && paintData.layers.length > 0) {
+        paintData.layers.forEach(layer => {
+            if (layer.ty) {
+                if (layer.ty.images && layer.ty.images.length > 0) {
+                    sample1Div.style.backgroundImage = `url('${layer.ty.images[0].url.replace('/1x.', '/3x.')}')`;
+                    sample2Div.style.backgroundImage = `url('${layer.ty.images[0].url.replace('/1x.', '/3x.')}')`;
+                } else if (layer.ty.stops && layer.ty.stops.length > 0) {
+                    if (layer.ty.angle !== undefined) {
+                        const gradientStops = createGradientStops(layer.ty.stops);
+                        const gradientDirection = `${layer.ty.angle}deg`;
+                        sample1Div.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, layer.ty.repeating);
+                        sample2Div.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, layer.ty.repeating);
+                    } else {
+                        const gradientStops = createGradientStops(layer.ty.stops);
+                        sample1Div.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, layer.ty.repeating);
+                        sample2Div.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, layer.ty.repeating);
+                    }
+                    sample1Div.style.color = convertToHex(layer.ty.stops[0].color);
+                    sample2Div.style.color = convertToHex(layer.ty.stops[layer.ty.stops.length - 1].color);
+                } else if (layer.ty.color) {
+                    sample1Div.style.color = convertToHex(layer.ty.color);
+                    sample2Div.style.color = convertToHex(layer.ty.color);
+                }
+            }
+        });
 
         if (paintData.shadows && paintData.shadows.length > 0) {
-            sample1Elem.style.filter = applyShadows(paintData.shadows);
-            sample2Elem.style.filter = applyShadows(paintData.shadows);
+            sample1Div.style.filter = applyShadows(paintData.shadows);
+            sample2Div.style.filter = applyShadows(paintData.shadows);
         } else {
-            sample1Elem.style.filter = '';
-            sample2Elem.style.filter = '';
+            sample1Div.style.filter = '';
+            sample2Div.style.filter = '';
         }
-    } else {
-        console.error("sample1Elem oder sample2Elem oder paintData ist nicht definiert.");
     }
 }
 
-getPaint(); // lol3
+getPaint(); // lol4
