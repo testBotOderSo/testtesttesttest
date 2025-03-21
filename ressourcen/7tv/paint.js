@@ -41,28 +41,18 @@ function applyPaint(data) {
         data.data.paints.paints.forEach((paint, index) => {
             const paintElem = index === 0 ? sample1Elem : (index === 1 ? sample2Elem : null);
             if (paintElem && paint.data) {
-                if (paint.data.function === 'LINEAR_GRADIENT' && paint.data.stops?.length) {
-                    const gradientStops = createGradientStops(paint.data.stops);
-                    const gradientDirection = `${paint.data.angle}deg`;
-                    paintElem.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paint.data.repeat);
-                    paintElem.style.background = ''; // Clear any potential solid background
-                } else if (paint.data.function === 'RADIAL_GRADIENT' && paint.data.stops?.length) {
-                    const gradientStops = createGradientStops(paint.data.stops);
-                    paintElem.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paint.data.repeat);
-                    paintElem.style.background = ''; // Clear any potential solid background
-                } else if (paint.data.function === 'URL' && paint.data.image_url) {
-                    const imageUrl = paint.data.image_url.replace('/1x.', '/3x.');
-                    paintElem.style.backgroundImage = `url('${imageUrl}')`;
-                    paintElem.style.backgroundSize = 'cover'; // Optional: Stelle sicher, dass das Bild den gesamten Bereich abdeckt
-                    paintElem.style.background = ''; // Clear any potential solid background
-                } else if (paint.data.layers?.length > 0 && paint.data.layers[0].color) {
-                    // Wenn eine Farbe im Layer vorhanden ist, wende sie als Hintergrundfarbe an
-                    const color = paint.data.layers[0].color;
-                    const hexColor = convertToHex((color.r << 16) | (color.g << 8) | color.b);
+                // Versuche, die Farbe vom ersten Schatten als Hintergrundfarbe zu verwenden
+                if (paint.data.shadows && paint.data.shadows.length > 0 && paint.data.shadows[0].color) {
+                    const shadowColor = paint.data.shadows[0].color;
+                    const hexColor = convertToHex((shadowColor.r << 16) | (shadowColor.g << 8) | shadowColor.b);
                     paintElem.style.backgroundColor = hexColor;
-                    paintElem.style.backgroundImage = ''; // Clear any potential gradient or image
+                    paintElem.style.backgroundImage = ''; // Entferne ggf. vorhandene Hintergrundbilder
+                } else {
+                    // Wenn kein Schatten mit Farbe vorhanden ist, setze eine Standardfarbe oder lasse es leer
+                    paintElem.style.backgroundColor = ''; // Oder z.B. '#cccccc' für ein helles Grau
                 }
 
+                // Wende die Schatten wie zuvor an
                 if (paint.data.shadows?.length) {
                     paintElem.style.filter = applyShadows(paint.data.shadows);
                 } else {
@@ -85,13 +75,6 @@ function getPaint() {
                         layers {
                             id
                             opacity
-                            color {
-                                hex
-                                r
-                                g
-                                b
-                                a
-                            }
                         }
                         shadows {
                             offsetX
@@ -105,19 +88,6 @@ function getPaint() {
                                 a
                             }
                         }
-                        function
-                        stops {
-                            at
-                            color {
-                                r
-                                g
-                                b
-                                a
-                            }
-                        }
-                        angle
-                        repeat
-                        image_url
                     }
                 }
             }
