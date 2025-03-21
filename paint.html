@@ -18,9 +18,6 @@
                 <li><a onclick="alert('Du bist doch schon auf der Seite?')">Home</a></li>
                 <li><a href="commands.html">Commands</a></li>
             </ul>
-            <button class="download" id="download-btn">
-                Download Paint
-            </button>
         </div>
         <div class="samples">
             <div id="sample1" class="paint-text">Wydios</div>
@@ -30,6 +27,9 @@
     
     <script>
         const urlParams = new URLSearchParams(window.location.search);
+        
+        const getRandomColor = () => Math.floor(Math.random() * 16777215) | 0xFF000000;
+
         const paintData = {
             id: urlParams.get('id') || "01GZBZ2T0R0005K1FJYZ11J7EZ",
             name: urlParams.get('name') || "Tropical",
@@ -38,13 +38,13 @@
             repeat: false,
             image_url: "",
             stops: [
-                { at: 0, color: -145138177 },
-                { at: 0.5, color: -20489985 },
-                { at: 1, color: -1124794113 }
+                { at: 0, color: getRandomColor() },
+                { at: 0.5, color: getRandomColor() },
+                { at: 1, color: getRandomColor() }
             ],
             shadows: [
-                { x_offset: 0, y_offset: 0, radius: 4, color: -145138177 },
-                { x_offset: 0, y_offset: 0, radius: 0.1, color: -145138177 }
+                { x_offset: 0, y_offset: 0, radius: 4, color: getRandomColor() },
+                { x_offset: 0, y_offset: 0, radius: 0.1, color: getRandomColor() }
             ]
         };
 
@@ -98,4 +98,3 @@
     </script>
 </body>
 </html>
-
