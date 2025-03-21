@@ -91,13 +91,6 @@ function applyPaintData(paintData) {
     if (sample1Div && sample2Div && paintData && paintData.data) {
         console.log('Applying Paint Data:', paintData);
 
-        // Gradient anwenden
-        if (paintData.data.shadows && paintData.data.shadows.length > 0 && paintData.data.shadows[0].color) {
-            const gradientStops = createGradientStops([{ at: 0, color: paintData.data.shadows[0].color }]);
-            sample1Div.style.backgroundImage = applyGradient('linear-gradient', '90deg', gradientStops, false);
-            sample2Div.style.backgroundImage = applyGradient('linear-gradient', '90deg', gradientStops, false);
-        }
-
         // Schatten anwenden
         if (paintData.data.shadows && paintData.data.shadows.length > 0) {
             sample1Div.style.filter = applyShadows(paintData.data.shadows);
@@ -107,10 +100,13 @@ function applyPaintData(paintData) {
             sample2Div.style.filter = '';
         }
 
-        // Hintergrundfarben anwenden
+        // Hintergrundfarben anwenden (basierend auf dem ersten Schatten)
         if (paintData.data.shadows && paintData.data.shadows.length > 0 && paintData.data.shadows[0].color) {
             sample1Div.style.backgroundColor = convertToHex(paintData.data.shadows[0].color);
             sample2Div.style.backgroundColor = convertToHex(paintData.data.shadows[0].color);
+        } else {
+            sample1Div.style.backgroundColor = ''; // Falls keine Schatten vorhanden sind
+            sample2Div.style.backgroundColor = '';
         }
     } else {
         console.error('Sample elements or paint data not found.');
