@@ -1,4 +1,5 @@
 const paintId = new URLSearchParams(window.location.search).get('paintID');
+console.log('paintId:', paintId);
 const graphqlEndpoint = 'https://7tv.io/v4/gql';
 
 const query = `
@@ -40,7 +41,7 @@ fetch(graphqlEndpoint, {
 })
     .then(response => response.json())
     .then(data => {
-        console.log('GQL Antwort:', data);
+        console.log('GQL Antwort:', data); // GQL Antwort überprüfen
         if (data.data && data.data.paints && data.data.paints.paints) {
             const paintData = data.data.paints.paints.find(paint => paint.id === paintId);
             if (paintData) {
