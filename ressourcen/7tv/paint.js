@@ -3,31 +3,31 @@ const graphqlEndpoint = 'https://7tv.io/v4/gql';
 
 const query = `
     query Paints {
-    paints {
         paints {
-            id
-            name
-            data {
-                layers {
-                    id
-                    opacity
-                }
-                shadows {
-                    offsetX
-                    offsetY
-                    blur
-                    color {
-                        hex
-                        r
-                        g
-                        b
-                        a
+            paints {
+                id
+                name
+                data {
+                    layers {
+                        id
+                        opacity
+                    }
+                    shadows {
+                        offsetX
+                        offsetY
+                        blur
+                        color {
+                            hex
+                            r
+                            g
+                            b
+                            a
+                        }
                     }
                 }
             }
         }
     }
-}
 `;
 
 fetch(graphqlEndpoint, {
@@ -89,9 +89,9 @@ function applyPaintData(paintData) {
             paintNameSpan.textContent = paintData.name;
         }
 
-        // Farben anwenden
-        if (paintData.data.layers && paintData.data.layers.length > 0 && paintData.data.layers[0].color) {
-            const layerColor = convertToHex(paintData.data.layers[0].color);
+        // Farben anwenden (falls vorhanden)
+        if (paintData.data.shadows && paintData.data.shadows.length > 0 && paintData.data.shadows[0].color) {
+            const layerColor = convertToHex(paintData.data.shadows[0].color);
             sample1Div.style.backgroundColor = layerColor;
             sample2Div.style.backgroundColor = layerColor;
             console.log('Applied layer colors:', layerColor);
