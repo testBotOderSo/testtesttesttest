@@ -40,11 +40,11 @@ fetch(graphqlEndpoint, {
 })
     .then(response => response.json())
     .then(data => {
-        console.log('GQL Antwort:', JSON.stringify(data, null, 2));
+        console.log('GQL Antwort:', data);
         if (data.data && data.data.paints && data.data.paints.paints) {
             const paintData = data.data.paints.paints.find(paint => paint.id === paintId);
             if (paintData) {
-                console.log('Paint data found for ID:', paintId, paintData);
+                console.log('Paint data found for ID:', paintId, JSON.stringify(paintData, null, 2));
                 applyPaintData(paintData);
             } else {
                 console.error('Paint data not found for ID:', paintId);
