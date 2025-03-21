@@ -1,72 +1,99 @@
-const paint = {
-    "id": "01GZNT2FTG0006PK9PVYBXQ6KD",
-    "name": "Rainbow",
-    "function": "LINEAR_GRADIENT",
-    "angle": 90,
-    "image_url": "",
-    "repeat": false,
-    "stops": [
-        { "at": 0, "color": -111379457 },
-        { "at": 0.33, "color": -105295361 },
-        { "at": 0.66, "color": -105295361 },
-        { "at": 1, "color": -111379457 }
-    ],
-    "shadows": [
-        { "x_offset": 1, "y_offset": 1, "radius": 2, "color": -111379457 }
-    ]
-};
+const paintId = new URLSearchParams(window.location.search).get('paintID');
+const graphqlEndpoint = 'https://7tv.io/v4/gql'; // Ersetze dies durch deinen GraphQL-Endpunkt
+
+const query = `
+    query Paints($paintId: ID!) {
+        paints(where: { id: $paintId }) {
+            paints {
+                id
+                name
+                data {
+                    layers {
+                        id
+                        opacity
+                    }
+                    shadows {
+                        offsetX
+                        offsetY
+                        blur
+                        color {
+                            hex
+                            r
+                            g
+                            b
+                            a
+                        }
+                    }
+                }
+            }
+        }
+    }
+`;
+
+const variables = { paintId: paintId };
+
+fetch(graphqlEndpoint, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+    },
+    body: JSON.stringify({
+        query: query,
+        variables: variables,
+    }),
+})
+    .then(response => response.json())
+    .then(data => {
+        if (data.data && data.data.paints && data.data.paints.paints && data.data.paints.paints.length > 0) {
+            const paintData = data.data.paints.paints[0];
+            applyPaintData(paintData);
+        } else {
+            console.error('Paint data not found for ID:', paintId);
+        }
+    })
+    .catch(error => {
+        console.error('Error fetching GraphQL data:', error);
+    });
 
 const convertToHex = (color) => {
-    const normalizedColor = color >>> 0;
-    return `#${normalizedColor.toString(16).padStart(8, '0')}`;
-};
-
-const createGradientStops = (stops) => {
-    return stops.map(stop => `${convertToHex(stop.color)} ${stop.at * 100}%`).join(', ');
-};
-
-const applyGradient = (type, direction, stops, repeat) => {
-    if (type.includes('radial-gradient')) {
-        return `${repeat ? `repeating-${type}` : type}(${stops})`;
+    if (color && color.hex) {
+        return color.hex;
+    } else if (color && color.r !== undefined && color.g !== undefined && color.b !== undefined) {
+        return `#${(1 << 24 | color.r << 16 | color.g << 8 | color.b).toString(16).slice(1)}`;
     }
-    return `${repeat ? `repeating-${type}` : type}(${direction}, ${stops})`;
+    return '#000000'; // Standardfarbe, falls keine Farbe gefunden wird
 };
 
 const applyShadows = (shadows) => {
-    return shadows.map(shadow => {
-        const colorString = convertToHex(shadow.color);
-        return `drop-shadow(${shadow.x_offset}px ${shadow.y_offset}px ${shadow.radius}px ${colorString})`;
-    }).join(' ');
+    if (shadows && shadows.length > 0) {
+        return shadows.map(shadow => {
+            const colorString = convertToHex(shadow.color);
+            return `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${colorString})`;
+        }).join(' ');
+    }
+    return ''; // Keine Schatten, falls keine vorhanden sind
 };
 
 const sample1Div = document.getElementById('sample1');
 const sample2Div = document.getElementById('sample2');
 
-if (paint) {
-    if (paint.function === 'LINEAR_GRADIENT' && paint.stops?.length) {
-        const gradientStops = createGradientStops(paint.stops);
-        const gradientDirection = `${paint.angle}deg`;
-        sample1Div.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paint.repeat);
-        sample2Div.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paint.repeat);
-        sample1Div.style.backgroundColor = convertToHex(paint.stops[0].color);
-        sample2Div.style.backgroundColor = convertToHex(paint.stops[2].color);
-    } else if (paint.function === 'RADIAL_GRADIENT' && paint.stops?.length) {
-        const gradientStops = createGradientStops(paint.stops);
-        sample1Div.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paint.repeat);
-        sample2Div.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paint.repeat);
-        sample1Div.style.backgroundColor = convertToHex(paint.stops[0].color);
-        sample2Div.style.backgroundColor = convertToHex(paint.stops[2].color);
-    } else if (paint.function === 'URL' && paint.image_url) {
-        const imageUrl = paint.image_url.replace('/1x.', '/3x.');
-        sample1Div.style.backgroundImage = `url('${imageUrl}')`;
-        sample2Div.style.backgroundImage = `url('${imageUrl}')`;
-    }
+function applyPaintData(paintData) {
+    if (sample1Div && sample2Div && paintData && paintData.data) {
+        if (paintData.data.layers && paintData.data.layers.length > 0) {
+            sample1Div.style.backgroundColor = convertToHex(paintData.data.layers[0].color);
+            sample2Div.style.backgroundColor = convertToHex(paintData.data.layers[0].color); // Da nur 1 layer vorhanden ist.
+        }
 
-    if (paint.shadows?.length) {
-        sample1Div.style.filter = applyShadows(paint.shadows);
-        sample2Div.style.filter = applyShadows(paint.shadows);
+        if (paintData.data.shadows && paintData.data.shadows.length > 0) {
+            sample1Div.style.filter = applyShadows(paintData.data.shadows);
+            sample2Div.style.filter = applyShadows(paintData.data.shadows);
+        } else {
+            sample1Div.style.filter = '';
+            sample2Div.style.filter = '';
+        }
+
     } else {
-        sample1Div.style.filter = '';
-        sample2Div.style.filter = '';
+        console.error('Sample divs or paint data not found.');
     }
 }
