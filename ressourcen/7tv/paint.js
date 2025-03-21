@@ -59,8 +59,23 @@ fetch(graphqlEndpoint, {
     });
 
 const convertToHex = (color) => {
-    const normalizedColor = (color.a << 24) | (color.r << 16) | (color.g << 8) | color.b;
-    return `#${normalizedColor.toString(16).padStart(8, '0').slice(0, 6)}`;
+    if (color && color.hex) {
+        return color.hex;
+    } else if (color && color.r !== undefined && color.g !== undefined && color.b !== undefined) {
+        return `#${(1 << 24 | color.r << 16 | color.g << 8 | color.b).toString(16).slice(1)}`;
+    }
+    return '#000000';
+};
+
+const createGradientStops = (stops) => {
+    return stops.map(stop => `${convertToHex(stop.color)} ${stop.at * 100}%`).join(', ');
+};
+
+const applyGradient = (type, direction, stops, repeat) => {
+    if (type.includes('radial-gradient')) {
+        return `${repeat ? `repeating-${type}` : type}(${stops})`;
+    }
+    return `${repeat ? `repeating-${type}` : type}(${direction}, ${stops})`;
 };
 
 const applyShadows = (shadows) => {
@@ -70,34 +85,25 @@ const applyShadows = (shadows) => {
     }).join(' ');
 };
 
-const sample1Div = document.getElementById('sample1');
-const sample2Div = document.getElementById('sample2');
+const paintElem = document.getElementById('paint');
 
 function applyPaintData(paintData) {
-    if (sample1Div && sample2Div && paintData && paintData.data) {
+    if (paintElem && paintData && paintData.data) {
         console.log('Applying Paint Data:', paintData);
 
+        // Gradient anwenden
+        if (paintData.data.shadows && paintData.data.shadows.length > 0 && paintData.data.shadows[0].color) {
+            const gradientStops = createGradientStops([{ at: 0, color: paintData.data.shadows[0].color }]); // Hier wird nur ein Stop verwendet
+            paintElem.style.backgroundImage = applyGradient('linear-gradient', '90deg', gradientStops, false); // Annahme: linear-gradient mit 90deg
+        }
+
+        // Schatten anwenden
         if (paintData.data.shadows && paintData.data.shadows.length > 0) {
-            const shadowsString = applyShadows(paintData.data.shadows);
-            sample1Div.style.filter = shadowsString;
-            sample2Div.style.filter = shadowsString;
-            console.log('Applied shadows:', shadowsString);
-
-            if (paintData.data.shadows[0].color) {
-                const layerColor = convertToHex(paintData.data.shadows[0].color);
-                sample1Div.style.backgroundColor = layerColor;
-                sample2Div.style.backgroundColor = layerColor;
-                console.log('Applied layer colors:', layerColor);
-            }
-
+            paintElem.style.filter = applyShadows(paintData.data.shadows);
         } else {
-            sample1Div.style.filter = '';
-            sample2Div.style.filter = '';
-            sample1Div.style.backgroundColor = '';
-            sample2Div.style.backgroundColor = '';
-            console.log('No shadows to apply.');
+            paintElem.style.filter = '';
         }
     } else {
-        console.error('Sample divs or paint data not found.');
+        console.error('Paint element or paint data not found.');
     }
 }
