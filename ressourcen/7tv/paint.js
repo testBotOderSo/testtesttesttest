@@ -77,33 +77,24 @@ const convertToHex = (color) => {
     return '#000000';
 };
 
-const applyShadows = (shadows) => {
-    if (shadows && shadows.length > 0) {
-        return shadows.map(shadow => {
-            const colorString = convertToHex(shadow.color);
-            return `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${colorString})`;
-        }).join(' ');
-    }
-    return '';
-};
-
 function applyPaint(paintData, sample1Elem, sample2Elem) {
     if (sample1Elem && sample2Elem && paintData) {
         let color = null;
 
-        // Versuche, die Farbe aus den Layers zu holen
-        if (paintData.layers && paintData.layers.length > 0 && paintData.layers[0].color) {
-            color = paintData.layers[0].color;
-        } else if (paintData.shadows && paintData.shadows.length > 0 && paintData.shadows[0].color) {
-            // Wenn keine Farbe in den Layers gefunden wurde, verwende die Farbe aus den Shadows
+        if (paintData.shadows && paintData.shadows.length > 0 && paintData.shadows[0].color) {
             color = paintData.shadows[0].color;
         }
 
         if (color) {
-            sample1Elem.style.backgroundColor = convertToHex(color);
-            sample2Elem.style.backgroundColor = convertToHex(color);
+            console.log("Hex Color:", convertToHex(color));
+            sample1Elem.style.color = convertToHex(color) + " !important";
+            sample2Elem.style.color = convertToHex(color) + " !important";
+            console.log("Sample 1 Text Color:", sample1Elem.style.color);
+            console.log("Sample 2 Text Color:", sample2Elem.style.color);
+            console.log("Sample 1 Element:", sample1Elem);
+            console.log("Sample 2 Element:", sample2Elem);
         } else {
-            console.error("Keine Farbinformationen in den Layers oder Shadows gefunden.");
+            console.error("Keine Farbinformationen in den Shadows gefunden.");
         }
 
         if (paintData.shadows && paintData.shadows.length > 0) {
@@ -118,4 +109,4 @@ function applyPaint(paintData, sample1Elem, sample2Elem) {
     }
 }
 
-getPaint(); // lol2
+getPaint(); // lol3
