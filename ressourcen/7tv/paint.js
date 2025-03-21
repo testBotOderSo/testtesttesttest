@@ -3,38 +3,31 @@ const graphqlEndpoint = 'https://7tv.io/v4/gql';
 
 const query = `
     query Paints {
+    paints {
         paints {
-            paints {
-                id
-                name
-                data {
-                    layers {
-                        id
-                        opacity
-                        color {
-                            hex
-                            r
-                            g
-                            b
-                            a
-                        }
-                    }
-                    shadows {
-                        offsetX
-                        offsetY
-                        blur
-                        color {
-                            hex
-                            r
-                            g
-                            b
-                            a
-                        }
+            id
+            name
+            data {
+                layers {
+                    id
+                    opacity
+                }
+                shadows {
+                    offsetX
+                    offsetY
+                    blur
+                    color {
+                        hex
+                        r
+                        g
+                        b
+                        a
                     }
                 }
             }
         }
     }
+}
 `;
 
 fetch(graphqlEndpoint, {
