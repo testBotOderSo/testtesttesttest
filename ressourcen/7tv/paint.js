@@ -1,66 +1,3 @@
-function getUrlParams() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const paintID = urlParams.get('paintID');
-    return { paintID };
-};
-
-const convertToHex = (color) => {
-    const normalizedColor = color >>> 0;
-    return `#${normalizedColor.toString(16).padStart(8, '0')}`;
-};
-
-const createGradientStops = (stops) => {
-    return stops.map(stop => `${convertToHex(stop.color)} ${stop.at * 100}%`).join(', ');
-};
-
-const applyGradient = (type, direction, stops, repeat) => {
-    if (type.includes('radial-gradient')) {
-        return `${repeat ? `repeating-${type}` : type}(${stops})`;
-    }
-    return `${repeat ? `repeating-${type}` : type}(${direction}, ${stops})`;
-};
-
-const applyShadows = (shadows) => {
-    return shadows.map(shadow => {
-        const colorString = convertToHex(shadow.color);
-        return `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${colorString})`;
-    }).join(' ');
-};
-
-function applyPaint(paint, element) {
-    if (element && paint) {
-        if (paint.function === 'LINEAR_GRADIENT' && paint.stops?.length) {
-            const gradientStops = createGradientStops(paint.stops);
-            const gradientDirection = `${paint.angle}deg`;
-            element.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paint.repeat);
-            element.style.backgroundColor = '';
-        } else if (paint.function === 'RADIAL_GRADIENT' && paint.stops?.length) {
-            const gradientStops = createGradientStops(paint.stops);
-            element.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paint.repeat);
-            element.style.backgroundColor = '';
-        } else if (paint.function === 'URL' && paint.image_url) {
-            const imageUrl = paint.image_url.replace('/1x.', '/3x.');
-            element.style.backgroundImage = `url('${imageUrl}')`;
-            element.style.backgroundSize = 'cover';
-            element.style.backgroundColor = '';
-        } else if (paint.shadows && paint.shadows.length > 0 && paint.shadows[0].color) {
-            const shadowColor = paint.shadows[0].color;
-            const hexColor = convertToHex((shadowColor.r << 16) | (shadowColor.g << 8) | shadowColor.b);
-            element.style.backgroundColor = hexColor;
-            element.style.backgroundImage = '';
-        } else {
-            element.style.backgroundColor = '';
-            element.style.backgroundImage = '';
-        }
-
-        if (paint.shadows?.length) {
-            element.style.filter = applyShadows(paint.shadows);
-        } else {
-            element.style.filter = '';
-        }
-    }
-}
-
 function getPaint() {
     const { paintID } = getUrlParams();
     const query = `
@@ -73,6 +10,13 @@ function getPaint() {
                         layers {
                             id
                             opacity
+                            color {
+                              hex
+                              r
+                              g
+                              b
+                              a
+                            }
                         }
                         shadows {
                             offsetX
@@ -113,7 +57,7 @@ function getPaint() {
                 if (paintNameElement) {
                     document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
                 }
-                applyPaint(paintData.data, sample1Elem);
+                applyPaint(paintData.data, sample1Elem, sample2Elem); // Hier sample2Elem hinzugefügt
             } else {
                 console.error('Keine Paint Daten gefunden für ID:', paintID);
             }
@@ -125,4 +69,57 @@ function getPaint() {
     })
 };
 
-document.addEventListener('DOMContentLoaded', getPaint);
+function getUrlParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paintID = urlParams.get('paintID');
+    return { paintID };
+};
+
+const convertToHex = (color) => {
+    if (color && color.hex) {
+        return color.hex;
+    } else if (color && color.r !== undefined && color.g !== undefined && color.b !== undefined) {
+        return `#${(1 << 24 | color.r << 16 | color.g << 8 | color.b).toString(16).slice(1)}`;
+    }
+    return '#000000';
+};
+
+const createGradientStops = (stops) => {
+    return stops.map(stop => `${convertToHex(stop.color)} ${stop.at * 100}%`).join(', ');
+};
+
+const applyGradient = (type, direction, stops, repeat) => {
+    if (type.includes('radial-gradient')) {
+        return `${repeat ? `repeating-${type}` : type}(${stops})`;
+    }
+    return `${repeat ? `repeating-${type}` : type}(${direction}, ${stops})`;
+};
+
+const applyShadows = (shadows) => {
+    return shadows.map(shadow => {
+        const colorString = convertToHex(shadow.color);
+        return `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${colorString})`;
+    }).join(' ');
+};
+
+function applyPaint(paintData, sample1Div, sample2Div) {
+    if (sample1Div && sample2Div && paintData) {
+        if (paintData.layers && paintData.layers.length > 0) {
+            const color = paintData.layers[0].color;
+            sample1Div.style.backgroundColor = convertToHex(color);
+            sample2Div.style.backgroundColor = convertToHex(color);
+        }
+
+        if (paintData.shadows && paintData.shadows.length > 0) {
+            sample1Div.style.filter = applyShadows(paintData.shadows);
+            sample2Div.style.filter = applyShadows(paintData.shadows);
+        } else {
+            sample1Div.style.filter = '';
+            sample2Div.style.filter = '';
+        }
+    } else {
+        console.error("sample1Div or sample2Div or paintData is not defined.");
+    }
+}
+
+getPaint();
