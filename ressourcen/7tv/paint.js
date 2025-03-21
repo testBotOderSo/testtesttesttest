@@ -1,5 +1,5 @@
 const paintId = new URLSearchParams(window.location.search).get('paintID');
-const graphqlEndpoint = 'https://7tv.io/v4/gql'; // Ersetze dies durch deinen GraphQL-Endpunkt
+const graphqlEndpoint = 'https://7tv.io/v4/gql';
 
 const query = `
     query Paints($paintId: ID!) {
@@ -45,6 +45,7 @@ fetch(graphqlEndpoint, {
 })
     .then(response => response.json())
     .then(data => {
+        console.log("GraphQL Response:", data);
         if (data.data && data.data.paints && data.data.paints.paints && data.data.paints.paints.length > 0) {
             const paintData = data.data.paints.paints[0];
             applyPaintData(paintData);
@@ -62,7 +63,7 @@ const convertToHex = (color) => {
     } else if (color && color.r !== undefined && color.g !== undefined && color.b !== undefined) {
         return `#${(1 << 24 | color.r << 16 | color.g << 8 | color.b).toString(16).slice(1)}`;
     }
-    return '#000000'; // Standardfarbe, falls keine Farbe gefunden wird
+    return '#000000';
 };
 
 const applyShadows = (shadows) => {
@@ -72,7 +73,7 @@ const applyShadows = (shadows) => {
             return `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${colorString})`;
         }).join(' ');
     }
-    return ''; // Keine Schatten, falls keine vorhanden sind
+    return '';
 };
 
 const sample1Div = document.getElementById('sample1');
@@ -82,7 +83,7 @@ function applyPaintData(paintData) {
     if (sample1Div && sample2Div && paintData && paintData.data) {
         if (paintData.data.layers && paintData.data.layers.length > 0) {
             sample1Div.style.backgroundColor = convertToHex(paintData.data.layers[0].color);
-            sample2Div.style.backgroundColor = convertToHex(paintData.data.layers[0].color); // Da nur 1 layer vorhanden ist.
+            sample2Div.style.backgroundColor = convertToHex(paintData.data.layers[0].color);
         }
 
         if (paintData.data.shadows && paintData.data.shadows.length > 0) {
