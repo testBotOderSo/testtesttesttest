@@ -1,4 +1,4 @@
-const paint = {"id":"01GZBZ2T0R0005K1FJYZ11J7EZ","name":"Tropical","function":"LINEAR_GRADIENT","angle":90,"image_url":"","repeat":false,"stops":[{"at":0,"color":-145138177},{"at":0.5,"color":-20489985},{"at":1,"color":-1124794113}],"shadows":[{"x_offset":0, "y_offset": 0, "radius": 4, "color":-145138177}]}; // Sehr feiner Schatten
+const paint = {"id":"01GZNT2FTG0006PK9PVYBXQ6KD","name":"Rainbow","function":"LINEAR_GRADIENT","angle":90,"image_url":"","repeat":false,"stops":[{"at":0,"color":-111379457},{"at":0.16,"color":-111379457},{"at":0.16,"color":-105295361},{"at":0.33,"color":-105295361}]};
 
 const convertToHex = (color) => {
     const normalizedColor = color >>> 0;
