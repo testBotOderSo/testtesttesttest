@@ -57,7 +57,7 @@ function getPaint() {
                 if (paintNameElement) {
                     document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
                 }
-                applyPaint(paintData.data, sample1Elem, sample2Elem);
+                applyPaint(paintData.data, sample1Elem, sample2Elem); // sample1Elem und sample2Elem hinzugefügt
             } else {
                 console.error('Keine Paint Daten gefunden für ID:', paintID);
             }
@@ -94,20 +94,23 @@ const applyShadows = (shadows) => {
     return '';
 };
 
-function applyPaint(paintData, paintElem) { // sample1Elem und sample2Elem zu paintElem geändert
-    if (paintElem && paintData) {
+function applyPaint(paintData, sample1Elem, sample2Elem) { // sample1Elem und sample2Elem hinzugefügt
+    if (sample1Elem && sample2Elem && paintData) {
         if (paintData.layers && paintData.layers.length > 0) {
-            paintElem.style.backgroundColor = convertToHex(paintData.layers[0].color);
+            sample1Elem.style.backgroundColor = convertToHex(paintData.layers[0].color);
+            sample2Elem.style.backgroundColor = convertToHex(paintData.layers[0].color);
         }
 
         if (paintData.shadows && paintData.shadows.length > 0) {
-            paintElem.style.filter = applyShadows(paintData.shadows);
+            sample1Elem.style.filter = applyShadows(paintData.shadows);
+            sample2Elem.style.filter = applyShadows(paintData.shadows);
         } else {
-            paintElem.style.filter = '';
+            sample1Elem.style.filter = '';
+            sample2Elem.style.filter = '';
         }
     } else {
-        console.error("paintElem or paintData is not defined.");
+        console.error("sample1Elem or sample2Elem or paintData is not defined.");
     }
 }
 
-getPaint();
+getPaint(); // lol
