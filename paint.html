@@ -48,33 +48,37 @@
                 const colorString = convertToHex(shadow.color);
                 return `drop-shadow(${shadow.x_offset}px ${shadow.y_offset}px ${shadow.radius}px ${colorString})`;
             }).join(' ');
-        }; // BLABLA
+        };
 
-        const samplesDiv = document.querySelector('.samples');
         const sample1Div = document.getElementById('sample1');
         const sample2Div = document.getElementById('sample2');
 
-        if (samplesDiv && paint) {
+        if (paint) {
             if (paint.function === 'LINEAR_GRADIENT' && paint.stops?.length) {
                 const gradientStops = createGradientStops(paint.stops);
                 const gradientDirection = `${paint.angle}deg`;
-                samplesDiv.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paint.repeat);
+                sample1Div.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paint.repeat);
+                sample2Div.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paint.repeat);
                 sample1Div.style.backgroundColor = convertToHex(paint.stops[0].color);
                 sample2Div.style.backgroundColor = convertToHex(paint.stops[2].color);
             } else if (paint.function === 'RADIAL_GRADIENT' && paint.stops?.length) {
                 const gradientStops = createGradientStops(paint.stops);
-                samplesDiv.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paint.repeat);
+                sample1Div.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paint.repeat);
+                sample2Div.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paint.repeat);
                 sample1Div.style.backgroundColor = convertToHex(paint.stops[0].color);
                 sample2Div.style.backgroundColor = convertToHex(paint.stops[2].color);
             } else if (paint.function === 'URL' && paint.image_url) {
                 const imageUrl = paint.image_url.replace('/1x.', '/3x.');
-                samplesDiv.style.backgroundImage = `url('${imageUrl}')`;
+                sample1Div.style.backgroundImage = `url('${imageUrl}')`;
+                sample2Div.style.backgroundImage = `url('${imageUrl}')`;
             }
 
             if (paint.shadows?.length) {
-                samplesDiv.style.filter = applyShadows(paint.shadows);
+                sample1Div.style.filter = applyShadows(paint.shadows);
+                sample2Div.style.filter = applyShadows(paint.shadows);
             } else {
-                samplesDiv.style.filter = '';
+                sample1Div.style.filter = '';
+                sample2Div.style.filter = '';
             }
         }
     </script>
