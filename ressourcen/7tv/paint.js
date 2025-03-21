@@ -1,5 +1,4 @@
 const paintId = new URLSearchParams(window.location.search).get('paintID');
-console.log('paintId:', paintId);
 const graphqlEndpoint = 'https://7tv.io/v4/gql';
 
 const query = `
@@ -87,25 +86,27 @@ const applyShadows = (shadows) => {
 };
 
 function applyPaintData(paintData) {
-    const sample1Elem = document.getElementById('sample1');
-    const sample2Elem = document.getElementById('sample2');
-    if (sample1Elem && sample2Elem && paintData && paintData.data) {
+    const sample1Div = document.getElementById('sample1');
+    const sample2Div = document.getElementById('sample2');
+    if (sample1Div && sample2Div && paintData && paintData.data) {
         console.log('Applying Paint Data:', paintData);
 
         // Gradient anwenden
         if (paintData.data.shadows && paintData.data.shadows.length > 0 && paintData.data.shadows[0].color) {
             const gradientStops = createGradientStops([{ at: 0, color: paintData.data.shadows[0].color }]);
-            sample1Elem.style.backgroundImage = applyGradient('linear-gradient', '90deg', gradientStops, false);
-            sample2Elem.style.backgroundImage = applyGradient('linear-gradient', '90deg', gradientStops, false);
+            sample1Div.style.backgroundImage = applyGradient('linear-gradient', '90deg', gradientStops, false);
+            sample2Div.style.backgroundImage = applyGradient('linear-gradient', '90deg', gradientStops, false);
+            sample1Div.style.backgroundColor = convertToHex(paintData.data.shadows[0].color);
+            sample2Div.style.backgroundColor = convertToHex(paintData.data.shadows[0].color);
         }
 
         // Schatten anwenden
         if (paintData.data.shadows && paintData.data.shadows.length > 0) {
-            sample1Elem.style.filter = applyShadows(paintData.data.shadows);
-            sample2Elem.style.filter = applyShadows(paintData.data.shadows);
+            sample1Div.style.filter = applyShadows(paintData.data.shadows);
+            sample2Div.style.filter = applyShadows(paintData.data.shadows);
         } else {
-            sample1Elem.style.filter = '';
-            sample2Elem.style.filter = '';
+            sample1Div.style.filter = '';
+            sample2Div.style.filter = '';
         }
     } else {
         console.error('Sample elements or paint data not found.');
