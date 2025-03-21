@@ -59,25 +59,22 @@ fetch(graphqlEndpoint, {
     });
 
 function applyPaintData(paintData) {
-    const sampleElement = document.getElementById('sample1'); // Beispiel: Sample 1 als Ziel
+    const sampleElement = document.getElementById('sample1');
     if (!sampleElement) return;
 
-    // Falls mehrere Layer existieren, erstellen wir sie als gestapelte Divs
-    paintData.data.layers.forEach(layer => {
-        const layerDiv = document.createElement('div');
-        layerDiv.classList.add('paint-layer');
-        layerDiv.style.opacity = layer.opacity;
-        layerDiv.textContent = paintData.name; // Oder spezifische Inhalte setzen
-        sampleElement.appendChild(layerDiv);
-    });
-
-    // Schatten hinzufügen
+    const paintUrl = `https://cdn.7tv.app/paint/${paintData.id}/layer/${paintData.data.layers[0]?.id}/1x.webp`;
+    sampleElement.style.color = 'transparent';
+    sampleElement.style.backgroundClip = 'text';
+    sampleElement.style.webkitBackgroundClip = 'text';
+    sampleElement.style.backgroundImage = `url('${paintUrl}')`;
+    sampleElement.style.backgroundSize = '100% auto';
+    
     if (paintData.data.shadows.length > 0) {
         let shadowStyle = paintData.data.shadows.map(shadow => {
             return `${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px rgba(${shadow.color.r},${shadow.color.g},${shadow.color.b},${shadow.color.a})`;
         }).join(', ');
-
         sampleElement.style.textShadow = shadowStyle;
     }
 }
+
 
