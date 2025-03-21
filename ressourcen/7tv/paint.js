@@ -40,6 +40,7 @@ fetch(graphqlEndpoint, {
 })
     .then(response => response.json())
     .then(data => {
+        console.log('GQL Antwort:', data)
         if (data.data && data.data.paints && data.data.paints.paints) {
             const paintData = data.data.paints.paints.find(paint => paint.id === paintId);
             if (paintData) {
