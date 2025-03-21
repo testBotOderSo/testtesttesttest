@@ -155,14 +155,6 @@ function applyPaint(paintData, sample1Div, sample2Div) {
                     sample2Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
                     // Hier könntest du versuchen, die dominante Farbe aus dem Bild zu extrahieren.
                     // Für das Beispiel verwenden wir die Schattenfarbe, falls vorhanden.
-                    if (paintData.shadows && paintData.shadows.length > 0) {
-                        sample1Div.style.color = convertToHex(paintData.shadows[0].color);
-                        sample2Div.style.color = convertToHex(paintData.shadows[0].color);
-                    } else {
-                        // Verwende eine Standardfarbe, falls keine Schattenfarbe vorhanden ist.
-                        sample1Div.style.color = '#ffffff';
-                        sample2Div.style.color = '#ffffff';
-                    }
                 } else if (layer.ty.stops && layer.ty.stops.length > 0) {
                     if (layer.ty.angle !== undefined) {
                         const gradientStops = createGradientStops(layer.ty.stops);
@@ -182,8 +174,10 @@ function applyPaint(paintData, sample1Div, sample2Div) {
                 }
             }
         });
-
-        if (paintData.shadows && paintData.shadows.length > 0) {
+        if (paintData.layers && paintData.layers.length > 0 && paintData.layers[0].ty && paintData.layers[0].ty.images && paintData.layers[0].ty.images.length > 0){
+            sample1Div.style.filter = '';
+            sample2Div.style.filter = '';
+        } else if (paintData.shadows && paintData.shadows.length > 0) {
             sample1Div.style.filter = applyShadows(paintData.shadows);
             sample2Div.style.filter = applyShadows(paintData.shadows);
         } else {
@@ -193,4 +187,4 @@ function applyPaint(paintData, sample1Div, sample2Div) {
     }
 }
 
-getPaint(); // lol7
+getPaint(); // ll8
