@@ -31,7 +31,7 @@ function applyPaint(data) {
     const paintName = data.name;
     const paintNameElement = document.getElementById('paint-name');
     if (paintNameElement) {
-        paintNameElement.textContent = paintName;
+        document.title = `NotedBot │ 7TV ${paintName} Paint`;
     }
 
     const sample1Elem = document.getElementById('sample1');
@@ -41,18 +41,15 @@ function applyPaint(data) {
         data.data.paints.paints.forEach((paint, index) => {
             const paintElem = index === 0 ? sample1Elem : (index === 1 ? sample2Elem : null);
             if (paintElem && paint.data) {
-                // Versuche, die Farbe vom ersten Schatten als Hintergrundfarbe zu verwenden
                 if (paint.data.shadows && paint.data.shadows.length > 0 && paint.data.shadows[0].color) {
                     const shadowColor = paint.data.shadows[0].color;
                     const hexColor = convertToHex((shadowColor.r << 16) | (shadowColor.g << 8) | shadowColor.b);
                     paintElem.style.backgroundColor = hexColor;
-                    paintElem.style.backgroundImage = ''; // Entferne ggf. vorhandene Hintergrundbilder
+                    paintElem.style.backgroundImage = ''; 
                 } else {
-                    // Wenn kein Schatten mit Farbe vorhanden ist, setze eine Standardfarbe oder lasse es leer
-                    paintElem.style.backgroundColor = ''; // Oder z.B. '#cccccc' für ein helles Grau
+                    paintElem.style.backgroundColor = '';
                 }
 
-                // Wende die Schatten wie zuvor an
                 if (paint.data.shadows?.length) {
                     paintElem.style.filter = applyShadows(paint.data.shadows);
                 } else {
@@ -119,5 +116,4 @@ function getPaint() {
     })
 };
 
-// Rufe getPaint auf, sobald die Seite geladen ist
 document.addEventListener('DOMContentLoaded', getPaint);
