@@ -10,11 +10,9 @@
             margin: 0;
             height: 100vh;
             display: flex;
-            flex-direction: column; /* Ändert die Richtung des Flexbox-Layouts auf vertikal */
-            justify-content: flex-start; /* Elemente am Anfang des Containers ausrichten */
-            align-items: center; /* Elemente horizontal zentrieren */
-            background-size: cover; /* Hintergrundbild auf die Größe des Containers anpassen */
-            background-repeat: no-repeat; /* Hintergrundbild nicht wiederholen */
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
         }
         .container {
             width: 100%;
@@ -81,23 +79,31 @@
             }).join(' ');
         };
 
-        if (paint) {
+        const samplesDiv = document.querySelector('.samples');
+        const sample1Div = document.getElementById('sample1');
+        const sample2Div = document.getElementById('sample2');
+
+        if (samplesDiv && paint) {
             if (paint.function === 'LINEAR_GRADIENT' && paint.stops?.length) {
                 const gradientStops = createGradientStops(paint.stops);
                 const gradientDirection = `${paint.angle}deg`;
-                document.body.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paint.repeat);
+                samplesDiv.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paint.repeat);
+                sample1Div.style.color = convertToHex(paint.stops[0].color); // Farbe des ersten Stopps für Text
+                sample2Div.style.color = convertToHex(paint.stops[2].color); // Farbe des letzten Stopps für Text
             } else if (paint.function === 'RADIAL_GRADIENT' && paint.stops?.length) {
                 const gradientStops = createGradientStops(paint.stops);
-                document.body.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paint.repeat);
+                samplesDiv.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paint.repeat);
+                sample1Div.style.color = convertToHex(paint.stops[0].color);
+                sample2Div.style.color = convertToHex(paint.stops[2].color);
             } else if (paint.function === 'URL' && paint.image_url) {
                 const imageUrl = paint.image_url.replace('/1x.', '/3x.');
-                document.body.style.backgroundImage = `url('${imageUrl}')`;
+                samplesDiv.style.backgroundImage = `url('${imageUrl}')`;
             }
 
             if (paint.shadows?.length) {
-                document.body.style.filter = applyShadows(paint.shadows);
+                samplesDiv.style.filter = applyShadows(paint.shadows);
             } else {
-                document.body.style.filter = '';
+                samplesDiv.style.filter = '';
             }
         }
     </script>
