@@ -5,7 +5,37 @@
     <title>NotedBot │ 7TV <span id="paint-name"></span> Paint</title>
     <link rel="icon" href="img/notedbotlogo.png" type="image/png">
     <link rel="stylesheet" href="./ressourcen/styles.css">
-    <script src="https://cdn.rawgit.com/jnordberg/gif.js/master/dist/gif.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column; /* Ändert die Richtung des Flexbox-Layouts auf vertikal */
+            justify-content: flex-start; /* Elemente am Anfang des Containers ausrichten */
+            align-items: center; /* Elemente horizontal zentrieren */
+            background-size: cover; /* Hintergrundbild auf die Größe des Containers anpassen */
+            background-repeat: no-repeat; /* Hintergrundbild nicht wiederholen */
+        }
+        .container {
+            width: 100%;
+            text-align: center;
+        }
+        .navigation {
+            width: 100%;
+            text-align: center;
+        }
+        .samples {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .paint-text {
+            margin: 10px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -26,33 +56,11 @@
     </div>
     
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        
-        const getRandomColor = () => Math.floor(Math.random() * 16777215) | 0xFF000000;
-
-        const paintData = {
-            id: urlParams.get('id') || "01GZBZ2T0R0005K1FJYZ11J7EZ",
-            name: urlParams.get('name') || "Tropical",
-            function: "LINEAR_GRADIENT",
-            angle: 90,
-            repeat: false,
-            image_url: "",
-            stops: [
-                { at: 0, color: getRandomColor() },
-                { at: 0.5, color: getRandomColor() },
-                { at: 1, color: getRandomColor() }
-            ],
-            shadows: [
-                { x_offset: 0, y_offset: 0, radius: 4, color: getRandomColor() },
-                { x_offset: 0, y_offset: 0, radius: 0.1, color: getRandomColor() }
-            ]
-        };
-
-        document.getElementById("paint-name").textContent = paintData.name;
+        const paint = {"id":"01GZBZ2T0R0005K1FJYZ11J7EZ","name":"Tropical","function":"LINEAR_GRADIENT","angle":90,"image_url":"","repeat":false,"stops":[{"at":0,"color":-145138177},{"at":0.5,"color":-20489985},{"at":1,"color":-1124794113}],"shadows":[{"x_offset":0,"y_offset":0,"radius":4,"color":-145138177},{"x_offset":0,"y_offset":0,"radius":0.1,"color":-145138177}]};
 
         const convertToHex = (color) => {
             const normalizedColor = color >>> 0;
-            return `#${normalizedColor.toString(16).padStart(8, '0').slice(2)}`;
+            return `#${normalizedColor.toString(16).padStart(8, '0')}`;
         };
 
         const createGradientStops = (stops) => {
@@ -60,6 +68,9 @@
         };
 
         const applyGradient = (type, direction, stops, repeat) => {
+            if (type.includes('radial-gradient')) {
+                return `${repeat ? `repeating-${type}` : type}(${stops})`;
+            }
             return `${repeat ? `repeating-${type}` : type}(${direction}, ${stops})`;
         };
 
@@ -70,30 +81,24 @@
             }).join(' ');
         };
 
-        const paintElem1 = document.getElementById("sample1");
-        const paintElem2 = document.getElementById("sample2");
+        if (paint) {
+            if (paint.function === 'LINEAR_GRADIENT' && paint.stops?.length) {
+                const gradientStops = createGradientStops(paint.stops);
+                const gradientDirection = `${paint.angle}deg`;
+                document.body.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paint.repeat);
+            } else if (paint.function === 'RADIAL_GRADIENT' && paint.stops?.length) {
+                const gradientStops = createGradientStops(paint.stops);
+                document.body.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paint.repeat);
+            } else if (paint.function === 'URL' && paint.image_url) {
+                const imageUrl = paint.image_url.replace('/1x.', '/3x.');
+                document.body.style.backgroundImage = `url('${imageUrl}')`;
+            }
 
-        if (paintData.function === 'LINEAR_GRADIENT' && paintData.stops?.length) {
-            const gradientStops = createGradientStops(paintData.stops);
-            const gradientDirection = `${paintData.angle}deg`;
-            paintElem1.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paintData.repeat);
-            paintElem2.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paintData.repeat);
-        } else if (paintData.function === 'RADIAL_GRADIENT' && paintData.stops?.length) {
-            const gradientStops = createGradientStops(paintData.stops);
-            paintElem1.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paintData.repeat);
-            paintElem2.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paintData.repeat);
-        } else if (paintData.function === 'URL' && paintData.image_url) {
-            const imageUrl = paintData.image_url.replace('/1x.', '/3x.');
-            paintElem1.style.backgroundImage = `url('${imageUrl}')`;
-            paintElem2.style.backgroundImage = `url('${imageUrl}')`;
-        }
-
-        if (paintData.shadows?.length) {
-            paintElem1.style.filter = applyShadows(paintData.shadows);
-            paintElem2.style.filter = applyShadows(paintData.shadows);
-        } else {
-            paintElem1.style.filter = '';
-            paintElem2.style.filter = '';
+            if (paint.shadows?.length) {
+                document.body.style.filter = applyShadows(paint.shadows);
+            } else {
+                document.body.style.filter = '';
+            }
         }
     </script>
 </body>
