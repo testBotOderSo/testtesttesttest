@@ -1,4 +1,20 @@
-const paint = {"id":"01GZNT2FTG0006PK9PVYBXQ6KD","name":"Rainbow","function":"LINEAR_GRADIENT","angle":90,"image_url":"","repeat":false,"stops":[{"at":0,"color":-111379457},{"at":0.16,"color":-111379457},{"at":0.16,"color":-105295361},{"at":0.33,"color":-105295361}]};
+const paint = {
+    "id": "01GZNT2FTG0006PK9PVYBXQ6KD",
+    "name": "Rainbow",
+    "function": "LINEAR_GRADIENT",
+    "angle": 90,
+    "image_url": "",
+    "repeat": false,
+    "stops": [
+        { "at": 0, "color": -111379457 },
+        { "at": 0.33, "color": -105295361 },
+        { "at": 0.66, "color": -105295361 },
+        { "at": 1, "color": -111379457 }
+    ],
+    "shadows": [
+        { "x_offset": 1, "y_offset": 1, "radius": 2, "color": -111379457 }
+    ]
+};
 
 const convertToHex = (color) => {
     const normalizedColor = color >>> 0;
