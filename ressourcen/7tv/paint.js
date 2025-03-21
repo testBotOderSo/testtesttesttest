@@ -10,13 +10,6 @@ function getPaint() {
                         layers {
                             id
                             opacity
-                            color {
-                              hex
-                              r
-                              g
-                              b
-                              a
-                            }
                         }
                         shadows {
                             offsetX
