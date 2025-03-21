@@ -89,12 +89,21 @@ const applyShadows = (shadows) => {
 
 function applyPaint(paintData, sample1Elem, sample2Elem) {
     if (sample1Elem && sample2Elem && paintData) {
-        // Überprüfe, ob layers vorhanden sind und eine Farbe haben
+        let color = null;
+
+        // Versuche, die Farbe aus den Layers zu holen
         if (paintData.layers && paintData.layers.length > 0 && paintData.layers[0].color) {
-            sample1Elem.style.backgroundColor = convertToHex(paintData.layers[0].color);
-            sample2Elem.style.backgroundColor = convertToHex(paintData.layers[0].color);
+            color = paintData.layers[0].color;
+        } else if (paintData.shadows && paintData.shadows.length > 0 && paintData.shadows[0].color) {
+            // Wenn keine Farbe in den Layers gefunden wurde, verwende die Farbe aus den Shadows
+            color = paintData.shadows[0].color;
+        }
+
+        if (color) {
+            sample1Elem.style.backgroundColor = convertToHex(color);
+            sample2Elem.style.backgroundColor = convertToHex(color);
         } else {
-            console.error("Keine Farbinformationen in den Layers gefunden.");
+            console.error("Keine Farbinformationen in den Layers oder Shadows gefunden.");
         }
 
         if (paintData.shadows && paintData.shadows.length > 0) {
@@ -109,4 +118,4 @@ function applyPaint(paintData, sample1Elem, sample2Elem) {
     }
 }
 
-getPaint(); // lol
+getPaint(); // lol2
