@@ -90,7 +90,7 @@ function applyPaintData(paintData) {
             paintNameSpan.textContent = paintData.name;
         }
 
-        // Farben anwenden (falls vorhanden)
+        // Farben anwenden (aus den Shadows, wie im Beispiel)
         if (paintData.data.shadows && paintData.data.shadows.length > 0 && paintData.data.shadows[0].color) {
             const layerColor = convertToHex(paintData.data.shadows[0].color);
             sample1Div.style.backgroundColor = layerColor;
