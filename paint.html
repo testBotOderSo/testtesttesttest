@@ -18,6 +18,9 @@
                 <li><a onclick="alert('Du bist doch schon auf der Seite?')">Home</a></li>
                 <li><a href="commands.html">Commands</a></li>
             </ul>
+            <button class="download" id="download-btn">
+                Download Paint
+            </button>
         </div>
         <div class="samples">
             <div id="sample1" class="paint-text">Wydios</div>
@@ -32,10 +35,16 @@
             name: urlParams.get('name') || "Tropical",
             function: "LINEAR_GRADIENT",
             angle: 90,
+            repeat: false,
+            image_url: "",
             stops: [
                 { at: 0, color: -145138177 },
                 { at: 0.5, color: -20489985 },
                 { at: 1, color: -1124794113 }
+            ],
+            shadows: [
+                { x_offset: 0, y_offset: 0, radius: 4, color: -145138177 },
+                { x_offset: 0, y_offset: 0, radius: 0.1, color: -145138177 }
             ]
         };
 
@@ -46,13 +55,47 @@
             return `#${normalizedColor.toString(16).padStart(8, '0').slice(2)}`;
         };
 
-        const createGradient = () => {
-            const stops = paintData.stops.map(stop => `${convertToHex(stop.color)} ${stop.at * 100}%`).join(', ');
-            return `linear-gradient(${paintData.angle}deg, ${stops})`;
+        const createGradientStops = (stops) => {
+            return stops.map(stop => `${convertToHex(stop.color)} ${stop.at * 100}%`).join(', ');
         };
 
-        document.getElementById("sample1").style.backgroundImage = createGradient();
-        document.getElementById("sample2").style.backgroundImage = createGradient();
+        const applyGradient = (type, direction, stops, repeat) => {
+            return `${repeat ? `repeating-${type}` : type}(${direction}, ${stops})`;
+        };
+
+        const applyShadows = (shadows) => {
+            return shadows.map(shadow => {
+                const colorString = convertToHex(shadow.color);
+                return `drop-shadow(${shadow.x_offset}px ${shadow.y_offset}px ${shadow.radius}px ${colorString})`;
+            }).join(' ');
+        };
+
+        const paintElem1 = document.getElementById("sample1");
+        const paintElem2 = document.getElementById("sample2");
+
+        if (paintData.function === 'LINEAR_GRADIENT' && paintData.stops?.length) {
+            const gradientStops = createGradientStops(paintData.stops);
+            const gradientDirection = `${paintData.angle}deg`;
+            paintElem1.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paintData.repeat);
+            paintElem2.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paintData.repeat);
+        } else if (paintData.function === 'RADIAL_GRADIENT' && paintData.stops?.length) {
+            const gradientStops = createGradientStops(paintData.stops);
+            paintElem1.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paintData.repeat);
+            paintElem2.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paintData.repeat);
+        } else if (paintData.function === 'URL' && paintData.image_url) {
+            const imageUrl = paintData.image_url.replace('/1x.', '/3x.');
+            paintElem1.style.backgroundImage = `url('${imageUrl}')`;
+            paintElem2.style.backgroundImage = `url('${imageUrl}')`;
+        }
+
+        if (paintData.shadows?.length) {
+            paintElem1.style.filter = applyShadows(paintData.shadows);
+            paintElem2.style.filter = applyShadows(paintData.shadows);
+        } else {
+            paintElem1.style.filter = '';
+            paintElem2.style.filter = '';
+        }
     </script>
 </body>
 </html>
+
