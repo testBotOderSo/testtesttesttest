@@ -85,16 +85,15 @@ const applyShadows = (shadows) => {
     }).join(' ');
 };
 
-const paintElem = document.getElementById('paint');
-
 function applyPaintData(paintData) {
+    const paintElem = document.getElementById('paint'); // paintElem wird hier definiert
     if (paintElem && paintData && paintData.data) {
         console.log('Applying Paint Data:', paintData);
 
         // Gradient anwenden
         if (paintData.data.shadows && paintData.data.shadows.length > 0 && paintData.data.shadows[0].color) {
-            const gradientStops = createGradientStops([{ at: 0, color: paintData.data.shadows[0].color }]); // Hier wird nur ein Stop verwendet
-            paintElem.style.backgroundImage = applyGradient('linear-gradient', '90deg', gradientStops, false); // Annahme: linear-gradient mit 90deg
+            const gradientStops = createGradientStops([{ at: 0, color: paintData.data.shadows[0].color }]);
+            paintElem.style.backgroundImage = applyGradient('linear-gradient', '90deg', gradientStops, false);
         }
 
         // Schatten anwenden
