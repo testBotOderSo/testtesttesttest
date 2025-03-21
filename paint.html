@@ -59,8 +59,8 @@
                 const gradientStops = createGradientStops(paint.stops);
                 const gradientDirection = `${paint.angle}deg`;
                 samplesDiv.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paint.repeat);
-                sample1Div.style.backgroundColor = convertToHex(paint.stops[0].color); // Hintergrundfarbe für sample1
-                sample2Div.style.backgroundColor = convertToHex(paint.stops[2].color); // Hintergrundfarbe für sample2
+                sample1Div.style.backgroundColor = convertToHex(paint.stops[0].color);
+                sample2Div.style.backgroundColor = convertToHex(paint.stops[2].color);
             } else if (paint.function === 'RADIAL_GRADIENT' && paint.stops?.length) {
                 const gradientStops = createGradientStops(paint.stops);
                 samplesDiv.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paint.repeat);
