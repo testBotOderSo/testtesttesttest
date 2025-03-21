@@ -1,6 +1,6 @@
 function getUrlParams() {
     const urlParams = new URLSearchParams(window.location.search);
-    const paintID = urlParams.get('PaintID');
+    const paintID = urlParams.get('paintID');
     return { paintID };
 };
 
@@ -45,12 +45,22 @@ function applyPaint(data) {
                     const gradientStops = createGradientStops(paint.data.stops);
                     const gradientDirection = `${paint.data.angle}deg`;
                     paintElem.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paint.data.repeat);
+                    paintElem.style.background = ''; // Clear any potential solid background
                 } else if (paint.data.function === 'RADIAL_GRADIENT' && paint.data.stops?.length) {
                     const gradientStops = createGradientStops(paint.data.stops);
                     paintElem.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paint.data.repeat);
+                    paintElem.style.background = ''; // Clear any potential solid background
                 } else if (paint.data.function === 'URL' && paint.data.image_url) {
                     const imageUrl = paint.data.image_url.replace('/1x.', '/3x.');
                     paintElem.style.backgroundImage = `url('${imageUrl}')`;
+                    paintElem.style.backgroundSize = 'cover'; // Optional: Stelle sicher, dass das Bild den gesamten Bereich abdeckt
+                    paintElem.style.background = ''; // Clear any potential solid background
+                } else if (paint.data.layers?.length > 0 && paint.data.layers[0].color) {
+                    // Wenn eine Farbe im Layer vorhanden ist, wende sie als Hintergrundfarbe an
+                    const color = paint.data.layers[0].color;
+                    const hexColor = convertToHex((color.r << 16) | (color.g << 8) | color.b);
+                    paintElem.style.backgroundColor = hexColor;
+                    paintElem.style.backgroundImage = ''; // Clear any potential gradient or image
                 }
 
                 if (paint.data.shadows?.length) {
@@ -70,11 +80,18 @@ function getPaint() {
             paints {
                 paints {
                     id
-                    name    
+                    name
                     data {
                         layers {
                             id
                             opacity
+                            color {
+                                hex
+                                r
+                                g
+                                b
+                                a
+                            }
                         }
                         shadows {
                             offsetX
@@ -88,10 +105,24 @@ function getPaint() {
                                 a
                             }
                         }
+                        function
+                        stops {
+                            at
+                            color {
+                                r
+                                g
+                                b
+                                a
+                            }
+                        }
+                        angle
+                        repeat
+                        image_url
                     }
                 }
             }
-        }`;
+        }
+    `;
     fetch('https://7tv.io/v4/gql', {
         method: 'POST',
         headers: {
@@ -117,3 +148,6 @@ function getPaint() {
         console.error('getPaint | Fehler beim fetchen vom Paints', error);
     })
 };
+
+// Rufe getPaint auf, sobald die Seite geladen ist
+document.addEventListener('DOMContentLoaded', getPaint);
