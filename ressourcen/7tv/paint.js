@@ -150,11 +150,22 @@ function applyPaint(paintData, sample1Div, sample2Div) {
         paintData.layers.forEach(layer => {
             if (layer.ty) {
                 if (layer.ty.images && layer.ty.images.length > 0) {
+                    const gifImage = layer.ty.images.find(img => img.mime === 'image/gif');
+                    if (gifImage) {
+                        const img = new Image();
+                        img.crossOrigin = 'Anonymous';
+                        img.onload = function() {
+                            const colorThief = new ColorThief();
+                            const dominantColor = colorThief.getColor(img);
+                            const hexColor = `#${((1 << 24) + (dominantColor[0] << 16) + (dominantColor[1] << 8) + dominantColor[2]).toString(16).slice(1)}`;
+                            sample1Div.style.color = hexColor;
+                            sample2Div.style.color = hexColor;
+                        }
+                        img.src = gifImage.url;
+                    }
                     const largestImage = layer.ty.images.reduce((max, img) => img.size > max.size ? img : max, layer.ty.images[0]);
                     sample1Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
                     sample2Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
-                    // Hier könntest du versuchen, die dominante Farbe aus dem Bild zu extrahieren.
-                    // Für das Beispiel verwenden wir die Schattenfarbe, falls vorhanden.
                 } else if (layer.ty.stops && layer.ty.stops.length > 0) {
                     if (layer.ty.angle !== undefined) {
                         const gradientStops = createGradientStops(layer.ty.stops);
@@ -187,4 +198,4 @@ function applyPaint(paintData, sample1Div, sample2Div) {
     }
 }
 
-getPaint(); // ll8
+getPaint(); // lol10
