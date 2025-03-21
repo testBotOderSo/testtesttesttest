@@ -58,57 +58,26 @@ fetch(graphqlEndpoint, {
         console.error('Error fetching GraphQL data:', error);
     });
 
-const convertToHex = (color) => {
-    if (color && color.hex) {
-        return color.hex;
-    } else if (color && color.r !== undefined && color.g !== undefined && color.b !== undefined) {
-        return `#${(1 << 24 | color.r << 16 | color.g << 8 | color.b).toString(16).slice(1)}`;
-    }
-    return '#000000';
-};
-
-const createGradientStops = (stops) => {
-    return stops.map(stop => `${convertToHex(stop.color)} ${stop.at * 100}%`).join(', ');
-};
-
-const applyGradient = (type, direction, stops, repeat) => {
-    if (type.includes('radial-gradient')) {
-        return `${repeat ? `repeating-${type}` : type}(${stops})`;
-    }
-    return `${repeat ? `repeating-${type}` : type}(${direction}, ${stops})`;
-};
-
-const applyShadows = (shadows) => {
-    return shadows.map(shadow => {
-        const colorString = convertToHex(shadow.color);
-        return `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${colorString})`;
-    }).join(' ');
-};
-
 function applyPaintData(paintData) {
-    const sample1Div = document.getElementById('sample1');
-    const sample2Div = document.getElementById('sample2');
-    if (sample1Div && sample2Div && paintData && paintData.data) {
-        console.log('Applying Paint Data:', paintData);
+    const sampleElement = document.getElementById('sample1'); // Beispiel: Sample 1 als Ziel
+    if (!sampleElement) return;
 
-        // Schatten anwenden
-        if (paintData.data.shadows && paintData.data.shadows.length > 0) {
-            sample1Div.style.filter = applyShadows(paintData.data.shadows);
-            sample2Div.style.filter = applyShadows(paintData.data.shadows);
-        } else {
-            sample1Div.style.filter = '';
-            sample2Div.style.filter = '';
-        }
+    // Falls mehrere Layer existieren, erstellen wir sie als gestapelte Divs
+    paintData.data.layers.forEach(layer => {
+        const layerDiv = document.createElement('div');
+        layerDiv.classList.add('paint-layer');
+        layerDiv.style.opacity = layer.opacity;
+        layerDiv.textContent = paintData.name; // Oder spezifische Inhalte setzen
+        sampleElement.appendChild(layerDiv);
+    });
 
-        // Hintergrundfarben anwenden (basierend auf dem ersten Schatten)
-        if (paintData.data.shadows && paintData.data.shadows.length > 0 && paintData.data.shadows[0].color) {
-            sample1Div.style.backgroundColor = convertToHex(paintData.data.shadows[0].color);
-            sample2Div.style.backgroundColor = convertToHex(paintData.data.shadows[0].color);
-        } else {
-            sample1Div.style.backgroundColor = ''; // Falls keine Schatten vorhanden sind
-            sample2Div.style.backgroundColor = '';
-        }
-    } else {
-        console.error('Sample elements or paint data not found.');
+    // Schatten hinzufügen
+    if (paintData.data.shadows.length > 0) {
+        let shadowStyle = paintData.data.shadows.map(shadow => {
+            return `${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px rgba(${shadow.color.r},${shadow.color.g},${shadow.color.b},${shadow.color.a})`;
+        }).join(', ');
+
+        sampleElement.style.textShadow = shadowStyle;
     }
 }
+
