@@ -77,6 +77,16 @@ const convertToHex = (color) => {
     return '#000000';
 };
 
+const applyShadows = (shadows) => {
+    if (shadows && shadows.length > 0) {
+        return shadows.map(shadow => {
+            const colorString = convertToHex(shadow.color);
+            return `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${colorString})`;
+        }).join(' ');
+    }
+    return '';
+};
+
 function applyPaint(paintData, sample1Elem, sample2Elem) {
     if (sample1Elem && sample2Elem && paintData) {
         let color = null;
