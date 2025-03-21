@@ -96,8 +96,6 @@ function applyPaintData(paintData) {
             const gradientStops = createGradientStops([{ at: 0, color: paintData.data.shadows[0].color }]);
             sample1Div.style.backgroundImage = applyGradient('linear-gradient', '90deg', gradientStops, false);
             sample2Div.style.backgroundImage = applyGradient('linear-gradient', '90deg', gradientStops, false);
-            sample1Div.style.backgroundColor = convertToHex(paintData.data.shadows[0].color);
-            sample2Div.style.backgroundColor = convertToHex(paintData.data.shadows[0].color);
         }
 
         // Schatten anwenden
@@ -107,6 +105,12 @@ function applyPaintData(paintData) {
         } else {
             sample1Div.style.filter = '';
             sample2Div.style.filter = '';
+        }
+
+        // Hintergrundfarben anwenden
+        if (paintData.data.shadows && paintData.data.shadows.length > 0 && paintData.data.shadows[0].color) {
+            sample1Div.style.backgroundColor = convertToHex(paintData.data.shadows[0].color);
+            sample2Div.style.backgroundColor = convertToHex(paintData.data.shadows[0].color);
         }
     } else {
         console.error('Sample elements or paint data not found.');
