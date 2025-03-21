@@ -40,10 +40,11 @@ fetch(graphqlEndpoint, {
 })
     .then(response => response.json())
     .then(data => {
-        console.log('GQL Antwort:', data)
+        console.log('GQL Antwort:', data);
         if (data.data && data.data.paints && data.data.paints.paints) {
             const paintData = data.data.paints.paints.find(paint => paint.id === paintId);
             if (paintData) {
+                console.log('Paint data found for ID:', paintId, paintData);
                 applyPaintData(paintData);
             } else {
                 console.error('Paint data not found for ID:', paintId);
@@ -62,7 +63,7 @@ const convertToHex = (color) => {
     } else if (color && color.r !== undefined && color.g !== undefined && color.b !== undefined) {
         return `#${(1 << 24 | color.r << 16 | color.g << 8 | color.b).toString(16).slice(1)}`;
     }
-    return '#000000'; 
+    return '#000000';
 };
 
 const applyShadows = (shadows) => {
@@ -80,17 +81,23 @@ const sample2Div = document.getElementById('sample2');
 
 function applyPaintData(paintData) {
     if (sample1Div && sample2Div && paintData && paintData.data) {
+        console.log('Applying Paint Data:', paintData);
+
         if (paintData.data.layers && paintData.data.layers.length > 0) {
             sample1Div.style.backgroundColor = convertToHex(paintData.data.layers[0].color);
-            sample2Div.style.backgroundColor = convertToHex(paintData.data.layers[0].color); 
+            sample2Div.style.backgroundColor = convertToHex(paintData.data.layers[0].color);
+            console.log('Applied layer colors:', convertToHex(paintData.data.layers[0].color));
         }
 
         if (paintData.data.shadows && paintData.data.shadows.length > 0) {
-            sample1Div.style.filter = applyShadows(paintData.data.shadows);
-            sample2Div.style.filter = applyShadows(paintData.data.shadows);
+            const shadowsString = applyShadows(paintData.data.shadows);
+            sample1Div.style.filter = shadowsString;
+            sample2Div.style.filter = shadowsString;
+            console.log('Applied shadows:', shadowsString);
         } else {
             sample1Div.style.filter = '';
             sample2Div.style.filter = '';
+            console.log('No shadows to apply.');
         }
 
     } else {
