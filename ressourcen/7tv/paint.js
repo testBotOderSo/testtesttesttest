@@ -150,9 +150,16 @@ function applyPaint(paintData, sample1Div, sample2Div) {
         paintData.layers.forEach(layer => {
             if (layer.ty) {
                 if (layer.ty.images && layer.ty.images.length > 0) {
-                    sample1Div.style.backgroundImage = `url('${layer.ty.images[0].url.replace('/1x.', '/3x.')}')`;
-                    sample2Div.style.backgroundImage = `url('${layer.ty.images[0].url.replace('/1x.', '/3x.')}')`;
-                    // Hier könnten wir versuchen, eine dominante Farbe aus dem Bild zu extrahieren, aber das ist komplex.
+                    // Wähle das größte Bild aus, um es als Hintergrund zu verwenden.
+                    const largestImage = layer.ty.images.reduce((max, img) => img.size > max.size ? img : max, layer.ty.images[0]);
+                    sample1Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
+                    sample2Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
+                    // Hier könntest du versuchen, die dominante Farbe aus dem Bild zu extrahieren.
+                    // Für das Beispiel verwenden wir die Schattenfarbe, falls vorhanden.
+                    if (paintData.shadows && paintData.shadows.length > 0) {
+                        sample1Div.style.color = convertToHex(paintData.shadows[0].color);
+                        sample2Div.style.color = convertToHex(paintData.shadows[0].color);
+                    }
                 } else if (layer.ty.stops && layer.ty.stops.length > 0) {
                     if (layer.ty.angle !== undefined) {
                         const gradientStops = createGradientStops(layer.ty.stops);
@@ -164,11 +171,9 @@ function applyPaint(paintData, sample1Div, sample2Div) {
                         sample1Div.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, layer.ty.repeating);
                         sample2Div.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, layer.ty.repeating);
                     }
-                    // Verwende die Farben des Gradienten für den Text.
                     sample1Div.style.color = convertToHex(layer.ty.stops[0].color);
                     sample2Div.style.color = convertToHex(layer.ty.stops[layer.ty.stops.length - 1].color);
                 } else if (layer.ty.color) {
-                    // Verwende die Single Color für den Text.
                     sample1Div.style.color = convertToHex(layer.ty.color);
                     sample2Div.style.color = convertToHex(layer.ty.color);
                 }
@@ -185,4 +190,4 @@ function applyPaint(paintData, sample1Div, sample2Div) {
     }
 }
 
-getPaint(); // lol5
+getPaint(); // lol6
