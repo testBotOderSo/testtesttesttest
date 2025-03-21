@@ -2,8 +2,8 @@ const paintId = new URLSearchParams(window.location.search).get('paintID');
 const graphqlEndpoint = 'https://7tv.io/v4/gql';
 
 const query = `
-    query Paints($paintId: ID!) {
-        paints(where: { id: $paintId }) {
+    query Paints {
+        paints {
             paints {
                 id
                 name
@@ -30,27 +30,25 @@ const query = `
     }
 `;
 
-const variables = { paintId: paintId };
-
 fetch(graphqlEndpoint, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
     },
-    body: JSON.stringify({
-        query: query,
-        variables: variables,
-    }),
+    body: JSON.stringify({ query: query }),
 })
     .then(response => response.json())
     .then(data => {
-        console.log("GraphQL Response:", data);
-        if (data.data && data.data.paints && data.data.paints.paints && data.data.paints.paints.length > 0) {
-            const paintData = data.data.paints.paints[0];
-            applyPaintData(paintData);
+        if (data.data && data.data.paints && data.data.paints.paints) {
+            const paintData = data.data.paints.paints.find(paint => paint.id === paintId);
+            if (paintData) {
+                applyPaintData(paintData);
+            } else {
+                console.error('Paint data not found for ID:', paintId);
+            }
         } else {
-            console.error('Paint data not found for ID:', paintId);
+            console.error('Paint data not found.');
         }
     })
     .catch(error => {
@@ -63,7 +61,7 @@ const convertToHex = (color) => {
     } else if (color && color.r !== undefined && color.g !== undefined && color.b !== undefined) {
         return `#${(1 << 24 | color.r << 16 | color.g << 8 | color.b).toString(16).slice(1)}`;
     }
-    return '#000000';
+    return '#000000'; 
 };
 
 const applyShadows = (shadows) => {
@@ -83,7 +81,7 @@ function applyPaintData(paintData) {
     if (sample1Div && sample2Div && paintData && paintData.data) {
         if (paintData.data.layers && paintData.data.layers.length > 0) {
             sample1Div.style.backgroundColor = convertToHex(paintData.data.layers[0].color);
-            sample2Div.style.backgroundColor = convertToHex(paintData.data.layers[0].color);
+            sample2Div.style.backgroundColor = convertToHex(paintData.data.layers[0].color); 
         }
 
         if (paintData.data.shadows && paintData.data.shadows.length > 0) {
