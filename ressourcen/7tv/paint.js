@@ -10,13 +10,6 @@ function getPaint() {
                         layers {
                             id
                             opacity
-                            color {
-                                hex
-                                r
-                                g
-                                b
-                                a
-                            }
                         }
                         shadows {
                             offsetX
@@ -57,7 +50,7 @@ function getPaint() {
                 if (paintNameElement) {
                     document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
                 }
-                applyPaint(paintData.data, sample1Elem, sample2Elem); // sample1Elem und sample2Elem hinzugefügt
+                applyPaint(paintData.data, sample1Elem, sample2Elem);
             } else {
                 console.error('Keine Paint Daten gefunden für ID:', paintID);
             }
@@ -94,11 +87,14 @@ const applyShadows = (shadows) => {
     return '';
 };
 
-function applyPaint(paintData, sample1Elem, sample2Elem) { // sample1Elem und sample2Elem hinzugefügt
+function applyPaint(paintData, sample1Elem, sample2Elem) {
     if (sample1Elem && sample2Elem && paintData) {
-        if (paintData.layers && paintData.layers.length > 0) {
+        // Überprüfe, ob layers vorhanden sind und eine Farbe haben
+        if (paintData.layers && paintData.layers.length > 0 && paintData.layers[0].color) {
             sample1Elem.style.backgroundColor = convertToHex(paintData.layers[0].color);
             sample2Elem.style.backgroundColor = convertToHex(paintData.layers[0].color);
+        } else {
+            console.error("Keine Farbinformationen in den Layers gefunden.");
         }
 
         if (paintData.shadows && paintData.shadows.length > 0) {
@@ -109,7 +105,7 @@ function applyPaint(paintData, sample1Elem, sample2Elem) { // sample1Elem und sa
             sample2Elem.style.filter = '';
         }
     } else {
-        console.error("sample1Elem or sample2Elem or paintData is not defined.");
+        console.error("sample1Elem oder sample2Elem oder paintData ist nicht definiert.");
     }
 }
 
