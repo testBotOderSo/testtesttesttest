@@ -10,6 +10,13 @@ function getPaint() {
                         layers {
                             id
                             opacity
+                            color {
+                                hex
+                                r
+                                g
+                                b
+                                a
+                            }
                         }
                         shadows {
                             offsetX
@@ -50,7 +57,7 @@ function getPaint() {
                 if (paintNameElement) {
                     document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
                 }
-                applyPaint(paintData.data, sample1Elem, sample2Elem); // Hier sample2Elem hinzugefügt
+                applyPaint(paintData.data, sample1Elem, sample2Elem);
             } else {
                 console.error('Keine Paint Daten gefunden für ID:', paintID);
             }
@@ -77,41 +84,29 @@ const convertToHex = (color) => {
     return '#000000';
 };
 
-const createGradientStops = (stops) => {
-    return stops.map(stop => `${convertToHex(stop.color)} ${stop.at * 100}%`).join(', ');
-};
-
-const applyGradient = (type, direction, stops, repeat) => {
-    if (type.includes('radial-gradient')) {
-        return `${repeat ? `repeating-${type}` : type}(${stops})`;
-    }
-    return `${repeat ? `repeating-${type}` : type}(${direction}, ${stops})`;
-};
-
 const applyShadows = (shadows) => {
-    return shadows.map(shadow => {
-        const colorString = convertToHex(shadow.color);
-        return `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${colorString})`;
-    }).join(' ');
+    if (shadows && shadows.length > 0) {
+        return shadows.map(shadow => {
+            const colorString = convertToHex(shadow.color);
+            return `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${colorString})`;
+        }).join(' ');
+    }
+    return '';
 };
 
-function applyPaint(paintData, sample1Div, sample2Div) {
-    if (sample1Div && sample2Div && paintData) {
+function applyPaint(paintData, paintElem) { // sample1Elem und sample2Elem zu paintElem geändert
+    if (paintElem && paintData) {
         if (paintData.layers && paintData.layers.length > 0) {
-            const color = paintData.layers[0].color;
-            sample1Div.style.backgroundColor = convertToHex(color);
-            sample2Div.style.backgroundColor = convertToHex(color);
+            paintElem.style.backgroundColor = convertToHex(paintData.layers[0].color);
         }
 
         if (paintData.shadows && paintData.shadows.length > 0) {
-            sample1Div.style.filter = applyShadows(paintData.shadows);
-            sample2Div.style.filter = applyShadows(paintData.shadows);
+            paintElem.style.filter = applyShadows(paintData.shadows);
         } else {
-            sample1Div.style.filter = '';
-            sample2Div.style.filter = '';
+            paintElem.style.filter = '';
         }
     } else {
-        console.error("sample1Div or sample2Div or paintData is not defined.");
+        console.error("paintElem or paintData is not defined.");
     }
 }
 
