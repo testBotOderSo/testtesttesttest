@@ -11,6 +11,13 @@ const query = `
                     layers {
                         id
                         opacity
+                        color {
+                            hex
+                            r
+                            g
+                            b
+                            a
+                        }
                     }
                     shadows {
                         offsetX
@@ -78,17 +85,26 @@ const applyShadows = (shadows) => {
 
 const sample1Div = document.getElementById('sample1');
 const sample2Div = document.getElementById('sample2');
+const paintNameSpan = document.getElementById('paint-name');
 
 function applyPaintData(paintData) {
     if (sample1Div && sample2Div && paintData && paintData.data) {
         console.log('Applying Paint Data:', paintData);
 
-        if (paintData.data.layers && paintData.data.layers.length > 0) {
-            sample1Div.style.backgroundColor = convertToHex(paintData.data.layers[0].color);
-            sample2Div.style.backgroundColor = convertToHex(paintData.data.layers[0].color);
-            console.log('Applied layer colors:', convertToHex(paintData.data.layers[0].color));
+        // Name anwenden
+        if (paintData.name) {
+            paintNameSpan.textContent = paintData.name;
         }
 
+        // Farben anwenden
+        if (paintData.data.layers && paintData.data.layers.length > 0 && paintData.data.layers[0].color) {
+            const layerColor = convertToHex(paintData.data.layers[0].color);
+            sample1Div.style.backgroundColor = layerColor;
+            sample2Div.style.backgroundColor = layerColor;
+            console.log('Applied layer colors:', layerColor);
+        }
+
+        // Schatten anwenden
         if (paintData.data.shadows && paintData.data.shadows.length > 0) {
             const shadowsString = applyShadows(paintData.data.shadows);
             sample1Div.style.filter = shadowsString;
@@ -99,7 +115,6 @@ function applyPaintData(paintData) {
             sample2Div.style.filter = '';
             console.log('No shadows to apply.');
         }
-
     } else {
         console.error('Sample divs or paint data not found.');
     }
