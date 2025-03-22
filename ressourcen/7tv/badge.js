@@ -49,7 +49,6 @@ function getBadge() {
                         badgeName.textContent = badgeData.name;
                         document.title = `NotedBot │ 7TV ${badgeData.name} Badge`;
                         badgeElement.src = `https://cdn.7tv.app/badge/${badgeID}/4x.avif`;
-                        badgeName.style.backgroundImage = `url(https://cdn.7tv.app/badge/${badgeID}/4x.avif)`;
                         badgeElement.style.display = "block";
                     }
             } else {
