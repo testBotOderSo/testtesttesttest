@@ -6,13 +6,11 @@
     <link rel="icon" href="img/notedbotlogo.png" type="image/png">
     <link rel="stylesheet" href="./ressourcen/styles.css">
     <style>
-        #badge-name {
-            background-repeat: no-repeat;
-            background-size: contain; /* Oder cover, je nach gewünschtem Effekt */
-            padding: 10px;
-            display: inline-block;
-            background-blend-mode: overlay; /* Fügt den Overlay-Effekt hinzu */
-            background-color: rgba(255, 255, 255, 0.5); /* Optionale Hintergrundfarbe mit Transparenz */
+        @keyframes rgb-animation {
+            0% { background-color: rgba(0, 0, 255, 0.5); } /* Blau */
+            33% { background-color: rgba(0, 255, 255, 0.5); } /* Cyan */
+            66% { background-color: rgba(255, 0, 255, 0.5); } /* Magenta */
+            100% { background-color: rgba(0, 0, 255, 0.5); } /* Zurück zu Blau */
         }
     </style>
 </head>
