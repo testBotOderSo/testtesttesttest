@@ -165,12 +165,14 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                             const hexColor = `#${((1 << 24) + (dominantColor[0] << 16) + (dominantColor[1] << 8) + dominantColor[2]).toString(16).slice(1)}`;
                             sample1Div.style.color = hexColor;
                             sample2Div.style.color = hexColor;
+                            paintDiv.style.color = hexColor;
                         };
                         img.src = gifImage.url;
                     }
                     const largestImage = layer.ty.images.reduce((max, img) => img.size > max.size ? img : max, layer.ty.images[0]);
                     sample1Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
                     sample2Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
+                    paintDiv.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
 
                     const paintElements = document.querySelectorAll('.paint-text');
                     paintElements.forEach((element) => {
@@ -182,7 +184,7 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                         element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
                     });
 
-                    const paintNameElement = document.querySelectorAll('paint-name');
+                    const paintNameElement = document.querySelectorAll('.paint-name');
                     paintNameElement.forEach((element) => {
                         element.style.color = 'transparent';
                         element.style.backgroundClip = 'text';
@@ -201,4 +203,4 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
     }
 }
 
-getPaint(); // lol 26
+getPaint(); // lol 28
