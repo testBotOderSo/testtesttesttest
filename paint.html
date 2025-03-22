@@ -19,11 +19,17 @@
             </ul>
         </div>
         <div class="samples">
+            <input type="text" id="nameInput" value="NotedBot">
             <div id="sample1" class="paint-text">NotedBot</div>
             <div id="sample2" class="paint-text">██████</div>
         </div>
     </div>
     <script src="./ressourcen/animation.js"></script>
     <script src="./ressourcen/7tv/paint.js"></script>
+    <script>
+        const nameInput = document.getElementById('nameInput');
+        const sample1 = document.getElementById('sample1');
+        nameInput.addEventListener('input', function() {sample1.textContent = nameInput.value;});
+    </script>
 </body>
 </html>
