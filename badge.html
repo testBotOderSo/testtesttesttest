@@ -5,17 +5,6 @@
     <title>NotedBot │ 7TV <div id="badge-name"></div> Badge</title>
     <link rel="icon" href="img/notedbotlogo.png" type="image/png">
     <link rel="stylesheet" href="./ressourcen/styles.css">
-    <style>
-        #badge-name {
-            animation: rgb-animation 5s linear infinite; 
-        }
-        @keyframes rgb-animation {
-            0% { background-color: rgba(0, 0, 255, 0.5); } /* Blau */
-            33% { background-color: rgba(0, 255, 255, 0.5); } /* Cyan */
-            66% { background-color: rgba(255, 0, 255, 0.5); } /* Magenta */
-            100% { background-color: rgba(0, 0, 255, 0.5); } /* Zurück zu Blau */
-        }
-    </style>
 </head>
 <body>
     <div class="container">
@@ -31,6 +20,7 @@
         </div>
         <div class="samples">
             <img id="badge-image" class="badge-text" style="display: none;" alt="Badge Image">
+            <div id="badge-description" class="badge-text"></div>
         </div>
         <footer>
             <p class="claim">&copy; 2025 <a href="https://github.com/Wydios/NotedBotWebsite/tree/main" style="color: #4876ff;">NotedBotWebsite.dev</a> | <p>De: Diese Seite ist in Beta wenn es Fehler gibt kontatieren Wydios | Us: This site is in beta if there are any bugs contact Wydios</p></p>
