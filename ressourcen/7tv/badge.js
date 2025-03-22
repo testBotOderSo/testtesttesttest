@@ -42,17 +42,14 @@ function getBadge() {
                     console.log(`Badge Daten für ${badgeData.name} ID: ${badgeID} ->`);
                     console.log(JSON.stringify(badgeData, null, 2));
 
-                    const badgeDescription = document.getElementById('badge-description');
                     const badgeElement = document.getElementById('badge-image');
                     const badgeName = document.getElementById('badge-name');
 
-                    if (badgeDescription && badgeElement && badgeName) {
-                        badgeDescription.textContent = badgeData.description;
+                    if (badgeElement && badgeName) {
                         badgeName.textContent = badgeData.name;
                         document.title = `NotedBot │ 7TV ${badgeData.name} Badge`;
                         badgeElement.src = `https://cdn.7tv.app/badge/${badgeID}/4x.avif`;
                         badgeElement.style.display = "block";
-                        
                     }
             } else {
                 console.error('Keine Badge Daten gefunden für ID:', badgeID);
