@@ -6,6 +6,8 @@ function getUrlParams() {
 
 function getPaint() {
     const { paintID } = getUrlParams();
+    const loadingElement = document.getElementById('loading');
+    loadingElement.style.display = 'block';
     const query = `
         query Paints {
             paints {
@@ -119,6 +121,8 @@ function getPaint() {
     })
     .catch(error => {
         console.error('getPaint | Fehler beim fetchen vom Paints', error);
+    }).finally(() => {
+        loadingElement.style.display = 'none';
     });
 };
 
