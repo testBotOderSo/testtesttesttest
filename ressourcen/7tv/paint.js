@@ -168,6 +168,15 @@ function applyPaint(paintData, paintElement, sample1Div, sample2Div) {
                     sample1Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
                     sample2Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
 
+                    if (paintElement) {
+                        paintElement.style.color = 'transparent';
+                        paintElement.style.backgroundClip = 'text';
+                        paintElement.style.webkitBackgroundClip = 'text';
+                        paintElement.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
+                        paintElement.style.backgroundSize = '100% auto';
+                        paintElement.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
+                    }
+
                     const paintElements = document.querySelectorAll('.paint-text');
                     paintElements.forEach((element) => {
                         element.style.color = 'transparent';
@@ -177,15 +186,6 @@ function applyPaint(paintData, paintElement, sample1Div, sample2Div) {
                         element.style.backgroundSize = '100% auto';
                         element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
                     });
-
-                    if (paintElement) {
-                      paintElement.style.color = 'transparent';
-                      paintElement.style.backgroundClip = 'text';
-                      paintElement.style.webkitBackgroundClip = 'text';
-                      paintElement.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
-                      paintElement.style.backgroundSize = '100% auto';
-                      paintElement.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
-                    }
                 }
 
                 const paintNameElement = document.getElementById('paint-name');
@@ -202,4 +202,4 @@ function applyPaint(paintData, paintElement, sample1Div, sample2Div) {
     }
 }
 
-getPaint(); // lol11
+getPaint(); // lol12
