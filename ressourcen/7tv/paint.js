@@ -94,11 +94,10 @@ function getPaint() {
     })
     .then(response => response.json())
     .then(data => {
-        console.log('GQL Antwort:', data);
         if (data.data && data.data.paints && data.data.paints.paints) {
             const paintData = data.data.paints.paints.find(paint => paint.id === paintID);
             if (paintData) {
-                console.log(`Paint Daten für ID: ${paintID} ->`);
+                console.log(`Paint Daten für ${paintData.name} ID: ${paintID} ->`);
                 console.log(JSON.stringify(paintData, null, 2));
 
                 const sample1Element = document.getElementById('sample1');
@@ -115,7 +114,7 @@ function getPaint() {
                 console.error('Keine Paint Daten gefunden für ID:', paintID);
             }
         } else {
-            console.error('Keine Paint Daten gefunden.');
+            console.error('Keine Paint Daten gefunden');
         }
     })
     .catch(error => {
@@ -136,18 +135,11 @@ const createGradientStops = (stops) => {
     return stops.map(stop => `${convertToHex(stop.color)} ${stop.at * 100}%`).join(', ');
 };
 
-const applyGradient = (type, direction, stops, repeat) => {
+const Gradient = (type, direction, stops, repeat) => {
     if (type.includes('radial-gradient')) {
         return `${repeat ? `repeating-${type}` : type}(${stops})`;
     }
     return `${repeat ? `repeating-${type}` : type}(${direction}, ${stops})`;
-};
-
-const applyShadows = (shadows) => {
-    return shadows.map(shadow => {
-        const colorString = convertToHex(shadow.color);
-        return `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${colorString})`;
-    }).join(' ');
 };
 
 function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
@@ -193,7 +185,7 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                     const gradientStops = createGradientStops(layer.ty.stops);
                     const gradientType = layer.ty.angle !== undefined ? 'linear-gradient' : 'radial-gradient';
                     const gradientDirection = layer.ty.angle !== undefined ? `${layer.ty.angle}deg` : '';
-                    const gradientString = applyGradient(gradientType, gradientDirection, gradientStops, layer.ty.repeating);
+                    const gradientString = Gradient(gradientType, gradientDirection, gradientStops, layer.ty.repeating);
 
                     sample1Div.style.backgroundImage = gradientString;
                     sample2Div.style.backgroundImage = gradientString;
@@ -245,4 +237,4 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
     }
 };
 
-getPaint(); // lol 30
+getPaint();
