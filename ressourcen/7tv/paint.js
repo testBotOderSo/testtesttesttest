@@ -1,3 +1,9 @@
+function getUrlParams() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paintID = urlParams.get('paintID');
+    return { paintID };
+};
+
 function getPaint() {
     const { paintID } = getUrlParams();
     const query = `
@@ -93,15 +99,15 @@ function getPaint() {
                 console.log(`Paint Daten für ID: ${paintID} ->`);
                 console.log(JSON.stringify(paintData, null, 2));
 
-                const sample1Elem = document.getElementById('sample1');
-                const sample2Elem = document.getElementById('sample2');
+                const sample1Element = document.getElementById('sample1');
+                const sample2Element = document.getElementById('sample2');
                 const paintNameElement = document.getElementById('paint-name');
 
                 if (paintNameElement) {
                     paintNameElement.textContent = paintData.name;
                     document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
                 }
-                applyPaint(paintData.data, sample1Elem, sample2Elem);
+                applyPaint(paintData.data, paintNameElement, sample1Element, sample2Element);
             } else {
                 console.error('Keine Paint Daten gefunden für ID:', paintID);
             }
@@ -111,12 +117,6 @@ function getPaint() {
     }).catch(error => {
         console.error('getPaint | Fehler beim fetchen vom Paints', error);
     })
-};
-
-function getUrlParams() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const paintID = urlParams.get('paintID');
-    return { paintID };
 };
 
 const convertToHex = (color) => {
@@ -146,7 +146,7 @@ const applyShadows = (shadows) => {
     }).join(' ');
 };
 
-function applyPaint(paintData, sample1Div, sample2Div) {
+function applyPaint(paintData, paintElement, sample1Div, sample2Div) {
     if (paintData && paintData.layers && paintData.layers.length > 0) {
         paintData.layers.forEach(layer => {
             if (layer.ty) {
@@ -168,49 +168,38 @@ function applyPaint(paintData, sample1Div, sample2Div) {
                     sample1Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
                     sample2Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
 
-                    // Hier fügen wir die paint-text-spezifische Logik hinzu
-                    if (paintData.id === "01JFQV4W300XYMWDJW7E1TVY34") {
-                        const paintElements = document.querySelectorAll('.paint-text');
-                        paintElements.forEach((element) => {
-                            element.style.color = 'transparent';
-                            element.style.backgroundClip = 'text';
-                            element.style.webkitBackgroundClip = 'text';
-                            element.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
-                            element.style.backgroundSize = '100% auto';
-                            element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
-                        });
-                    }
+                    const paintElements = document.querySelectorAll('.paint-text');
+                    paintElements.forEach((element) => {
+                        element.style.color = 'transparent';
+                        element.style.backgroundClip = 'text';
+                        element.style.webkitBackgroundClip = 'text';
+                        element.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
+                        element.style.backgroundSize = '100% auto';
+                        element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
+                    });
 
-                } else if (layer.ty.stops && layer.ty.stops.length > 0) {
-                    if (layer.ty.angle !== undefined) {
-                        const gradientStops = createGradientStops(layer.ty.stops);
-                        const gradientDirection = `${layer.ty.angle}deg`;
-                        sample1Div.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, layer.ty.repeating);
-                        sample2Div.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, layer.ty.repeating);
-                    } else {
-                        const gradientStops = createGradientStops(layer.ty.stops);
-                        sample1Div.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, layer.ty.repeating);
-                        sample2Div.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, layer.ty.repeating);
+                    if (paintElement) {
+                      paintElement.style.color = 'transparent';
+                      paintElement.style.backgroundClip = 'text';
+                      paintElement.style.webkitBackgroundClip = 'text';
+                      paintElement.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
+                      paintElement.style.backgroundSize = '100% auto';
+                      paintElement.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
                     }
-                    sample1Div.style.color = convertToHex(layer.ty.stops[0].color);
-                    sample2Div.style.color = convertToHex(layer.ty.stops[layer.ty.stops.length - 1].color);
-                } else if (layer.ty.color) {
-                    sample1Div.style.color = convertToHex(layer.ty.color);
-                    sample2Div.style.color = convertToHex(layer.ty.color);
+                }
+
+                const paintNameElement = document.getElementById('paint-name');
+                if (paintNameElement) {
+                    paintNameElement.textContent = paintData.name;
+                    document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
+                }
+
+                if (paintData.data) {
+                    applyPaint(paintData.data, paintNameElement, sample1Div, sample2Div);
                 }
             }
         });
-        if (paintData.layers && paintData.layers.length > 0 && paintData.layers[0].ty && paintData.layers[0].ty.images && paintData.layers[0].ty.images.length > 0){
-            sample1Div.style.filter = '';
-            sample2Div.style.filter = '';
-        } else if (paintData.shadows && paintData.shadows.length > 0) {
-            sample1Div.style.filter = applyShadows(paintData.shadows);
-            sample2Div.style.filter = applyShadows(paintData.shadows);
-        } else {
-            sample1Div.style.filter = '';
-            sample2Div.style.filter = '';
-        }
     }
 }
 
-getPaint(); // lol10
+getPaint(); // lol11
