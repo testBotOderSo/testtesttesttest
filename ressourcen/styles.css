@@ -154,7 +154,8 @@ span {
     display: inline-block;
 }
 .editable-text:focus {
-    outline: none;
+    outline: 0;
+    background-color: #fff;
 }
 .samples {
     display: flex;
