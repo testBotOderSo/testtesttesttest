@@ -182,7 +182,8 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                         element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
                     });
 
-                    paintDiv.forEach((element) => {
+                    const paintNameElement = document.querySelectorAll('paint-name');
+                    paintNameElement.forEach((element) => {
                         element.style.color = 'transparent';
                         element.style.backgroundClip = 'text';
                         element.style.webkitBackgroundClip = 'text';
@@ -200,4 +201,4 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
     }
 }
 
-getPaint(); // lol 25
+getPaint(); // lol 26
