@@ -104,14 +104,13 @@ function getPaint() {
                 const sample1Element = document.getElementById('sample1');
                 const sample2Element = document.getElementById('sample2');
                 const paintNameElement = document.getElementById('paint-name');
-                const titleElement = document.getElementById('title');
-                
+
                 if (paintNameElement) {
                     paintNameElement.textContent = paintData.name;
                     document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
                 }
 
-                applyPaint(paintData.data, paintNameElement, sample1Element, sample2Element, titleElement);
+                applyPaint(paintData.data, paintNameElement, sample1Element, sample2Element);
             } else {
                 console.error('Keine Paint Daten gefunden für ID:', paintID);
             }
@@ -151,7 +150,7 @@ const applyShadows = (shadows) => {
     }).join(' ');
 };
 
-function applyPaint(paintData, paintDiv, sample1Div, sample2Div, titleDiv) {
+function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
     if (paintData && paintData.layers && paintData.layers.length > 0) {
         paintData.layers.forEach(layer => {
             if (layer.ty) {
@@ -167,10 +166,6 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div, titleDiv) {
                             sample1Div.style.color = hexColor;
                             sample2Div.style.color = hexColor;
                             paintDiv.style.color = hexColor;
-                            if(titleDiv) { 
-                                titleDiv.style.color = hexColor;
-                                titleDiv.querySelector('span').style.color = hexColor;
-                            }
                         };
                         img.src = gifImage.url;
                     }
@@ -189,23 +184,21 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div, titleDiv) {
                         element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
                     });
 
-                    const paintNameElements = document.querySelectorAll('.paint-name');
-                    paintNameElements.forEach((element) => {
-                        element.style.color = 'transparent';
-                        element.style.backgroundClip = 'text';
-                        element.style.webkitBackgroundClip = 'text';
-                        element.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
-                        element.style.backgroundSize = '100% auto';
-                        element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
-                    });
+                    paintDiv.textContent = paintName;
+                    paintDiv.style.fontWeight = 'bold'; 
+                    paintDiv.style.color = 'transparent';
+                    paintDiv.style.backgroundClip = 'text';
+                    paintDiv.style.webkitBackgroundClip = 'text';
+                    paintDiv.style.backgroundSize = '100% auto';
+                    paintDiv.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
                 }
 
                 if (paintData.data) {
-                    applyPaint(paintData.data, paintDiv, sample1Div, sample2Div, titleDiv);
+                    applyPaint(paintData.data, paintDiv, sample1Div, sample2Div);
                 }
             }
         });
     }
 }
 
-getPaint(); // lol 28
+getPaint(); // lol 29
