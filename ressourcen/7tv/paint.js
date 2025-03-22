@@ -121,7 +121,7 @@ function getPaint() {
     .catch(error => {
         console.error('getPaint | Fehler beim fetchen vom Paints', error);
     });
-}
+};
 
 const convertToHex = (color) => {
     if (color && color.hex) {
@@ -189,6 +189,52 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                     paintDiv.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
                     paintDiv.style.backgroundSize = '100% auto';
                     paintDiv.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
+                } else if (layer.ty.stops) { 
+                    const gradientStops = createGradientStops(layer.ty.stops);
+                    const gradientType = layer.ty.angle !== undefined ? 'linear-gradient' : 'radial-gradient';
+                    const gradientDirection = layer.ty.angle !== undefined ? `${layer.ty.angle}deg` : '';
+                    const gradientString = applyGradient(gradientType, gradientDirection, gradientStops, layer.ty.repeating);
+
+                    sample1Div.style.backgroundImage = gradientString;
+                    sample2Div.style.backgroundImage = gradientString;
+                    paintDiv.style.backgroundImage = gradientString;
+
+                    const paintElements = document.querySelectorAll('.paint-text');
+                    paintElements.forEach((element) => {
+                        element.style.color = 'transparent';
+                        element.style.backgroundClip = 'text';
+                        element.style.webkitBackgroundClip = 'text';
+                        element.style.backgroundImage = gradientString;
+                        element.style.backgroundSize = '100% auto';
+                        element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
+                    });
+
+                    paintDiv.style.color = 'transparent';
+                    paintDiv.style.backgroundClip = 'text';
+                    paintDiv.style.webkitBackgroundClip = 'text';
+                    paintDiv.style.backgroundImage = gradientString;
+                    paintDiv.style.backgroundSize = '100% auto';
+                    paintDiv.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
+                } else if (layer.ty.color) {
+                    const hexColor = convertToHex(layer.ty.color);
+                    sample1Div.style.backgroundColor = hexColor;
+                    sample2Div.style.backgroundColor = hexColor;
+                    paintDiv.style.backgroundColor = hexColor;
+
+                    const paintElements = document.querySelectorAll('.paint-text');
+                    paintElements.forEach((element) => {
+                        element.style.color = hexColor;
+                        element.style.backgroundClip = 'unset';
+                        element.style.webkitBackgroundClip = 'unset';
+                        element.style.backgroundImage = 'unset';
+                        element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
+                    });
+                     paintDiv.style.color = hexColor;
+                     paintDiv.style.backgroundClip = 'unset';
+                     paintDiv.style.webkitBackgroundClip = 'unset';
+                     paintDiv.style.backgroundImage = 'unset';
+                     paintDiv.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
+
                 }
 
                 if (paintData.data) {
@@ -199,4 +245,4 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
     }
 };
 
-getPaint(); // lol 29
+getPaint(); // lol 30
