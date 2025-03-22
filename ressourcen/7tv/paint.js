@@ -96,17 +96,14 @@ function getPaint() {
         if (data.data && data.data.paints && data.data.paints.paints) {
             const paintData = data.data.paints.paints.find(paint => paint.id === paintID);
             if (paintData) {
-                console.log(`Paint Daten für Name: ${paintData.name} ID: ${paintID} ->`);
+                console.log(`Paint Daten für ID: ${paintID} ->`);
                 console.log(JSON.stringify(paintData, null, 2));
 
                 const sample1Element = document.getElementById('sample1');
                 const sample2Element = document.getElementById('sample2');
                 const paintNameElement = document.getElementById('paint-name');
-
-                if (paintNameElement) {
-                    paintNameElement.textContent = paintData.name;
-                    document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
-                }
+                document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
+                
                 applyPaint(paintData.data, paintNameElement, sample1Element, sample2Element);
             } else {
                 console.error('Keine Paint Daten gefunden für ID:', paintID);
@@ -169,6 +166,7 @@ function applyPaint(paintData, paintElement, sample1Div, sample2Div) {
                     sample2Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
 
                     if (paintElement) {
+                        paintNameElement.textContent = paintData.name;
                         paintElement.style.color = 'transparent';
                         paintElement.style.backgroundClip = 'text';
                         paintElement.style.webkitBackgroundClip = 'text';
@@ -202,4 +200,4 @@ function applyPaint(paintData, paintElement, sample1Div, sample2Div) {
     }
 }
 
-getPaint(); // lol12
+getPaint(); // lol11
