@@ -2,7 +2,7 @@ function getUrlParams() {
     const urlParams = new URLSearchParams(window.location.search);
     const paintID = urlParams.get('paintID');
     return { paintID };
-};
+}
 
 function getPaint() {
     const { paintID } = getUrlParams();
@@ -91,7 +91,9 @@ function getPaint() {
             'Accept': 'application/json',
         },
         body: JSON.stringify({ query: query }),
-    }).then(response => response.json()).then(data => {
+    })
+    .then(response => response.json())
+    .then(data => {
         console.log('GQL Antwort:', data);
         if (data.data && data.data.paints && data.data.paints.paints) {
             const paintData = data.data.paints.paints.find(paint => paint.id === paintID);
@@ -103,7 +105,7 @@ function getPaint() {
                 const sample2Element = document.getElementById('sample2');
                 const paintNameElement = document.getElementById('paint-name');
                 document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
-                
+
                 applyPaint(paintData.data, paintNameElement, sample1Element, sample2Element);
             } else {
                 console.error('Keine Paint Daten gefunden für ID:', paintID);
@@ -111,10 +113,11 @@ function getPaint() {
         } else {
             console.error('Keine Paint Daten gefunden.');
         }
-    }).catch(error => {
-        console.error('getPaint | Fehler beim fetchen vom Paints', error);
     })
-};
+    .catch(error => {
+        console.error('getPaint | Fehler beim fetchen vom Paints', error);
+    });
+}
 
 const convertToHex = (color) => {
     if (color && color.hex) {
@@ -158,7 +161,7 @@ function applyPaint(paintData, paintElement, sample1Div, sample2Div) {
                             const hexColor = `#${((1 << 24) + (dominantColor[0] << 16) + (dominantColor[1] << 8) + dominantColor[2]).toString(16).slice(1)}`;
                             sample1Div.style.color = hexColor;
                             sample2Div.style.color = hexColor;
-                        }
+                        };
                         img.src = gifImage.url;
                     }
                     const largestImage = layer.ty.images.reduce((max, img) => img.size > max.size ? img : max, layer.ty.images[0]);
@@ -166,13 +169,13 @@ function applyPaint(paintData, paintElement, sample1Div, sample2Div) {
                     sample2Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
 
                     if (paintElement) {
-                        paintNameElement.textContent = paintData.name;
+                        paintElement.textContent = paintData.name;
                         paintElement.style.color = 'transparent';
                         paintElement.style.backgroundClip = 'text';
                         paintElement.style.webkitBackgroundClip = 'text';
                         paintElement.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
                         paintElement.style.backgroundSize = '100% auto';
-                        paintElement.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
+                        paintElement.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)`;
                     }
 
                     const paintElements = document.querySelectorAll('.paint-text');
@@ -182,22 +185,16 @@ function applyPaint(paintData, paintElement, sample1Div, sample2Div) {
                         element.style.webkitBackgroundClip = 'text';
                         element.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
                         element.style.backgroundSize = '100% auto';
-                        element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
+                        element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)`;
                     });
                 }
 
-                const paintNameElement = document.getElementById('paint-name');
-                if (paintNameElement) {
-                    paintNameElement.textContent = paintData.name;
-                    document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
-                }
-
                 if (paintData.data) {
-                    applyPaint(paintData.data, paintNameElement, sample1Div, sample2Div);
+                    applyPaint(paintData.data, paintElement, sample1Div, sample2Div);
                 }
             }
         });
     }
 }
 
-getPaint(); // lol11
+getPaint();
