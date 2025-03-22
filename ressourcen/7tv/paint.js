@@ -172,7 +172,6 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                     const largestImage = layer.ty.images.reduce((max, img) => img.size > max.size ? img : max, layer.ty.images[0]);
                     sample1Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
                     sample2Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
-                    paintDiv.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
 
                     const paintElements = document.querySelectorAll('.paint-text');
                     paintElements.forEach((element) => {
@@ -187,6 +186,7 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                     paintDiv.style.color = 'transparent';
                     paintDiv.style.backgroundClip = 'text';
                     paintDiv.style.webkitBackgroundClip = 'text';
+                    paintDiv.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
                     paintDiv.style.backgroundSize = '100% auto';
                     paintDiv.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
                 }
@@ -197,6 +197,6 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
             }
         });
     }
-}
+};
 
 getPaint(); // lol 29
