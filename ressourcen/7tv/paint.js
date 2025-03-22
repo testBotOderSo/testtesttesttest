@@ -103,9 +103,14 @@ function getPaint() {
 
                 const sample1Element = document.getElementById('sample1');
                 const sample2Element = document.getElementById('sample2');
-                document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
+                const paintNameElement = document.getElementById('paint-name');
 
-                applyPaint(paintData.data, sample1Element, sample2Element);
+                if (paintNameElement) {
+                    paintNameElement.textContent = paintData.name;
+                    document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
+                }
+
+                applyPaint(paintData.data, paintNameElement, sample1Element, sample2Element);
             } else {
                 console.error('Keine Paint Daten gefunden für ID:', paintID);
             }
@@ -145,9 +150,7 @@ const applyShadows = (shadows) => {
     }).join(' ');
 };
 
-function applyPaint(paintData, sample1Div, sample2Div) {
-    const paintNameElement = document.getElementById('paint-name');
-
+function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
     if (paintData && paintData.layers && paintData.layers.length > 0) {
         paintData.layers.forEach(layer => {
             if (layer.ty) {
@@ -168,16 +171,7 @@ function applyPaint(paintData, sample1Div, sample2Div) {
                     const largestImage = layer.ty.images.reduce((max, img) => img.size > max.size ? img : max, layer.ty.images[0]);
                     sample1Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
                     sample2Div.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
-
-                    if (paintNameElement) {
-                        paintNameElement.textContent = paintData.name;
-                        paintNameElement.style.color = 'transparent';
-                        paintNameElement.style.backgroundClip = 'text';
-                        paintNameElement.style.webkitBackgroundClip = 'text';
-                        paintNameElement.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
-                        paintNameElement.style.backgroundSize = '100% auto';
-                        paintNameElement.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
-                    }
+                    paintDiv.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
 
                     const paintElements = document.querySelectorAll('.paint-text');
                     paintElements.forEach((element) => {
@@ -191,11 +185,11 @@ function applyPaint(paintData, sample1Div, sample2Div) {
                 }
 
                 if (paintData.data) {
-                    applyPaint(paintData.data, sample1Div, sample2Div);
+                    applyPaint(paintData.data, paintDiv, sample1Div, sample2Div);
                 }
             }
         });
     }
 }
 
-getPaint();
+getPaint(); // lol 20
