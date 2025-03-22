@@ -184,7 +184,6 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                         element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
                     });
 
-                    paintDiv.style.fontWeight = 'bold'; 
                     paintDiv.style.color = 'transparent';
                     paintDiv.style.backgroundClip = 'text';
                     paintDiv.style.webkitBackgroundClip = 'text';
