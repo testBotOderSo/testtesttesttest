@@ -105,7 +105,7 @@ function getPaint() {
                 const sample2Element = document.getElementById('sample2');
                 document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
 
-                applyPaint(paintData, sample1Element, sample2Element);
+                applyPaint(paintData.data, sample1Element, sample2Element);
             } else {
                 console.error('Keine Paint Daten gefunden für ID:', paintID);
             }
@@ -146,7 +146,6 @@ const applyShadows = (shadows) => {
 };
 
 function applyPaint(paintData, sample1Div, sample2Div) {
-    console.log(JSON.stringify(paintData, null, 2));
     const paintNameElement = document.getElementById('paint-name');
 
     if (paintData && paintData.layers && paintData.layers.length > 0) {
