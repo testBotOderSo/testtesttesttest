@@ -175,7 +175,7 @@ function applyPaint(paintData, paintElement, sample1Div, sample2Div) {
                         paintElement.style.webkitBackgroundClip = 'text';
                         paintElement.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
                         paintElement.style.backgroundSize = '100% auto';
-                        paintElement.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)`;
+                        paintElement.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
                     }
 
                     const paintElements = document.querySelectorAll('.paint-text');
@@ -185,7 +185,7 @@ function applyPaint(paintData, paintElement, sample1Div, sample2Div) {
                         element.style.webkitBackgroundClip = 'text';
                         element.style.backgroundImage = `url('${largestImage.url.replace('/1x.', '/3x.')}')`;
                         element.style.backgroundSize = '100% auto';
-                        element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)`;
+                        element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
                     });
                 }
 
