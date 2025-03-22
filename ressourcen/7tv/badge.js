@@ -43,9 +43,10 @@ function getBadge() {
                     console.log(JSON.stringify(badgeData, null, 2));
 
                     const badgeElement = document.getElementById('badge-image');
+                    const badgeName = document.getElementById('badge-name');
 
-                    if (badgeElement) {
-                        badgeElement.textContent = badgeData.name;
+                    if (badgeElement && badgeName) {
+                        badgeName.textContent = badgeData.name;
                         document.title = `NotedBot │ 7TV ${badgeData.name} Badge`;
                         badgeElement.src = `https://cdn.7tv.app/badge/${badgeID}/4x.avif`;
                         badgeElement.style.display = "block";
