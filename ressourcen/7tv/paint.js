@@ -96,7 +96,7 @@ function getPaint() {
         if (data.data && data.data.paints && data.data.paints.paints) {
             const paintData = data.data.paints.paints.find(paint => paint.id === paintID);
             if (paintData) {
-                console.log(`Paint Daten für ID: ${paintID} ->`);
+                console.log(`Paint Daten für Name: ${paintData.name} ID: ${paintID} ->`);
                 console.log(JSON.stringify(paintData, null, 2));
 
                 const sample1Element = document.getElementById('sample1');
