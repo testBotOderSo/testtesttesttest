@@ -98,6 +98,7 @@ function getPaint() {
                 const paintNameElement = document.getElementById('paint-name');
 
                 if (paintNameElement) {
+                    paintNameElement.textContent = paintData.name;
                     document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
                 }
                 applyPaint(paintData.data, sample1Elem, sample2Elem);
