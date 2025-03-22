@@ -5,6 +5,16 @@
     <title>NotedBot │ 7TV <div id="badge-name"></div> Badge</title>
     <link rel="icon" href="img/notedbotlogo.png" type="image/png">
     <link rel="stylesheet" href="./ressourcen/styles.css">
+    <style>
+        #badge-name {
+            background-repeat: no-repeat;
+            background-size: contain; /* Oder cover, je nach gewünschtem Effekt */
+            padding: 10px;
+            display: inline-block;
+            background-blend-mode: overlay; /* Fügt den Overlay-Effekt hinzu */
+            background-color: rgba(255, 255, 255, 0.5); /* Optionale Hintergrundfarbe mit Transparenz */
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -21,10 +31,10 @@
         <div class="samples">
             <img id="badge-image" class="badge-text" style="display: none;" alt="Badge Image">
         </div>
+        <footer>
+            <p class="claim">&copy; 2025 <a href="https://github.com/Wydios/NotedBotWebsite/tree/main" style="color: #4876ff;">NotedBotWebsite.dev</a> | <p>De: Diese Seite ist in Beta wenn es Fehler gibt kontatieren Wydios | Us: This site is in beta if there are any bugs contact Wydios</p></p>
+        </footer>
     </div>
-    <footer>
-        <p class="claim">&copy; 2025 <a href="https://github.com/Wydios/NotedBotWebsite/tree/main" style="color: #4876ff;">NotedBotWebsite.dev</a> | <p>De: Diese Seite ist in Beta wenn es Fehler gibt kontatieren Wydios | Us: This site is in beta if there are any bugs contact Wydios</p></p>
-    </footer>
     <script src="./ressourcen/animation.js"></script>
     <script src="./ressourcen/7tv/badge.js"></script>
 </body>
