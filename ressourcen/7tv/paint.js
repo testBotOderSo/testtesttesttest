@@ -149,7 +149,7 @@ function getPaint() {
     });
     function Error() {
         errorElement.style.display = 'block';
-    }
+    };
 };
 
 const convertToHex = (color) => {
@@ -204,7 +204,6 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                         element.style.backgroundSize = '100% auto';
                         element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
                     });
-
                     paintDiv.style.color = 'transparent';
                     paintDiv.style.backgroundClip = 'text';
                     paintDiv.style.webkitBackgroundClip = 'text';
@@ -230,7 +229,6 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                         element.style.backgroundSize = '100% auto';
                         element.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
                     });
-
                     paintDiv.style.color = 'transparent';
                     paintDiv.style.backgroundClip = 'text';
                     paintDiv.style.webkitBackgroundClip = 'text';
@@ -256,7 +254,6 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                      paintDiv.style.webkitBackgroundClip = 'unset';
                      paintDiv.style.backgroundImage = 'unset';
                      paintDiv.style.filter = 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)';
-
                 }
 
                 if (paintData.data) {
