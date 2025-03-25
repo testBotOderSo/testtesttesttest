@@ -1,11 +1,33 @@
 function getUrlParams() {
     const urlParams = new URLSearchParams(window.location.search);
     const badgeID = urlParams.get('badgeID');
+    const helpElement = document.getElementById('help');
+    if (!badgeID) {
+        helpElement.style.display = 'block';
+        return { badgeID: null };
+    }
     return { badgeID };
-}
+};
 
 function getBadge() {
     const { badgeID } = getUrlParams();
+
+    const loadingElement = document.getElementById('loading');
+    const errorElement = document.getElementById('error');
+    const sample1Element = document.getElementById('sample1');
+    const sample2Element = document.getElementById('sample2');
+
+    if (!badgeID) {
+        loadingElement.style.display = 'none';
+        errorElement.style.display = 'none';
+        sample1Element.style.display = 'none';
+        sample2Element.style.display = 'none';
+        return;
+    }
+
+    loadingElement.style.display = 'block';
+    errorElement.style.display = 'none';
+
     const query = `
         query Paints {
             badges {
@@ -53,14 +75,22 @@ function getBadge() {
                     }
             } else {
                 console.error('Keine Badge Daten gefunden für ID:', badgeID);
+                Error();
             }
         } else {
             console.error('Keine Badge Daten gefunden');
+            Error();
         }
     })
     .catch(error => {
         console.error('getBadge | Fehler beim fetchen vom Badges', error);
+        Error();
+    }).finally(() => {
+        loadingElement.style.display = 'none';
     });
+    function Error() {
+        errorElement.style.display = 'block';
+    };
 };
 
 getBadge();
