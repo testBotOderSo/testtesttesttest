@@ -14,6 +14,16 @@ function getPaint() {
 
     const loadingElement = document.getElementById('loading');
     const errorElement = document.getElementById('error');
+    const sample1Element = document.getElementById('sample1');
+    const sample2Element = document.getElementById('sample2');
+
+    if (!paintID) {
+        loadingElement.style.display = 'none';
+        errorElement.style.display = 'none';
+        sample1Element.style.display = 'none';
+        sample2Element.style.display = 'none';
+        return;
+    }
 
     loadingElement.style.display = 'block';
     errorElement.style.display = 'none';
