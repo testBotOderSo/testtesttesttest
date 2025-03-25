@@ -1,8 +1,13 @@
 function getUrlParams() {
     const urlParams = new URLSearchParams(window.location.search);
     const paintID = urlParams.get('paintID');
+    const helpElement = document.getElementById('help');
+    if (!paintID) {
+        helpElement.style.display = 'block';
+        return { paintID: null };
+    }
     return { paintID };
-}
+};
 
 function getPaint() {
     const { paintID } = getUrlParams();
