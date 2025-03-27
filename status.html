@@ -35,6 +35,8 @@
                 <p id="ping"></p>
                 <p id="helix-requests"></p>
                 <p id="ivr-requests"></p>
+                <p id="gql_request"></p>
+                <p id="stv_request"></p>
                 <p id="updated-at"></p>
             </div>
         </div>
@@ -59,6 +61,8 @@
                     document.getElementById("ping").textContent = `Bot Ping: ${data.ping_ms}ms`;
                     document.getElementById("helix-requests").textContent = `Helix Requests: ${data.helix_requests}`;
                     document.getElementById("ivr-requests").textContent = `IVR Requests: ${data.ivr_requests}`;
+                    document.getElementById("gql_request").textContent = `GQL Requests: ${data.gql_request}`;
+                    document.getElementById("stv_request").textContent = `7TV Requests: ${data.stv_request}`;
                     document.getElementById("updated-at").textContent = `Last Update: ${new Date(data.updated_at).toLocaleString()}`;
 
                     commandBubble.style.display = 'block';
