@@ -1,0 +1,50 @@
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotedBot │ Status</title>
+    <link rel="icon" href="img/notedbotlogo.png" type="image/png">
+    <link rel="stylesheet" href="./ressourcen/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <a href="home.html"><img src="img/notedbot.gif" alt="NotedBot Logo"></a>
+        </div>
+        <div class="navigation">
+            <h1 id="title"><img src="img/notedbotlogo.png" alt="NotedBot Logo" style="color: #0036d8;"> <span style="color: #0036d8;">NotedBot</span></h1>
+            <ul>
+                <li><a onclick="alert('Du bist doch schon auf der Seite?')" style="color: #4876ff;">Home</a></li>
+                <li><a href="commands" style="color: #4876ff;">Commands</a></li>
+                <li><a href="status" style="color: #4876ff;">Status</a></li>
+                <li><a href="paint?paintID=" style="color: #4876ff;">Try 7tv Paints</a></li>
+                <li><a href="badge?badgeID=" style="color: #4876ff;">Try 7tv Badge</a></li>
+            </ul>
+        </div>
+        <script>
+            async function loadStatus() {
+                try {
+                    const response = await fetch("https://raw.githubusercontent.com/Wydios/NotedBotWebsite/main/src/status.json");
+                    const data = await response.json();
+        
+                    document.getElementById("helix-requests").textContent = `Helix Requests: ${data.helix_requests}`;
+                    document.getElementById("ivr-requests").textContent = `IVR Requests: ${data.ivr_requests}`;
+                    document.getElementById("updated-at").textContent = `Letzte Aktualisierung: ${new Date(data.updated_at).toLocaleString()}`;
+                } catch (error) {
+                    console.error("Fehler beim Laden des Status:", error);
+                }
+            }
+        
+            loadStatus();
+        </script>
+        
+        <div class="status-container">
+            <h2>Bot Status</h2>
+            <p id="helix-requests">Lade Helix Requests...</p>
+            <p id="ivr-requests">Lade IVR Requests...</p>
+            <p id="updated-at">Lade Zeitstempel...</p>
+        </div>        
+    </div>
+    <script src="./ressourcen/animation.js"></script>
+</body>
+</html>
