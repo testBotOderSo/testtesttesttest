@@ -1,6 +1,6 @@
 {
-  "ping_ms": "166663.24",
-  "helix_requests": 29,
-  "ivr_requests": 32,
-  "updated_at": "2025-03-27T11:43:16.783Z"
+  "ping_ms": "190.32",
+  "helix_requests": 0,
+  "ivr_requests": 4,
+  "updated_at": "2025-03-27T12:20:43.684Z"
 }
