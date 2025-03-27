@@ -31,7 +31,7 @@
         </div>
         <div class="command-bubble">
             <h3><img src="https://cdn.7tv.app/emote/01FN7NFT4800068STSDCEP6CE3/1x.avif">All Requests:</h3>
-            <div id="status" class="status-content hidden" style="text-align: center;">
+            <div id="status" class="status-content hidden" style="text-align: center; font-weight: bold;">
                 <p id="ping"></p>
                 <p id="helix-requests"></p>
                 <p id="ivr-requests"></p>
@@ -40,9 +40,13 @@
         </div>
         <script>
             async function loadStatus() {
-                document.getElementById("loading").classList.remove("hidden");
-                document.getElementById("status").classList.add("hidden");
-                document.getElementById("error").classList.add("hidden");
+                const loading = document.getElementById("loading");
+                const status = document.getElementById("status");
+                const error = document.getElementById("error");
+
+                loading.style.display = 'block';
+                error.style.display = 'none';
+                status.style.display = 'none';
 
                 try {
                     const response = await fetch("https://raw.githubusercontent.com/NotedBot/testtesttesttest/main/ressourcen/status.json");
@@ -55,21 +59,17 @@
                     document.getElementById("ivr-requests").textContent = `IVR Requests: ${data.ivr_requests}`;
                     document.getElementById("updated-at").textContent = `Last Update: ${new Date(data.updated_at).toLocaleString()}`;
 
-                    document.getElementById("status").classList.remove("hidden");
-                    document.getElementById("loading").classList.add("hidden");
-                } catch (error) {
-                    console.error("Error:", error);
-                    document.getElementById("loading").classList.add("hidden");
-                    document.getElementById("error").classList.remove("hidden");
+                    status.style.display = 'block';
+                    loading.style.display = 'none';
+                } catch (err) {
+                    console.error("Error:", err);
+                    error.style.display = 'none';
+                    loading.style.display = 'none';
                 }
-            }
+            };
             loadStatus();
         </script>      
     </div>
     <script src="./ressourcen/animation.js"></script>
 </body>
 </html>
-
-
-
-
