@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <div class="logo">
-            <a href="home.html"><img src="img/notedbot.gif" alt="NotedBot Logo"></a>
+            <a href="home"><img src="img/notedbot.gif" alt="NotedBot Logo"></a>
         </div>
         <div class="navigation">
             <h1 id="title"><img src="img/notedbotlogo.png" alt="NotedBot Logo" style="color: #0036d8;"> <span style="color: #0036d8;">NotedBot</span></h1>
@@ -53,21 +53,28 @@
                 status.style.display = 'none';
 
                 try {
-                    const response = await fetch("https://raw.githubusercontent.com/NotedBot/testtesttesttest/main/ressourcen/status.json");
-                    if (!response.ok) throw new Error(`Fehler beim fetchen: ${response.statusText}`);
-                    
-                    const data = await response.json();
-                    
-                    document.getElementById("ping").textContent = `Bot Ping: ${data.ping_ms}ms`;
-                    document.getElementById("helix-requests").textContent = `Helix Requests: ${data.helix_requests}`;
-                    document.getElementById("ivr-requests").textContent = `IVR Requests: ${data.ivr_requests}`;
-                    document.getElementById("gql_request").textContent = `GQL Requests: ${data.gql_request}`;
-                    document.getElementById("stv_request").textContent = `7TV Requests: ${data.stv_request}`;
-                    document.getElementById("updated-at").textContent = `Last Update: ${new Date(data.updated_at).toLocaleString()}`;
+            
+                    fetch('./ressourcen/status.json').then(response => {
+                        if (!response.ok) {
+                            console.log(`Fehler beim fetchen von status.json: ${response.statusText}`);
+                        }
+                        return response.json();
+                        }).then(data => {
+                            document.getElementById("ping").textContent = `Bot Ping: ${data.ping_ms}ms`;
+                            document.getElementById("helix-requests").textContent = `Helix Requests: ${data.helix_requests}`;
+                            document.getElementById("ivr-requests").textContent = `IVR Requests: ${data.ivr_requests}`;
+                            document.getElementById("gql_request").textContent = `GQL Requests: ${data.gql_request}`;
+                            document.getElementById("stv_request").textContent = `7TV Requests: ${data.stv_request}`;
+                            document.getElementById("updated-at").textContent = `Last Update: ${new Date(data.updated_at).toLocaleString()}`;
 
-                    commandBubble.style.display = 'block';
-                    status.style.display = 'block';
-                    loading.style.display = 'none';
+                            commandBubble.style.display = 'block';
+                            status.style.display = 'block';
+                            loading.style.display = 'none';
+                        }).catch(err => {
+                            console.error("Error:", err);
+                            error.style.display = 'none';
+                            loading.style.display = 'none';
+                    });
                 } catch (err) {
                     console.error("Error:", err);
                     error.style.display = 'none';
