@@ -43,7 +43,9 @@
                 const loading = document.getElementById("loading");
                 const status = document.getElementById("status");
                 const error = document.getElementById("error");
+                const commandBubble = document.getElementById("command-bubble");
 
+                commandBubble.style.display = 'none';
                 loading.style.display = 'block';
                 error.style.display = 'none';
                 status.style.display = 'none';
@@ -59,6 +61,7 @@
                     document.getElementById("ivr-requests").textContent = `IVR Requests: ${data.ivr_requests}`;
                     document.getElementById("updated-at").textContent = `Last Update: ${new Date(data.updated_at).toLocaleString()}`;
 
+                    commandBubble.style.display = 'block';
                     status.style.display = 'block';
                     loading.style.display = 'none';
                 } catch (err) {
@@ -68,7 +71,11 @@
                 }
             };
             loadStatus();
-        </script>      
+        </script>     
+        <footer>
+            <p class="claim">&copy; 2025 <a href="https://github.com/Wydios/NotedBotWebsite/tree/main" style="color: #4876ff;">NotedBotWebsite.dev</a></p>
+            <p> <a href="https://www.twitch.tv/notedbot" style="color: #4876ff;">Chat Bot</a></p>
+        </footer> 
     </div>
     <script src="./ressourcen/animation.js"></script>
 </body>
