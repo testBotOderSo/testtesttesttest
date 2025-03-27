@@ -50,6 +50,7 @@
             <span style="color: #0036d8;">Status is Loading...</span>
         </div>
         <div id="status" class="status-content hidden" style="text-align: center;">
+            <p id="ping"></p>
             <p id="helix-requests"></p>
             <p id="ivr-requests"></p>
             <p id="updated-at"></p>
@@ -66,7 +67,8 @@
                     if (!response.ok) throw new Error(`Fehler beim Abrufen: ${response.statusText}`);
                     
                     const data = await response.json();
-        
+                    
+                    document.getElementById("ping").textContent = `Bot Twtich Ping: ${data.ping_ms}ms`;
                     document.getElementById("helix-requests").textContent = `Helix Requests: ${data.helix_requests}`;
                     document.getElementById("ivr-requests").textContent = `IVR Requests: ${data.ivr_requests}`;
                     document.getElementById("updated-at").textContent = `Letzte Aktualisierung: ${new Date(data.updated_at).toLocaleString()}`;
