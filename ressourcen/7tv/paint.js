@@ -252,3 +252,5 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
         });
     }
 };
+
+getPaint();
