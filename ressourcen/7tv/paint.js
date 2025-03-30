@@ -182,6 +182,10 @@ const Gradient = (type, direction, stops, repeat) => {
 function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
     if (!paintData || !paintData.layers) return;
     
+    const applyStyles = (div, styles) => {
+        Object.assign(div.style, styles);
+    };
+    
     paintData.layers.forEach(layer => {
         if (!layer.ty) return;
         
@@ -190,27 +194,45 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
             const imgUrl = largestImage.url.replace('/1x.', '/3x.');
             
             [sample1Div, sample2Div, paintDiv].forEach(div => {
-                div.style.backgroundImage = `url('${imgUrl}')`;
-                div.style.backgroundSize = 'contain';
-                div.style.backgroundPosition = 'center';
-                div.style.backgroundRepeat = 'no-repeat';
+                applyStyles(div, {
+                    backgroundImage: `url('${imgUrl}')`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center'
+                });
             });
         } else if (layer.ty.stops) {
             const gradientStops = createGradientStops(layer.ty.stops);
             const gradientType = layer.ty.angle !== undefined ? 'linear-gradient' : 'radial-gradient';
-            const gradientDirection = layer.ty.angle !== undefined ? `${layer.ty.angle}deg` : '';
+            const gradientDirection = layer.ty.angle !== undefined ? `${layer.ty.angle}deg` : 'circle';
             const gradientString = Gradient(gradientType, gradientDirection, gradientStops, layer.ty.repeating);
             
             [sample1Div, sample2Div, paintDiv].forEach(div => {
-                div.style.backgroundImage = gradientString;
-                div.style.backgroundSize = 'cover';
-                div.style.backgroundPosition = 'center';
+                applyStyles(div, {
+                    backgroundImage: gradientString,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center'
+                });
             });
         } else if (layer.ty.color) {
             const hexColor = convertToHex(layer.ty.color);
             
             [sample1Div, sample2Div, paintDiv].forEach(div => {
-                div.style.backgroundColor = hexColor;
+                applyStyles(div, {
+                    backgroundColor: hexColor,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    textAlign: 'center'
+                });
             });
         }
     });
@@ -221,6 +243,6 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
             div.style.filter = shadowStyle;
         });
     }
-};
+}
 
 getPaint();
