@@ -30,12 +30,84 @@ function getPaint() {
     elements.error.style.display = 'none';
     document.title = `NotedBot │ 7TV ... Paint`;
 
-    const query = `query Paints { paints { paints { id name data { layers { id opacity ty { 
-        ... on PaintLayerTypeImage { images { url mime size scale width height frameCount } } 
-        ... on PaintLayerTypeRadialGradient { repeating shape stops { at color { hex r g b a } } } 
-        ... on PaintLayerTypeLinearGradient { angle repeating stops { at color { hex r g b a } } } 
-        ... on PaintLayerTypeSingleColor { color { hex r g b a } } 
-        } } shadows { offsetX offsetY blur color { hex r g b a } } } } }`;
+    const query = `
+        query Paints {
+            paints {
+                paints {
+                    id
+                    name
+                    data {
+                        layers {
+                            id
+                            opacity
+                            ty {
+                                ... on PaintLayerTypeImage {
+                                    images {
+                                        url
+                                        mime
+                                        size
+                                        scale
+                                        width
+                                        height
+                                        frameCount
+                                    }
+                                }
+                                ... on PaintLayerTypeRadialGradient {
+                                    repeating
+                                    shape
+                                    stops {
+                                        at
+                                        color {
+                                            hex
+                                            r
+                                            g
+                                            b
+                                            a
+                                        }
+                                    }
+                                }
+                                ... on PaintLayerTypeLinearGradient {
+                                    angle
+                                    repeating
+                                    stops {
+                                        at
+                                        color {
+                                            hex
+                                            r
+                                            g
+                                            b
+                                            a
+                                        }
+                                    }
+                                }
+                                ... on PaintLayerTypeSingleColor {
+                                    color {
+                                        hex
+                                        r
+                                        g
+                                        b
+                                        a
+                                    }
+                                }
+                            }
+                        }
+                        shadows {
+                            offsetX
+                            offsetY
+                            blur
+                            color {
+                                hex
+                                r
+                                g
+                                b
+                                a
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    `;
 
     fetch('https://7tv.io/v4/gql', {
         method: 'POST',
