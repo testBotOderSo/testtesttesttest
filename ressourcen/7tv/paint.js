@@ -34,10 +34,7 @@ function getPaint() {
     const query = `
         query Paints {
             paints {
-                paints {
-                    id
-                    name
-                    data {
+                paints { id name data {
                         layers {
                             id
                             opacity
@@ -123,6 +120,7 @@ function getPaint() {
             const paintData = data.data.paints.paints.find(paint => paint.id === paintID);
             if (paintData) {
                 console.log(`Paint Daten für ${paintData.name} ID: ${paintID} ->`);
+                console.log(JSON.stringify(paintData, null, 2));
 
                 if (paintNameElement) {
                     paintNameElement.textContent = paintData.name;
@@ -154,57 +152,75 @@ function getPaint() {
     };
 };
 
+function applyShadows(shadows) {
+    return shadows.map(shadow => {
+        const colorString = convertToHex(shadow.color);
+        return `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${colorString})`;
+    }).join(' ');
+};
+
 const convertToHex = (color) => {
-    const normalizedColor = color >>> 0;
-    return `#${normalizedColor.toString(16).padStart(8, '0')}`;
+    if (color && color.hex) {
+        return color.hex;
+    } else if (color && color.r !== undefined && color.g !== undefined && color.b !== undefined) {
+        return `#${(1 << 24 | color.r << 16 | color.g << 8 | color.b).toString(16).slice(1)}`;
+    }
+    return '#000000';
 };
 
 const createGradientStops = (stops) => {
     return stops.map(stop => `${convertToHex(stop.color)} ${stop.at * 100}%`).join(', ');
 };
 
-const applyGradient = (type, direction, stops, repeat) => {
+const Gradient = (type, direction, stops, repeat) => {
     if (type.includes('radial-gradient')) {
         return `${repeat ? `repeating-${type}` : type}(${stops})`;
     }
     return `${repeat ? `repeating-${type}` : type}(${direction}, ${stops})`;
 };
 
-const applyShadows = (shadows) => {
-    return shadows.map(shadow => {
-        const colorString = convertToHex(shadow.color);
-        return `drop-shadow(${shadow.x_offset}px ${shadow.y_offset}px ${shadow.radius}px ${colorString})`;
-    }).join(' ');
-};
-
-function applyPaint(paintData, paintNameElement, sample1Element, sample2Element) {
-    if (!paintData) return;
-
+function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
+    if (!paintData || !paintData.layers) return;
+    
     paintData.layers.forEach(layer => {
-        if (layer.ty?.images) {
-            // Image Layer
-            const imageUrl = layer.ty.images[0]?.url.replace('/1x.', '/3x.');
-            sample1Element.style.backgroundImage = `url('${imageUrl}')`;
-            sample2Element.style.backgroundImage = `url('${imageUrl}')`;
-        } else if (layer.ty?.stops) {
-            // Gradient Layer
+        if (!layer.ty) return;
+        
+        if (layer.ty.images && layer.ty.images.length > 0) {
+            const largestImage = layer.ty.images.reduce((max, img) => img.size > max.size ? img : max, layer.ty.images[0]);
+            const imgUrl = largestImage.url.replace('/1x.', '/3x.');
+            
+            [sample1Div, sample2Div, paintDiv].forEach(div => {
+                div.style.backgroundImage = `url('${imgUrl}')`;
+                div.style.backgroundSize = 'contain';
+                div.style.backgroundPosition = 'center';
+                div.style.backgroundRepeat = 'no-repeat';
+            });
+        } else if (layer.ty.stops) {
             const gradientStops = createGradientStops(layer.ty.stops);
-            if (layer.ty.angle !== undefined) {
-                const gradientDirection = `${layer.ty.angle}deg`;
-                sample1Element.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, layer.ty.repeating);
-                sample2Element.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, layer.ty.repeating);
-            } else {
-                sample1Element.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, layer.ty.repeating);
-                sample2Element.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, layer.ty.repeating);
-            }
+            const gradientType = layer.ty.angle !== undefined ? 'linear-gradient' : 'radial-gradient';
+            const gradientDirection = layer.ty.angle !== undefined ? `${layer.ty.angle}deg` : '';
+            const gradientString = Gradient(gradientType, gradientDirection, gradientStops, layer.ty.repeating);
+            
+            [sample1Div, sample2Div, paintDiv].forEach(div => {
+                div.style.backgroundImage = gradientString;
+                div.style.backgroundSize = 'cover';
+                div.style.backgroundPosition = 'center';
+            });
+        } else if (layer.ty.color) {
+            const hexColor = convertToHex(layer.ty.color);
+            
+            [sample1Div, sample2Div, paintDiv].forEach(div => {
+                div.style.backgroundColor = hexColor;
+            });
         }
     });
-
+    
     if (paintData.shadows?.length) {
         const shadowStyle = applyShadows(paintData.shadows);
-        sample1Element.style.filter = shadowStyle;
-        sample2Element.style.filter = shadowStyle;
+        [sample1Div, sample2Div, paintDiv].forEach(div => {
+            div.style.filter = shadowStyle;
+        });
     }
-}
+};
 
 getPaint();
