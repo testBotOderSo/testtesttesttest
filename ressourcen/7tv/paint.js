@@ -34,7 +34,10 @@ function getPaint() {
     const query = `
         query Paints {
             paints {
-                paints { id name data {
+                paints {
+                    id
+                    name
+                    data {
                         layers {
                             id
                             opacity
@@ -150,13 +153,6 @@ function getPaint() {
         }
         document.title = `NotedBot │ Error 7TV ? Paint`;
     };
-};
-
-function applyShadows(shadows) {
-    return shadows.map(shadow => {
-        const colorString = convertToHex(shadow.color);
-        return `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${colorString})`;
-    }).join(' ');
 };
 
 const convertToHex = (color) => {
