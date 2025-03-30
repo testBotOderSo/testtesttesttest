@@ -208,7 +208,11 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        textAlign: 'center'
+                        textAlign: 'center',
+                        color: 'transparent',
+                        backgroundClip: 'text',
+                        webkitBackgroundClip: 'text',
+                        filter: 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)'
                     });
                 });
                 imageSet = true;
@@ -227,7 +231,11 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    color: 'transparent',
+                    backgroundClip: 'text',
+                    webkitBackgroundClip: 'text',
+                    filter: 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)'
                 });
             });
         } else if (layer.ty.color && !imageSet) {
@@ -239,7 +247,12 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    color: hexColor,
+                    backgroundClip: 'unset',
+                    webkitBackgroundClip: 'unset',
+                    backgroundImage: 'unset',
+                    filter: 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)'
                 });
             });
         }
