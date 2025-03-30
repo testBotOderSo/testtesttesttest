@@ -46,7 +46,9 @@ function getPaint() {
         body: JSON.stringify({ query: query }),
     })
     .then(response => response.json())
-    .then(data => {
+        .then(data => {
+            console.log("API Antwort:", data);
+
         const paints = data?.data?.paints?.paints || [];
         const paintData = paints.find(paint => paint.id === paintID);
 
