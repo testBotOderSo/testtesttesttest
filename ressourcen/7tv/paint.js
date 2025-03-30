@@ -155,7 +155,7 @@ function getPaint() {
     };
 };
 
-const convertToHex = (color) => {
+const convertToHex = (color) => { 
     if (color && color.hex) {
         return color.hex;
     } else if (color && color.r !== undefined && color.g !== undefined && color.b !== undefined) {
@@ -199,7 +199,7 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
             if (largestImage.url) {
                 const imgUrl = largestImage.url.replace('/1x.', '/3x.');
                 
-                [sample1Div, sample2Div, paintDiv, document.getElementById('paint-name')].forEach(div => {
+                [sample1Div, sample2Div, paintDiv].forEach(div => {
                     applyStyles(div, {
                         backgroundImage: `url('${imgUrl}')`,
                         backgroundSize: 'cover',
@@ -219,7 +219,7 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
             const gradientDirection = layer.ty.angle !== undefined ? `${layer.ty.angle}deg` : 'circle';
             const gradientString = Gradient(gradientType, gradientDirection, gradientStops, layer.ty.repeating);
             
-            [sample1Div, sample2Div, paintDiv, document.getElementById('paint-name')].forEach(div => {
+            [sample1Div, sample2Div, paintDiv].forEach(div => {
                 applyStyles(div, {
                     backgroundImage: gradientString,
                     backgroundSize: 'cover',
@@ -233,7 +233,7 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
         } else if (layer.ty.color && !imageSet) {
             const hexColor = convertToHex(layer.ty.color);
             
-            [sample1Div, sample2Div, paintDiv, document.getElementById('paint-name')].forEach(div => {
+            [sample1Div, sample2Div, paintDiv].forEach(div => {
                 applyStyles(div, {
                     backgroundColor: hexColor,
                     display: 'flex',
@@ -247,7 +247,7 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
     
     if (paintData.shadows?.length) {
         const shadowStyle = applyShadows(paintData.shadows);
-        [sample1Div, sample2Div, paintDiv, document.getElementById('paint-name')].forEach(div => {
+        [sample1Div, sample2Div, paintDiv].forEach(div => {
             div.style.filter = shadowStyle;
         });
     }
