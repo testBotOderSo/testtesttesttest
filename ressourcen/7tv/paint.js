@@ -132,25 +132,26 @@ function getPaint() {
                 applyPaint(paintData.data, paintNameElement, sample1Element, sample2Element);
             } else {
                 console.error('Keine Paint Daten gefunden für ID:', paintID);
-                showError(paintID, elements);
+                Error();
             }
         } else {
             console.error('Keine Paint Daten gefunden');
-            showError(paintID, elements);
+            Error();
         }
     })
     .catch(error => {
         console.error('getPaint | Fehler beim fetchen vom Paints', error);
-        showError(paintID, elements);
+        Error();
     }).finally(() => {
         loadingElement.style.display = 'none';
     });
-};
-
-function showError(paintID, elements) {
-    elements.error.style.display = 'block';
-    elements.paintName.textContent = `ID: ${paintID}`;
-    document.title = `NotedBot │ Error 7TV ? Paint`;
+    function Error() {
+        errorElement.style.display = 'block';
+        if (paintID) {
+            paintNameElement.textContent = `ID: ${paintID}`;
+        }
+        document.title = `NotedBot │ Error 7TV ? Paint`;
+    };
 };
 
 const convertToHex = (color) => {
