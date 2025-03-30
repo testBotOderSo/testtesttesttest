@@ -12,103 +12,31 @@ function getUrlParams() {
 function getPaint() {
     const { paintID } = getUrlParams();
 
-    const loadingElement = document.getElementById('loading');
-    const errorElement = document.getElementById('error');
-    const sample1Element = document.getElementById('sample1');
-    const sample2Element = document.getElementById('sample2');
-    const paintNameElement = document.getElementById('paint-name');
+    const elements = {
+        loading: document.getElementById('loading'),
+        error: document.getElementById('error'),
+        sample1: document.getElementById('sample1'),
+        sample2: document.getElementById('sample2'),
+        paintName: document.getElementById('paint-name'),
+    };
 
     if (!paintID) {
-        loadingElement.style.display = 'none';
-        errorElement.style.display = 'none';
-        sample1Element.style.display = 'none';
-        sample2Element.style.display = 'none';
+        Object.values(elements).forEach(el => el?.style && (el.style.display = 'none'));
         document.title = `NotedBot │ 7TV Try Paint`;
         return;
     }
 
-    loadingElement.style.display = 'block';
-    errorElement.style.display = 'none';
+    elements.loading.style.display = 'block';
+    elements.error.style.display = 'none';
     document.title = `NotedBot │ 7TV ... Paint`;
 
-    const query = `
-        query Paints {
-            paints {
-                paints {
-                    id
-                    name
-                    data {
-                        layers {
-                            id
-                            opacity
-                            ty {
-                                ... on PaintLayerTypeImage {
-                                    images {
-                                        url
-                                        mime
-                                        size
-                                        scale
-                                        width
-                                        height
-                                        frameCount
-                                    }
-                                }
-                                ... on PaintLayerTypeRadialGradient {
-                                    repeating
-                                    shape
-                                    stops {
-                                        at
-                                        color {
-                                            hex
-                                            r
-                                            g
-                                            b
-                                            a
-                                        }
-                                    }
-                                }
-                                ... on PaintLayerTypeLinearGradient {
-                                    angle
-                                    repeating
-                                    stops {
-                                        at
-                                        color {
-                                            hex
-                                            r
-                                            g
-                                            b
-                                            a
-                                        }
-                                    }
-                                }
-                                ... on PaintLayerTypeSingleColor {
-                                    color {
-                                        hex
-                                        r
-                                        g
-                                        b
-                                        a
-                                    }
-                                }
-                            }
-                        }
-                        shadows {
-                            offsetX
-                            offsetY
-                            blur
-                            color {
-                                hex
-                                r
-                                g
-                                b
-                                a
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    `;
+    const query = `query Paints { paints { paints { id name data { layers { id opacity ty { 
+        ... on PaintLayerTypeImage { images { url mime size scale width height frameCount } } 
+        ... on PaintLayerTypeRadialGradient { repeating shape stops { at color { hex r g b a } } } 
+        ... on PaintLayerTypeLinearGradient { angle repeating stops { at color { hex r g b a } } } 
+        ... on PaintLayerTypeSingleColor { color { hex r g b a } } 
+        } } shadows { offsetX offsetY blur color { hex r g b a } } } } }`;
+
     fetch('https://7tv.io/v4/gql', {
         method: 'POST',
         headers: {
@@ -119,40 +47,29 @@ function getPaint() {
     })
     .then(response => response.json())
     .then(data => {
-        if (data.data && data.data.paints && data.data.paints.paints) {
-            const paintData = data.data.paints.paints.find(paint => paint.id === paintID);
-            if (paintData) {
-                console.log(`Paint Daten für ${paintData.name} ID: ${paintID} ->`);
-                console.log(JSON.stringify(paintData, null, 2));
+        const paints = data?.data?.paints?.paints || [];
+        const paintData = paints.find(paint => paint.id === paintID);
 
-                if (paintNameElement) {
-                    paintNameElement.textContent = paintData.name;
-                    document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
-                }
+        if (!paintData) return showError();
+        console.log(`Paint Daten für ${paintData.name} ID: ${paintID} ->`, paintData);
 
-                applyPaint(paintData.data, paintNameElement, sample1Element, sample2Element);
-            } else {
-                console.error('Keine Paint Daten gefunden für ID:', paintID);
-                Error();
-            }
-        } else {
-            console.error('Keine Paint Daten gefunden');
-            Error();
+        if (elements.paintName) {
+            elements.paintName.textContent = paintData.name;
+            document.title = `NotedBot │ 7TV ${paintData.name} Paint`;
         }
+
+        applyPaint(paintData.data, elements.paintName, elements.sample1, elements.sample2);
     })
     .catch(error => {
         console.error('getPaint | Fehler beim fetchen vom Paints', error);
-        Error();
-    }).finally(() => {
-        loadingElement.style.display = 'none';
-    });
-    function Error() {
-        errorElement.style.display = 'block';
-        if (paintID) {
-            paintNameElement.textContent = `ID: ${paintID}`;
-        }
+        showError();
+    }).finally(() => elements.loading.style.display = 'none');
+
+    function showError() {
+        elements.error.style.display = 'block';
+        if (paintID) elements.paintName.textContent = `ID: ${paintID}`;
         document.title = `NotedBot │ Error 7TV ? Paint`;
-    };
+    }
 };
 
 const convertToHex = (color) => { 
@@ -185,49 +102,22 @@ function applyShadows(shadows) {
 function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
     if (!paintData || !paintData.layers) return;
     
-    const applyStyles = (div, styles) => {
-        Object.assign(div.style, styles);
-    };
-    
+    const applyStyles = (div, styles) => Object.assign(div.style, styles);
     let imageSet = false;
+    
 
     paintData.layers.forEach(layer => {
         if (!layer.ty) return;
         
-        if (layer.ty.images && layer.ty.images.length > 0 && !imageSet) {
+        if (layer.ty.images?.length && !imageSet) {
             const largestImage = layer.ty.images.reduce((max, img) => img.size > max.size ? img : max, layer.ty.images[0]);
-            if (largestImage.url) {
+            if (largestImage?.url) {
                 const imgUrl = largestImage.url.replace('/1x.', '/3x.');
-                
-                [sample1Div, sample2Div, paintDiv].forEach(div => {
-                    applyStyles(div, {
-                        backgroundImage: `url('${imgUrl}')`,
-                        backgroundSize: 'cover',
-                        backgroundPosition: 'center',
-                        backgroundRepeat: 'no-repeat',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        textAlign: 'center',
-                        color: 'transparent',
-                        backgroundClip: 'text',
-                        webkitBackgroundClip: 'text',
-                        filter: 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)'
-                    });
-                });
-                imageSet = true;
-            }
-        } else if (layer.ty.stops && !imageSet) {
-            const gradientStops = createGradientStops(layer.ty.stops);
-            const gradientType = layer.ty.angle !== undefined ? 'linear-gradient' : 'radial-gradient';
-            const gradientDirection = layer.ty.angle !== undefined ? `${layer.ty.angle}deg` : 'circle';
-            const gradientString = Gradient(gradientType, gradientDirection, gradientStops, layer.ty.repeating);
-            
-            [sample1Div, sample2Div, paintDiv].forEach(div => {
-                applyStyles(div, {
-                    backgroundImage: gradientString,
+                const styles = {
+                    backgroundImage: `url('${imgUrl}')`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
+                    backgroundRepeat: 'no-repeat',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -235,34 +125,51 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                     color: 'transparent',
                     backgroundClip: 'text',
                     webkitBackgroundClip: 'text',
-                    filter: 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)'
-                });
-            });
+                    filter: 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)',
+                };
+                [sample1Div, sample2Div, paintDiv].forEach(div => applyStyles(div, styles));
+                imageSet = true;
+            }
+        } else if (layer.ty.stops && !imageSet) {
+            const gradientStops = createGradientStops(layer.ty.stops);
+            const gradientType = layer.ty.angle !== undefined ? 'linear-gradient' : 'radial-gradient';
+            const gradientDirection = layer.ty.angle !== undefined ? `${layer.ty.angle}deg` : 'circle';
+            const gradientString = Gradient(gradientType, gradientDirection, gradientStops, layer.ty.repeating);
+            const styles = {
+                backgroundImage: gradientString,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'center',
+                color: 'transparent',
+                backgroundClip: 'text',
+                webkitBackgroundClip: 'text',
+                filter: 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)',
+            };
+            [sample1Div, sample2Div, paintDiv].forEach(div => applyStyles(div, styles));
         } else if (layer.ty.color && !imageSet) {
             const hexColor = convertToHex(layer.ty.color);
-            
-            [sample1Div, sample2Div, paintDiv].forEach(div => {
-                applyStyles(div, {
-                    backgroundColor: hexColor,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    textAlign: 'center',
-                    color: hexColor,
-                    backgroundClip: 'unset',
-                    webkitBackgroundClip: 'unset',
-                    backgroundImage: 'unset',
-                    filter: 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)'
-                });
-            });
+            const styles = {
+                backgroundColor: hexColor,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                textAlign: 'center',
+                color: hexColor,
+                backgroundClip: 'unset',
+                webkitBackgroundClip: 'unset',
+                backgroundImage: 'unset',
+                filter: 'drop-shadow(#39d21eff 0px 0px 0.1px) drop-shadow(#005557ff 1px 1px 0.1px)',
+            };
+            [sample1Div, sample2Div, paintDiv].forEach(div => applyStyles(div, styles));
         }
     });
     
     if (paintData.shadows?.length) {
         const shadowStyle = applyShadows(paintData.shadows);
-        [sample1Div, sample2Div, paintDiv].forEach(div => {
-            div.style.filter = shadowStyle;
-        });
+        [sample1Div, sample2Div, paintDiv].forEach(div => div.style.filter = shadowStyle);
     }
 };
 
