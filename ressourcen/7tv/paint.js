@@ -177,24 +177,33 @@ const applyShadows = (shadows) => {
     }).join(' ');
 };
 
-const paintElem = document.getElementById('paint');
-if (paintElem && paint) {
-    if (paint.function === 'LINEAR_GRADIENT' && paint.stops?.length) {
-        const gradientStops = createGradientStops(paint.stops);
-        const gradientDirection = `${paint.angle}deg`;
-        paintElem.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paint.repeat);
-    } else if (paint.function === 'RADIAL_GRADIENT' && paint.stops?.length) {
-        const gradientStops = createGradientStops(paint.stops);
-        paintElem.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paint.repeat);
-    } else if (paint.function === 'URL' && paint.image_url) {
-        const imageUrl = paint.image_url.replace('/1x.', '/3x.');
-        paintElem.style.backgroundImage = `url('${imageUrl}')`;
-    }
+function applyPaint(paintData, paintNameElement, sample1Element, sample2Element) {
+    if (!paintData) return;
 
-    if (paint.shadows?.length) {
-        paintElem.style.filter = applyShadows(paint.shadows);
-    } else {
-        paintElem.style.filter = '';
+    paintData.layers.forEach(layer => {
+        if (layer.ty?.images) {
+            // Image Layer
+            const imageUrl = layer.ty.images[0]?.url.replace('/1x.', '/3x.');
+            sample1Element.style.backgroundImage = `url('${imageUrl}')`;
+            sample2Element.style.backgroundImage = `url('${imageUrl}')`;
+        } else if (layer.ty?.stops) {
+            // Gradient Layer
+            const gradientStops = createGradientStops(layer.ty.stops);
+            if (layer.ty.angle !== undefined) {
+                const gradientDirection = `${layer.ty.angle}deg`;
+                sample1Element.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, layer.ty.repeating);
+                sample2Element.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, layer.ty.repeating);
+            } else {
+                sample1Element.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, layer.ty.repeating);
+                sample2Element.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, layer.ty.repeating);
+            }
+        }
+    });
+
+    if (paintData.shadows?.length) {
+        const shadowStyle = applyShadows(paintData.shadows);
+        sample1Element.style.filter = shadowStyle;
+        sample2Element.style.filter = shadowStyle;
     }
 }
 
