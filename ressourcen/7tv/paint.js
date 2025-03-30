@@ -123,7 +123,6 @@ function getPaint() {
             const paintData = data.data.paints.paints.find(paint => paint.id === paintID);
             if (paintData) {
                 console.log(`Paint Daten für ${paintData.name} ID: ${paintID} ->`);
-                console.log(JSON.stringify(paintData, null, 2));
 
                 if (paintNameElement) {
                     paintNameElement.textContent = paintData.name;
@@ -133,46 +132,19 @@ function getPaint() {
                 applyPaint(paintData.data, paintNameElement, sample1Element, sample2Element);
             } else {
                 console.error('Keine Paint Daten gefunden für ID:', paintID);
-                Error();
+                showError(paintID, elements);
             }
         } else {
             console.error('Keine Paint Daten gefunden');
-            Error();
+            showError(paintID, elements);
         }
     })
     .catch(error => {
         console.error('getPaint | Fehler beim fetchen vom Paints', error);
-        Error();
+        showError(paintID, elements);
     }).finally(() => {
         loadingElement.style.display = 'none';
     });
-    function Error() {
-        errorElement.style.display = 'block';
-        if (paintID) {
-            paintNameElement.textContent = `ID: ${paintID}`;
-        }
-        document.title = `NotedBot │ Error 7TV ? Paint`;
-    };
-};
-
-const convertToHex = (color) => {
-    if (color && color.hex) {
-        return color.hex;
-    } else if (color && color.r !== undefined && color.g !== undefined && color.b !== undefined) {
-        return `#${(1 << 24 | color.r << 16 | color.g << 8 | color.b).toString(16).slice(1)}`;
-    }
-    return '#000000';
-};
-
-const createGradientStops = (stops) => {
-    return stops.map(stop => `${convertToHex(stop.color)} ${stop.at * 100}%`).join(', ');
-};
-
-const Gradient = (type, direction, stops, repeat) => {
-    if (type.includes('radial-gradient')) {
-        return `${repeat ? `repeating-${type}` : type}(${stops})`;
-    }
-    return `${repeat ? `repeating-${type}` : type}(${direction}, ${stops})`;
 };
 
 function showError(paintID, elements) {
@@ -181,27 +153,48 @@ function showError(paintID, elements) {
     document.title = `NotedBot │ Error 7TV ? Paint`;
 };
 
-function applyPaint(paintData, sample1, sample2) {
-    if (!paintData?.layers?.length) return;
-    paintData.layers.forEach(layer => {
-        if (layer.ty?.images?.length) {
-            const largestImage = layer.ty.images.reduce((max, img) => img.size > max.size ? img : max, layer.ty.images[0]);
-            [sample1, sample2].forEach(el => {
-                el.style.backgroundImage = `url('${largestImage.url}')`;
-                el.style.color = 'transparent';
-                el.style.backgroundClip = 'text';
-                el.style.webkitBackgroundClip = 'text';
-            });
-        } else if (layer.ty?.stops) {
-            const stops = layer.ty.stops.map(stop => `${stop.color.hex} ${stop.at * 100}%`).join(', ');
-            const gradientType = layer.ty.angle !== undefined ? 'linear-gradient' : 'radial-gradient';
-            const gradientDirection = layer.ty.angle !== undefined ? `${layer.ty.angle}deg` : 'circle';
-            const gradient = `${gradientType}(${gradientDirection}, ${stops})`;
-            [sample1, sample2].forEach(el => el.style.backgroundImage = gradient);
-        } else if (layer.ty?.color) {
-            [sample1, sample2].forEach(el => el.style.backgroundColor = layer.ty.color.hex);
-        }
-    });
+const convertToHex = (color) => {
+    const normalizedColor = color >>> 0;
+    return `#${normalizedColor.toString(16).padStart(8, '0')}`;
 };
+
+const createGradientStops = (stops) => {
+    return stops.map(stop => `${convertToHex(stop.color)} ${stop.at * 100}%`).join(', ');
+};
+
+const applyGradient = (type, direction, stops, repeat) => {
+    if (type.includes('radial-gradient')) {
+        return `${repeat ? `repeating-${type}` : type}(${stops})`;
+    }
+    return `${repeat ? `repeating-${type}` : type}(${direction}, ${stops})`;
+};
+
+const applyShadows = (shadows) => {
+    return shadows.map(shadow => {
+        const colorString = convertToHex(shadow.color);
+        return `drop-shadow(${shadow.x_offset}px ${shadow.y_offset}px ${shadow.radius}px ${colorString})`;
+    }).join(' ');
+};
+
+const paintElem = document.getElementById('paint');
+if (paintElem && paint) {
+    if (paint.function === 'LINEAR_GRADIENT' && paint.stops?.length) {
+        const gradientStops = createGradientStops(paint.stops);
+        const gradientDirection = `${paint.angle}deg`;
+        paintElem.style.backgroundImage = applyGradient('linear-gradient', gradientDirection, gradientStops, paint.repeat);
+    } else if (paint.function === 'RADIAL_GRADIENT' && paint.stops?.length) {
+        const gradientStops = createGradientStops(paint.stops);
+        paintElem.style.backgroundImage = applyGradient('radial-gradient', '', gradientStops, paint.repeat);
+    } else if (paint.function === 'URL' && paint.image_url) {
+        const imageUrl = paint.image_url.replace('/1x.', '/3x.');
+        paintElem.style.backgroundImage = `url('${imageUrl}')`;
+    }
+
+    if (paint.shadows?.length) {
+        paintElem.style.filter = applyShadows(paint.shadows);
+    } else {
+        paintElem.style.filter = '';
+    }
+}
 
 getPaint();
