@@ -120,7 +120,7 @@ function getPaint() {
     .then(response => response.json())
         .then(data => {
             console.log("API Antwort:", data);
-
+        
         const paints = data?.data?.paints?.paints || [];
         const paintData = paints.find(paint => paint.id === paintID);
 
@@ -133,6 +133,7 @@ function getPaint() {
         }
 
         applyPaint(paintData.data, elements.paintName, elements.sample1, elements.sample2);
+        savePaints(paints);
     })
     .catch(error => {
         console.error('getPaint | Fehler beim fetchen vom Paints', error);
@@ -145,6 +146,15 @@ function getPaint() {
         document.title = `NotedBot │ Error 7TV ? Paint`;
     }
 };
+
+function savePaints(paints) {
+    const jsonData = {
+        paints: paints,
+        badges: []
+    };
+    localStorage.setItem('paintData', JSON.stringify(jsonData, null, 4));
+}
+
 
 const convertToHex = (color) => { 
     if (color && color.hex) {
