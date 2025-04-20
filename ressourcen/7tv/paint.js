@@ -183,9 +183,16 @@ function applyShadows(shadows) {
 };
 
 function updateMetaImage(imgUrl) {
-    const ogImageMetaTag = document.querySelector('meta[property="og:image"]');
-    if (ogImageMetaTag) {
-        ogImageMetaTag.setAttribute('content', imgUrl);
+    let metaTag = document.querySelector('meta[property="og:image"]');
+
+    if (metaTag) {
+        metaTag.setAttribute('content', imgUrl);
+    } else {
+        metaTag = document.createElement('meta');
+        metaTag.setAttribute('property', 'og:image');
+        metaTag.setAttribute('content', imgUrl);
+
+        document.head.appendChild(metaTag);
     }
 };
 
