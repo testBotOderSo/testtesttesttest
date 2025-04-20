@@ -153,8 +153,7 @@ function savePaints(paints) {
         badges: []
     };
     localStorage.setItem('paintData', JSON.stringify(jsonData, null, 4));
-}
-
+};
 
 const convertToHex = (color) => { 
     if (color && color.hex) {
@@ -183,12 +182,19 @@ function applyShadows(shadows) {
     }).join(' ');
 };
 
+function updateMetaImage(imgUrl) {
+    const ogImageMetaTag = document.querySelector('meta[property="og:image"]');
+    if (ogImageMetaTag) {
+        ogImageMetaTag.setAttribute('content', imgUrl);
+    }
+};
+
 function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
     if (!paintData || !paintData.layers) return;
     
     const applyStyles = (div, styles) => Object.assign(div.style, styles);
     let imageSet = false;
-    
+    let imgUrl2 = "";
 
     paintData.layers.forEach(layer => {
         if (!layer.ty) return;
@@ -197,6 +203,7 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
             const largestImage = layer.ty.images.reduce((max, img) => img.size > max.size ? img : max, layer.ty.images[0]);
             if (largestImage?.url) {
                 const imgUrl = largestImage.url.replace('/1x.', '/3x.');
+                imgUrl2 = largestImage.url.replace('/1x.', '/2x.');
                 const styles = {
                     backgroundImage: `url('${imgUrl}')`,
                     backgroundSize: 'cover',
@@ -213,6 +220,7 @@ function applyPaint(paintData, paintDiv, sample1Div, sample2Div) {
                 };
                 [sample1Div, sample2Div, paintDiv].forEach(div => applyStyles(div, styles));
                 imageSet = true;
+                updateMetaImage(imgUrl2);
             }
         } else if (layer.ty.stops && !imageSet) {
             const gradientStops = createGradientStops(layer.ty.stops);
