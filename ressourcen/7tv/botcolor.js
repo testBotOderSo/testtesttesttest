@@ -5,7 +5,7 @@ function applyNotedBotColor(styles) {
     }
 };
 
-function getPaint() {
+function getPaint2() {
     const query = `
         query Users {
             users {
@@ -103,14 +103,14 @@ function getPaint() {
 
         if (!paintData) return;
 
-        applyPaint(paintData.data);
+        applyPaint2(paintData.data);
     })
     .catch(error => {
         console.error('getPaint | Fehler beim fetchen vom Paints', error);
     });
 };
 
-const convertToHex = (color) => { 
+const convertToHex2 = (color) => { 
     if (color && color.hex) {
         return color.hex;
     } else if (color && color.r !== undefined && color.g !== undefined && color.b !== undefined) {
@@ -119,28 +119,28 @@ const convertToHex = (color) => {
     return '#000000';
 };
 
-const createGradientStops = (stops) => {
-    return stops.map(stop => `${convertToHex(stop.color)} ${stop.at * 100}%`).join(', ');
+const createGradientStops2 = (stops) => {
+    return stops.map(stop => `${convertToHex2(stop.color)} ${stop.at * 100}%`).join(', ');
 };
 
-const Gradient = (type, direction, stops, repeat) => {
+const Gradient2 = (type, direction, stops, repeat) => {
     if (type.includes('radial-gradient')) {
         return `${repeat ? `repeating-${type}` : type}(${stops})`;
     }
     return `${repeat ? `repeating-${type}` : type}(${direction}, ${stops})`;
 };
 
-function applyShadows(shadows) {
+function applyShadows2(shadows) {
     return shadows.map(shadow => {
-        const colorString = convertToHex(shadow.color);
+        const colorString = convertToHex2(shadow.color);
         return `drop-shadow(${shadow.offsetX}px ${shadow.offsetY}px ${shadow.blur}px ${colorString})`;
     }).join(' ');
 };
 
-function applyPaint(paintData) {
+function applyPaint2(paintData) {
     if (!paintData || !paintData.layers) return;
     
-    const applyStyles = (div, styles) => Object.assign(div.style, styles);
+    const applyStyles2 = (div, styles) => Object.assign(div.style, styles);
     let imageSet = false;
 
     paintData.layers.forEach(layer => {
@@ -168,7 +168,7 @@ function applyPaint(paintData) {
                 applyNotedBotColor(styles);
             }
         } else if (layer.ty.stops && !imageSet) {
-            const gradientStops = createGradientStops(layer.ty.stops);
+            const gradientStops = createGradientStops2(layer.ty.stops);
             const gradientType = layer.ty.angle !== undefined ? 'linear-gradient' : 'radial-gradient';
             const gradientDirection = layer.ty.angle !== undefined ? `${layer.ty.angle}deg` : 'circle';
             const gradientString = Gradient(gradientType, gradientDirection, gradientStops, layer.ty.repeating);
@@ -187,7 +187,7 @@ function applyPaint(paintData) {
             };
             applyNotedBotColor(styles);
         } else if (layer.ty.color && !imageSet) {
-            const hexColor = convertToHex(layer.ty.color);
+            const hexColor = convertToHex2(layer.ty.color);
             const styles = {
                 backgroundColor: hexColor,
                 display: 'flex',
@@ -205,9 +205,9 @@ function applyPaint(paintData) {
     });
     
     if (paintData.shadows?.length) {
-        const shadowStyle = applyShadows(paintData.shadows);
+        const shadowStyle = applyShadows2(paintData.shadows);
         applyNotedBotColor(shadowStyle);
     }
 };
 
-getPaint();
+getPaint2();
