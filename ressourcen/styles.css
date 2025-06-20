@@ -197,10 +197,26 @@ span {
     height: auto; 
     margin-top: -50px;
 }
+.blog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.blog-header h3 {
+  margin: 0;
+}
+
+.blog-date {
+  font-size: 0.9rem;
+  color: #ccc;
+  font-style: italic;
+}
 .blog-entry {
-  background: linear-gradient(135deg, var(--blogColor, #9b34e0), #000);
+  background: linear-gradient(135deg, var(--blogColor, #333), #000);
+  color: white;
   padding: 1.5rem;
   border-radius: 1rem;
   margin-bottom: 1.5rem;
-  color: #fff;
+  transition: transform 0.2s;
 }
