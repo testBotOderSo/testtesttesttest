@@ -8,26 +8,32 @@
 </head>
 <body>
     <div class="container">
-        <div class="logo">
-            <a href="home"><img src="img/notedbot.gif" alt="NotedBot Logo"></a>
-        </div>
-        <div class="navigation">
-            <h1 id="title"><img src="img/notedbotlogo.png" alt="NotedBot Logo" style="color: #0036d8;"> <span style="color: #0036d8;"><div id="notedbotColor">NotedBot</div></span></h1>
-            <ul>
-                <li><a onclick="alert('Du bist doch schon auf der Seite?')" style="color: #4876ff;">Home</a></li>
-                <li><a href="commands" style="color: #4876ff;">Commands</a></li>
-                <li><a href="paint?paintID=" style="color: #4876ff;">Try 7tv Paints</a></li>
-                <li><a href="badge?badgeID=" style="color: #4876ff;">Try 7tv Badge</a></li>
-            </ul>
-            <div class="language-switch">
-                <button id="de-button">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg" alt="Deutsch">
-                </button>
-                <button id="us-button">
-                    <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="English">
-                </button>
+        <header class="nav-bar">
+            <div class="logo">
+                <a href="home"><img src="img/notedbot.gif" alt="NotedBot Logo"></a>
             </div>
-        </div>
+            <nav class="navigation">
+                <h1 id="title">
+                    <img src="img/notedbotlogo.png" alt="Logo">
+                    <span id="notedbotColor">NotedBot</span>
+                </h1>
+                <ul>
+                    <li><a onclick="alert('Du bist doch schon auf der Seite?')">Home</a></li>
+                    <li><a href="commands">Commands</a></li>
+                    <li><a href="paint?paintID=">Try 7tv Paints</a></li>
+                    <li><a href="badge?badgeID=">Try 7tv Badge</a></li>
+                </ul>
+                <div class="language-switch">
+                    <button id="de-button">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg" alt="Deutsch">
+                    </button>
+                    <button id="us-button">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="English">
+                    </button>
+                </div>
+            </nav>
+        </header>
+
         <main>
             <h1 id="text1"></h1>
             <h2 id="text2"></h2>
@@ -61,30 +67,22 @@
             <section id="blog">
                 <h2 class="blog-title">📝 NotedBlog</h2>
                 <div class="blog-entry" style="--blogColor: #2A0C3F;">
-  <div class="blog-header">
-    <h3>New 7TV Funktion</h3>
-    <span class="blog-date">20.06.2025</span>
-  </div>
-  <p>NotedBot unterstützt nun auch weitere 7TV Features! 🎉</p>
-  <a href="https://www.notedbot.de/src/commands?category=7tv">➡️ Zu den Commands</a>
-</div>
-
-<div class="blog-entry" style="--blogColor: #0e770e;">
-  <h3>Bot ist jetzt schneller</h3>
-  <p>Rework vom Notis-System!</p>
-</div>
-
-<div class="blog-entry" style="--blogColor: #0f467e;">
-  <h3>Stats-Update</h3>
-  <p>Stats-Seite ist online!</p>
-</div>
+                    <div class="blog-header">
+                        <h3>New 7TV Funktion</h3>
+                        <span class="blog-date">20.06.2025</span>
+                    </div>
+                    <p>NotedBot unterstützt nun auch weitere 7TV Features! 🎉</p>
+                    <a href="https://www.notedbot.de/src/commands?category=7tv">➡️ Zu den Commands</a>
+                </div>
             </section>
         </main>
+
         <footer>
-            <p class="claim">&copy; 2025 <a href="https://github.com/Wydios/NotedBotWebsite/tree/main" style="color: #4876ff;">NotedBotWebsite.dev</a> | <p id="p8">PlatzHalter11</p></p>
+            <p class="claim">&copy; 2025 <a href="https://github.com/Wydios/NotedBotWebsite/tree/main">NotedBotWebsite.dev</a> | <span id="p8">PlatzHalter11</span></p>
             <p id="p9">PlatzHalter12</p>
         </footer>
     </div>
+
     <script src="./ressourcen/language/home.js"></script>
     <script src="./ressourcen/animation.js"></script>
 </body>
