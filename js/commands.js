@@ -89,10 +89,11 @@ async function renderCommands() {
             const category = btn.dataset.category;
             const cooldown = btn.dataset.cooldown;
             const description = btn.dataset.description;
+            const image = btn.dataset.link?.[0] ? `<img src="${btn.dataset.link[0]}" alt="emote" class="cmd-img" />` : "";
 
-            document.getElementById("popupTitle").innerText = `Command: ${Prefix}${name}`;
+            document.getElementById("popupTitle").innerText = `Command: ${Prefix}${name} ${image}`;
             document.getElementById("popupAliases").innerHTML = `<strong>Aliases:</strong> ${aliases}`;
-            document.getElementById("popupUsage").innerHTML = `<strong>Usage:</strong> ${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
+            document.getElementById("popupUsage").innerHTML = `<strong>Usage:</strong> ${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
             document.getElementById("popupPerm").innerHTML = `<strong>Perms:</strong> ${parsePermission(perm)}`;
             document.getElementById("popupCooldown").innerHTML = `<strong>Cooldown:</strong> ${cooldown}s`;
             document.getElementById("popupCategory").innerHTML = `<strong>Category:</strong> ${category}`;
@@ -103,8 +104,8 @@ async function renderCommands() {
 
             document.getElementById("popupExample").innerHTML = 
                 `Example:<br>
-                <code>Wydios: ${ExampleInput}</code><br>
-                <code>NotedBot: ${ExampleOutput}</code>`;
+                <code>Wydios: ${ExampleInput}<br>
+                NotedBot: ${ExampleOutput}</code>`;
 
             document.getElementById("commandPopup").style.display = "block";
             document.title = `NotedBot • Cmd: ${name}`;
