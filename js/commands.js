@@ -86,32 +86,31 @@ async function renderCommands() {
             const aliases = btn.dataset.aliases;
             const usage = btn.dataset.usage;
             const perm = btn.dataset.permission;
-            console.log(perm);
             const category = btn.dataset.category;
             const cooldown = btn.dataset.cooldown;
             const description = btn.dataset.description;
 
-            document.getElementById("popupTitle").innerText = `<span style="color:white;">Command: ${Prefix}${name}</span>`;
-            document.getElementById("popupAliases").innerHTML = `<span style="color:white;">Aliaes: ${aliases}</span>`;
-            document.getElementById("popupUsage").innerHTML = `<span style="color:white;">Usage: ${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}</p>`;
-            document.getElementById("popupPerm").innerHTML = `<span style="color:white;">Perms: ${parsePermission(perm)}</p>`;
-            document.getElementById("popupCooldown").innerHTML = `<span style="color:white;">Cooldown: ${cooldown}s</p>`;
-            document.getElementById("popupCategory").innerHTML = `<span style="color:white;">Category: ${category}</p>`;
-            document.getElementById("popupDescription").innerHTML = `<span style="color:white;">${description}</p>`;
+            document.getElementById("popupTitle").innerText = `Command: ${Prefix}${name}`;
+            document.getElementById("popupAliases").innerHTML = `Aliaes: ${aliases}`;
+            document.getElementById("popupUsage").innerHTML = `Usage: ${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
+            document.getElementById("popupPerm").innerHTML = `Perms: ${parsePermission(perm)}`;
+            document.getElementById("popupCooldown").innerHTML = `Cooldown: ${cooldown}s`;
+            document.getElementById("popupCategory").innerHTML = `Category: ${category}`;
+            document.getElementById("popupDescription").innerHTML = `Descripton: ${description}`;
 
             const ExampleInput = `${Prefix}${name}`;
             const ExampleOutput = `@Wydios <img src="img/feelsdankman.png" alt="feelsdankman" class="cmd-img" /> ${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
 
             document.getElementById("popupExample").innerHTML = 
-                `<span style="color:white;">Example</span>
-                <span><code>Wydios: ${ExampleInput}</code><br></span>
-                <span><code>NotedBot: ${ExampleOutput}</code></span>`;
+                `Example:
+                <code>Wydios: ${ExampleInput}</code><br>
+                <code>NotedBot: ${ExampleOutput}</code>`;
 
             document.getElementById("commandPopup").style.display = "block";
             document.title = `NotedBot • Cmd: ${name}`;
         });
     });
-};;
+};
 
 async function main() {
     const langCode = navigator.language.startsWith("de") ? "de" : "en";
@@ -121,5 +120,14 @@ async function main() {
 
 document.getElementById("permFilter").onchange = renderCommands;
 document.getElementById("categoryFilter").onchange = renderCommands;
+
+window.addEventListener("click", (event) => {
+    const modal = document.getElementById("commandPopup");
+    const content = document.querySelector(".command-popup-content");
+
+    if (modal.style.display === "block" && !content.contains(event.target)) {
+        modal.style.display = "none";
+    }
+});
 
 main();
