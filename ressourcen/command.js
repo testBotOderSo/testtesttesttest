@@ -1,5 +1,3 @@
-await loadLanguage("de");
-
 async function fetchCommands() {
   const res = await fetch("https://api.notedbot.de/v1/bot/commands");
   const data = await res.json();
@@ -29,6 +27,13 @@ async function renderCommands() {
   list.innerHTML = filtered.map(renderCommand).join("") || `<i>${t("commands.noResults")}</i>`;
 }
 
+async function main() {
+  const browserLang = navigator.language.startsWith("de") ? "de" : "en";
+  await loadLanguage(browserLang);
+  renderCommands();
+}
+
 document.getElementById("permFilter").onchange = renderCommands;
 document.getElementById("categoryFilter").onchange = renderCommands;
 window.onload = renderCommands;
+main(); 
