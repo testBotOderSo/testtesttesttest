@@ -36,15 +36,15 @@ function renderCommand(cmd) {
     const usage = formatUsage(usageRaw);
 
     return `
-        <div class="command-card">
+        <div class="command-bubble">
             <div class="command-header">
-                <strong>${Prefix}${cmd.name}</strong> <span class="aliases">${aliases}</span>${img}
+                <strong>${Prefix}${cmd.name}</strong> <span class="aliases">${aliases}</span> ${img}
             </div>
             <p>${description}</p>
             <button class="open-modal"
                 data-name="${cmd.name}"
                 data-aliases="${cmd.aliases.join(", ")}"
-                data-usage="${formatUsage(usage)}"
+                data-usage="${usage}"
             >📘 Details anzeigen</button>
         </div>`;
 }
@@ -70,11 +70,10 @@ async function renderCommands() {
             const aliases = btn.dataset.aliases;
             const usage = btn.dataset.usage;
 
-            document.getElementById("modalTitle").innerText = `${Prefix}${name}`;
-            document.getElementById("modalAliases").innerHTML = `<span style="color: white;">🛠 Aliases:</span> <span style="color: white;">${aliases}</span>`;
-            document.getElementById("modalUsage").innerHTML = `<span style="color: white;">>_ ${usage}</span>`;
-
-            document.getElementById("commandModal").classList.remove("hidden");
+            document.getElementById("popupTitle").innerText = `${Prefix}${name}`;
+            document.getElementById("popupAliases").innerHTML = `🛠 <span style="color: white;">${aliases}</span>`;
+            document.getElementById("popupUsage").innerHTML = `>_ <span style="color: white;">${usage}</span>`;
+            document.getElementById("commandPopup").style.display = "block";
         });
     });
 }
@@ -99,13 +98,13 @@ async function main() {
 
 document.getElementById("permFilter").onchange = renderCommands;
 document.getElementById("categoryFilter").onchange = renderCommands;
-
-document.querySelector(".close-button").addEventListener("click", () => {
-    document.getElementById("commandModal").classList.add("hidden");
+document.querySelector(".close-btn").addEventListener("click", () => {
+    document.getElementById("commandPopup").style.display = "none";
 });
+
 window.addEventListener("click", (e) => {
-    const modal = document.getElementById("commandModal");
-    if (e.target === modal) modal.classList.add("hidden");
+    const popup = document.getElementById("commandPopup");
+    if (e.target === popup) popup.style.display = "none";
 });
 
 main();
