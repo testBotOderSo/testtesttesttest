@@ -3,6 +3,8 @@
     "load": "Befehle geladen",
     "filterPerm": "Filter nach Rechten",
     "filterCat": "Filter nach Kategorie",
-    "noResults": "Keine passenden Befehle gefunden."
+    "noResults": "Keine passenden Befehle gefunden.",
+    "description": "",
+    "usage": ""
   }
 }
