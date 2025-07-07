@@ -153,10 +153,6 @@ span {
     color: #fff;
     cursor: pointer;
 }
-.command-popup-content p {
-    margin: 10px 0;
-    color: white;
-}
 
 .filter-options {
     display: none;
