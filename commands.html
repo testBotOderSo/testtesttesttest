@@ -55,7 +55,7 @@
     </div>
 
     <div id="commandPopup" class="command-popup" style="display: none;">
-        <span class="close-btn" onclick="document.getElementById('commandPopup').style.display = 'none'">&times;</span>
+        <span class="close-btn" onclick="document.getElementById('commandPopup').style.display = 'none'; document.title = 'NotedBot • Commands';">&times;</span>
         <div class="command-popup-content">
             <h2 id="popupTitle"></h2>
             <p id="popupAliases"></p>
@@ -68,12 +68,12 @@
         </div>
     </div>
 
-    <footer>
+    <!-- <footer>
         <a href="https://twitch.tv/wydios" target="_blank">
-            <img src="img/twitch.png" alt="Twitch" />
+            <img src="img/twitch.png" alt="Twitch"/>
         </a>
     </footer>
-
+    -->
     <script src="js/language.js"></script>
     <script src="js/commands.js"></script>
 </body>
