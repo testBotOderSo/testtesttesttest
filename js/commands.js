@@ -72,7 +72,8 @@ async function renderCommands() {
     
     const rawCommands = await fetchCommands();
     if (!rawCommands || rawCommands.length === 0) {
-        return list.innerHTML = `<i>${t("command.error.noCommands")}</i>`;
+        list.innerHTML = `<i>${translate("command.error.noCommands") || "test"}</i>`;
+        return;
     };
 
     const mergedCommands = mergeCommands(rawCommands);
