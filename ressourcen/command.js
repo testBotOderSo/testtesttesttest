@@ -5,10 +5,12 @@ async function fetchCommands() {
 }
 
 function renderCommand(cmd) {
+  const perms = Array.isArray(cmd.perms) ? cmd.perms.join(", ") : cmd.perms || "Unbekannt";
+  const category = cmd.category || "Unbekannt";
   return `
     <div class="command-card">
       <strong>/${cmd.name}</strong> – ${cmd.description}<br/>
-      <small>🛡 ${cmd.perms.join(", ")} | 🗂 ${cmd.category}</small>
+      <small>🛡 ${perms} | 🗂 ${category}</small>
     </div>`;
 }
 
@@ -19,8 +21,8 @@ async function renderCommands() {
   const commands = await fetchCommands();
 
   const filtered = commands.filter(c => {
-    const matchPerm = !perm || c.perms.map(p => p.toLowerCase()).includes(perm);
-    const matchCat = !cat || c.category.toLowerCase() === cat;
+    const matchPerm = !perm || (Array.isArray(c.perms) && c.perms.map(p => p.toLowerCase()).includes(perm));
+    const matchCat = !cat || c.category?.toLowerCase() === cat;
     return matchPerm && matchCat;
   });
 
@@ -35,5 +37,5 @@ async function main() {
 
 document.getElementById("permFilter").onchange = renderCommands;
 document.getElementById("categoryFilter").onchange = renderCommands;
-window.onload = renderCommands;
-main(); 
+
+main();
