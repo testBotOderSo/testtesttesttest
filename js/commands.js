@@ -50,7 +50,7 @@ function renderCommand(cmd) {
     return `
         <div class="command-bubble">
             <div class="command-header">
-                <strong>${Prefix}${cmd.name}</strong> <span class="aliases">${aliases}</span> ${img}
+                <strong>${Prefix}${cmd.name}</strong> <p class="aliases">${aliases}</p> ${img}
             </div>
             <p>${description}</p>
             <button class="open-modal"
@@ -98,9 +98,8 @@ async function renderCommands() {
             document.getElementById("popupCategory").innerHTML = `📂 <span style="color:white;">${category}</span>`;
             document.getElementById("popupDescription").innerHTML = `<span style="color:white;">${description}</span>`;
 
-            let commandPart = usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage;
             const fakeInput = `${Prefix}${name}`;
-            const fakeOutput = `@Wydios ${Prefix}${commandPart.split(" ").slice(1).join(" ") || "..."}`;
+            const fakeOutput = `@Wydios ${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
 
             document.getElementById("popupExample").innerHTML = 
                 `<code>Wydios: ${fakeInput}</code><br>
