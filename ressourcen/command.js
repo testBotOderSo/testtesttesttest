@@ -102,9 +102,32 @@ document.querySelector(".close-btn").addEventListener("click", () => {
     document.getElementById("commandPopup").style.display = "none";
 });
 
-window.addEventListener("click", (e) => {
-    const popup = document.getElementById("commandPopup");
-    if (e.target === popup) popup.style.display = "none";
+btn.addEventListener("click", () => {
+    const name = btn.dataset.name;
+    const aliases = btn.dataset.aliases;
+    const usage = btn.dataset.usage;
+    const perm = btn.dataset.permission;
+    const category = btn.dataset.category;
+    const cooldown = btn.dataset.cooldown;
+    const description = btn.dataset.description;
+
+    document.getElementById("popupTitle").innerText = `${Prefix}${name}`;
+    document.getElementById("popupAliases").innerHTML = `🛠 <span style="color:white;">${aliases}</span>`;
+    document.getElementById("popupUsage").innerHTML = `>_ <span style="color:white;">${usage}</span>`;
+    document.getElementById("popupPerm").innerHTML = `🛡 <span style="color:white;">${parsePermission(perm)}</span>`;
+    document.getElementById("popupCooldown").innerHTML = `⏱️ <span style="color:white;">${cooldown}s</span>`;
+    document.getElementById("popupCategory").innerHTML = `📂 <span style="color:white;">${category}</span>`;
+    document.getElementById("popupDescription").innerHTML = `<span style="color:white;">${description}</span>`;
+
+    const fakeInput = `${Prefix}${name} ${usage.split(" ").slice(1).join(" ") || "..."}`;
+    const fakeOutput = `@Wydios ist jetzt ${name} ${usage.split(" ").slice(1).join(" ") || "..."}`;
+
+    document.getElementById("popupExample").innerHTML = `
+        <code>13:52 Wydios: ${fakeInput}</code><br>
+        <code>13:52 NotedBot: ${fakeOutput}</code>
+    `;
+
+    document.getElementById("commandPopup").style.display = "block";
 });
 
 main();
