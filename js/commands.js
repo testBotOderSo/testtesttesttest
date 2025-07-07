@@ -90,16 +90,16 @@ async function renderCommands() {
             const cooldown = btn.dataset.cooldown;
             const description = btn.dataset.description;
 
-            document.getElementById("popupTitle").innerText = `Command: ${Prefix}${name}`;
-            document.getElementById("popupAliases").innerHTML = `Aliaes: ${aliases}`;
-            document.getElementById("popupUsage").innerHTML = `Usage: ${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
-            document.getElementById("popupPerm").innerHTML = `Perms: ${parsePermission(perm)}`;
-            document.getElementById("popupCooldown").innerHTML = `Cooldown: ${cooldown}s`;
-            document.getElementById("popupCategory").innerHTML = `Category: ${category}`;
-            document.getElementById("popupDescription").innerHTML = `Descripton: ${description}`;
+            document.getElementById("popupTitle").innerText = `<strong>Command:</strong> ${Prefix}${name}`;
+            document.getElementById("popupAliases").innerHTML = `<strong>Aliases:</strong> ${aliases}`;
+            document.getElementById("popupUsage").innerHTML = `<strong>Usage:</strong> ${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
+            document.getElementById("popupPerm").innerHTML = `<strong>Perms:</strong> ${parsePermission(perm)}`;
+            document.getElementById("popupCooldown").innerHTML = `<strong>Cooldown:</strong> ${cooldown}s`;
+            document.getElementById("popupCategory").innerHTML = `<strong>Category:</strong> ${category}`;
+            document.getElementById("popupDescription").innerHTML = `<strong>Description:</strong> ${description}`;
 
             const ExampleInput = `${Prefix}${name}`;
-            const ExampleOutput = `@Wydios <img src="img/feelsdankman.png" alt="feelsdankman" class="cmd-img" /> ${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
+            const ExampleOutput = `@Wydios <img src="img/feelsdankman.png" alt="feelsdankman" class="cmd-img" /> ➜ ${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
 
             document.getElementById("popupExample").innerHTML = 
                 `Example:
