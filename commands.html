@@ -18,7 +18,7 @@
   <main>
     <section id="filter">
       <select id="permFilter">
-        <option value="">🔍 Alle Rechte</option>
+        <option value="">😎 Permissions</option>
         <option value="jeder">Jeder</option>
         <option value="vip">VIP</option>
         <option value="mod">Mod</option>
@@ -28,7 +28,7 @@
       </select>
 
       <select id="categoryFilter">
-        <option value="">📂 Alle Kategorien</option>
+        <option value="">📂 Kategorien</option>
         <option value="7tv">7TV</option>
         <option value="utils">Utils</option>
         <option value="twitch">Twitch</option>
@@ -37,8 +37,8 @@
         <option value="notis">Notis</option>
       </select>
     </section>
-    
     <section id="commandsList"></section>
+    
     <div id="commandModal" class="modal hidden">
       <div class="modal-content">
         <span class="close-button">&times;</span>
@@ -47,6 +47,14 @@
         <pre id="modalUsage"></pre>
       </div>
   </div>
+    <div id="commandPopup" class="command-popup">
+    <span class="close-btn">&times;</span>
+    <div class="command-popup-content">
+        <h2 id="popupTitle"></h2>
+        <p id="popupAliases"></p>
+        <p id="popupUsage"></p>
+    </div>
+</div>
 </div>
   </main>
 
