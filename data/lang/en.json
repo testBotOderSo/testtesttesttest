@@ -1,24 +1,8 @@
 {
   "commands": {
-    "name": "Name",
-    "description": "Description",
-    "usage": "Usage",
-    "cooldown": "Cooldown",
-    "category": "Category",
-    "permission": {
-      "label": "Permission",
-      "everyone": "Everyone",
-      "vip": "VIP",
-      "moderator": "Moderator",
-      "broadcaster": "Broadcaster",
-      "dev": "Dev",
-      "admin": "Admin",
-      "unknown": "Unknown"
-    },
-    "error": "Error loading commands 🫠",
-    "usageFallback": {
-      "de": "Keine Verwendung verfügbar",
-      "en": "No usage available"
-    }
+    "load": "Commands loaded",
+    "filterPerm": "Filter by permission",
+    "filterCat": "Filter by category",
+    "noResults": "No matching commands found. 😴"
   }
 }
