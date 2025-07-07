@@ -50,7 +50,7 @@ function renderCommand(cmd) {
     return `
         <div class="command-bubble">
             <div class="command-header">
-                <strong>${Prefix}${cmd.name}</strong> <span>${aliases}</span> ${img}
+                <strong>${Prefix}${cmd.name} ${aliases}</strong> ${img}
             </div>
             <p>${description}</p>
             <button class="open-modal"
@@ -90,7 +90,7 @@ async function renderCommands() {
             const cooldown = btn.dataset.cooldown;
             const description = btn.dataset.description;
 
-            document.getElementById("popupTitle").innerText = `<strong>Command:</strong> ${Prefix}${name}`;
+            document.getElementById("popupTitle").innerText = `Command: ${Prefix}${name}`;
             document.getElementById("popupAliases").innerHTML = `<strong>Aliases:</strong> ${aliases}`;
             document.getElementById("popupUsage").innerHTML = `<strong>Usage:</strong> ${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
             document.getElementById("popupPerm").innerHTML = `<strong>Perms:</strong> ${parsePermission(perm)}`;
@@ -102,7 +102,7 @@ async function renderCommands() {
             const ExampleOutput = `@Wydios <img src="img/feelsdankman.png" alt="feelsdankman" class="cmd-img" /> ➜ ${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
 
             document.getElementById("popupExample").innerHTML = 
-                `Example:
+                `Example:<br>
                 <code>Wydios: ${ExampleInput}</code><br>
                 <code>NotedBot: ${ExampleOutput}</code>`;
 
