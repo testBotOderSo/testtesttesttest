@@ -39,16 +39,13 @@
     </section>
     
     <section id="commandsList"></section>
-    <div class="command-card">
-  <div class="command-header">
-    <strong>/7tv</strong> <span class="aliases">(stv)</span>
-    <img src="https://..." alt="emote" />
-  </div>
-  <p>📄 Beschreibung</p>
-  <button class="toggle-details">📘 Details anzeigen</button>
-  <div class="command-details hidden">
-    <p>🛠 Aliases: stv</p>
-    <p>📥 Usage: !7tv &lt;...&gt;</p>
+    <div id="commandModal" class="modal hidden">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2 id="modalTitle">!command</h2>
+        <p id="modalAliases"></p>
+        <pre id="modalUsage"></pre>
+      </div>
   </div>
 </div>
   </main>
