@@ -69,7 +69,12 @@ async function renderCommands() {
     const list = document.getElementById("commandsList");
     const perm = document.getElementById("permFilter").value.toLowerCase();
     const cat = document.getElementById("categoryFilter").value.toLowerCase();
+    
     const rawCommands = await fetchCommands();
+    if (!rawCommands || rawCommands.length === 0) {
+        return list.innerHTML = `<i>${t("command.error.noCommands")}</i>`;
+    };
+
     const mergedCommands = mergeCommands(rawCommands);
 
     const filtered = mergedCommands.filter(c => {
@@ -89,9 +94,11 @@ async function renderCommands() {
             const category = btn.dataset.category;
             const cooldown = btn.dataset.cooldown;
             const description = btn.dataset.description;
-            const image = btn.dataset.link?.[0] ? `<img src="${btn.dataset.link[0]}" alt="emote" class="cmd-img" />` : "";
+            
+            const imageUrl = btn.querySelector("img")?.src;
+            const imgTag = imageUrl ? `<img src="${imageUrl}" alt="emote" class="cmd-img" />` : "";
 
-            document.getElementById("popupTitle").innerText = `Command: ${Prefix}${name} ${image}`;
+            document.getElementById("popupTitle").innerText = `Command: ${Prefix}${name} ${imgTag}`;
             document.getElementById("popupAliases").innerHTML = `<strong>Aliases:</strong> ${aliases}`;
             document.getElementById("popupUsage").innerHTML = `<strong>Usage:</strong> ${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
             document.getElementById("popupPerm").innerHTML = `<strong>Perms:</strong> ${parsePermission(perm)}`;
