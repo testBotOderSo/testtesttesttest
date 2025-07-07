@@ -58,7 +58,6 @@ async function renderCommands() {
 
   list.innerHTML = filtered.map(renderCommand).join("") || `<i>${t("commands.noResults")}</i>`;
 
-  // Toggle Buttons aktivieren
   document.querySelectorAll(".toggle-details").forEach(btn => {
     btn.addEventListener("click", () => {
       btn.nextElementSibling.classList.toggle("hidden");
