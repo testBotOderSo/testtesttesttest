@@ -3,6 +3,8 @@
     "load": "Commands loaded",
     "filterPerm": "Filter by permission",
     "filterCat": "Filter by category",
-    "noResults": "No matching commands found. 😴"
+    "noResults": "No matching commands found. 😴",
+    "description": "",
+    "usage": ""
   }
 }
