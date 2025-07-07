@@ -116,3 +116,20 @@ footer img:hover {
   opacity: 1;
 }
 
+.command-card img.cmd-img {
+  height: 24px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.command-details.hidden {
+  display: none;
+}
+
+.command-details {
+  margin-top: 1rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.9rem;
+  color: #aaa;
+}
