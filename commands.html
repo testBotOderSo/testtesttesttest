@@ -54,8 +54,8 @@
         <button onclick="switchLanguage('en')">🇬🇧</button>
     </div>
 
-    <div id="commandPopup" class="command-popup">
-        <span class="close-btn">&times;</span>
+    <div id="commandPopup" class="command-popup" style="display: none;">
+        <span class="close-btn" onclick="document.getElementById('commandPopup').style.display = 'none';">&times;</span>
         <div class="command-popup-content">
             <h2 id="popupTitle"></h2>
             <p id="popupAliases"></p>
@@ -64,7 +64,10 @@
             <p id="popupCooldown"></p>
             <p id="popupCategory"></p>
             <p id="popupDescription"></p>
-            <div id="popupExample" style="margin-top: 15px;"></div>
+            <div id="popupExample" style="margin-top: 15px; background-color: #1a1a1a; padding: 10px; border-radius: 10px;">
+                <code>Wydios: !afk Bot Weiter Coden</code><br />
+                <code>NotedBot: ➜ @wydios ist jetzt afk Bot Weiter Coden ⏱️</code>
+            </div>
         </div>
     </div>
 
