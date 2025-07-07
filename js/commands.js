@@ -42,7 +42,7 @@ function parsePermission(id) {
 
 function renderCommand(cmd) {
     const aliases = cmd.aliases?.length ? `(${cmd.aliases.join(", ")})` : "";
-    const img = cmd.link?.[0] ? `<img src="${cmd.link[0]}" alt="emote" class="cmd-img" />` : "";
+    const img = cmd.link? `<img src="${cmd.link}" alt="emote" class="cmd-img" />` : "";
     const description = langCode === "de" ? cmd.descriptionDE : cmd.descriptionUS;
     const usageRaw = langCode === "de" ? cmd.usageDE : cmd.usageUS;
     const usage = formatUsage(usageRaw);
@@ -61,6 +61,7 @@ function renderCommand(cmd) {
                 data-category="${cmd.category}"
                 data-cooldown="${cmd.cooldown || 0}"
                 data-description="${description}"
+                data-image="${cmd.link || ""}"
             >📘 Details anzeigen</button>
         </div>`;
 };
@@ -72,8 +73,7 @@ async function renderCommands() {
     
     const rawCommands = await fetchCommands();
     if (!rawCommands || rawCommands.length === 0) {
-        list.innerHTML = `<i>${translate("command.error.noCommands") || "test"}</i>`;
-        return;
+        return list.innerHTML = `<i>${translate("command.error.noCommands")}</i>`;
     };
 
     const mergedCommands = mergeCommands(rawCommands);
@@ -96,7 +96,7 @@ async function renderCommands() {
             const cooldown = btn.dataset.cooldown;
             const description = btn.dataset.description;
             
-            const imageUrl = btn.querySelector("img")?.src;
+            const imageUrl = btn.dataset.image;
             const imgTag = imageUrl ? `<img src="${imageUrl}" alt="emote" class="cmd-img" />` : "";
 
             document.getElementById("popupTitle").innerText = `Command: ${Prefix}${name} ${imgTag}`;
@@ -112,7 +112,7 @@ async function renderCommands() {
 
             document.getElementById("popupExample").innerHTML = 
                 `Example:<br>
-                <code>Wydios: ${ExampleInput}<br>
+                <code>Wydios: ${ExampleInput}<br> 
                 NotedBot: ${ExampleOutput}</code>`;
 
             document.getElementById("commandPopup").style.display = "block";
