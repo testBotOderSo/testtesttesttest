@@ -121,13 +121,4 @@ async function main() {
 document.getElementById("permFilter").onchange = renderCommands;
 document.getElementById("categoryFilter").onchange = renderCommands;
 
-window.addEventListener("click", (event) => {
-    const modal = document.getElementById("commandPopup");
-    const content = document.querySelector(".command-popup-content");
-
-    if (modal.style.display === "block" && !content.contains(event.target)) {
-        modal.style.display = "none";
-    }
-});
-
 main();
