@@ -86,11 +86,12 @@ async function renderCommands() {
             const aliases = btn.dataset.aliases;
             const usage = btn.dataset.usage;
             const perm = btn.dataset.permission;
+            console.log(perm);
             const category = btn.dataset.category;
             const cooldown = btn.dataset.cooldown;
             const description = btn.dataset.description;
 
-            document.getElementById("popupTitle").innerText = `${Prefix}${name}`;
+            document.getElementById("popupTitle").innerText = `<span style="color:white;">Command: ${Prefix}${name}</span>`;
             document.getElementById("popupAliases").innerHTML = `<span style="color:white;">Aliaes: ${aliases}</span>`;
             document.getElementById("popupUsage").innerHTML = `<span style="color:white;">Usage: ${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}</p>`;
             document.getElementById("popupPerm").innerHTML = `<span style="color:white;">Perms: ${parsePermission(perm)}</p>`;
@@ -99,10 +100,11 @@ async function renderCommands() {
             document.getElementById("popupDescription").innerHTML = `<span style="color:white;">${description}</p>`;
 
             const ExampleInput = `${Prefix}${name}`;
-            const ExampleOutput = `@Wydios <img src="img/feelsdankman.png" alt="emote" class="cmd-img" /> ${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
+            const ExampleOutput = `@Wydios <img src="img/feelsdankman.png" alt="feelsdankman" class="cmd-img" /> ${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
 
             document.getElementById("popupExample").innerHTML = 
-                `<span><code>Wydios: ${ExampleInput}</code><br></span>
+                `<span style="color:white;">Example</span>
+                <span><code>Wydios: ${ExampleInput}</code><br></span>
                 <span><code>NotedBot: ${ExampleOutput}</code></span>`;
 
             document.getElementById("commandPopup").style.display = "block";
