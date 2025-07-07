@@ -50,7 +50,7 @@ function renderCommand(cmd) {
     return `
         <div class="command-bubble">
             <div class="command-header">
-                <strong>${Prefix}${cmd.name}</strong> <p class="aliases">${aliases}</p> ${img}
+                <strong>${Prefix}${cmd.name}</strong> <span>${aliases}</span> ${img}
             </div>
             <p>${description}</p>
             <button class="open-modal"
@@ -91,19 +91,19 @@ async function renderCommands() {
             const description = btn.dataset.description;
 
             document.getElementById("popupTitle").innerText = `${Prefix}${name}`;
-            document.getElementById("popupAliases").innerHTML = `🛠 <span style="color:white;">${aliases}</span>`;
-            document.getElementById("popupUsage").innerHTML = `>_ <span style="color:white;">${usage}</span>`;
-            document.getElementById("popupPerm").innerHTML = `🛡 <span style="color:white;">${parsePermission(perm)}</span>`;
-            document.getElementById("popupCooldown").innerHTML = `⏱️ <span style="color:white;">${cooldown}s</span>`;
-            document.getElementById("popupCategory").innerHTML = `📂 <span style="color:white;">${category}</span>`;
-            document.getElementById("popupDescription").innerHTML = `<span style="color:white;">${description}</span>`;
+            document.getElementById("popupAliases").innerHTML = `<span style="color:white;">Aliaes: ${aliases}</span>`;
+            document.getElementById("popupUsage").innerHTML = `<span style="color:white;">Usage: ${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}</p>`;
+            document.getElementById("popupPerm").innerHTML = `<span style="color:white;">Perms: ${parsePermission(perm)}</p>`;
+            document.getElementById("popupCooldown").innerHTML = `<span style="color:white;">Cooldown: ${cooldown}s</p>`;
+            document.getElementById("popupCategory").innerHTML = `<span style="color:white;">Category: ${category}</p>`;
+            document.getElementById("popupDescription").innerHTML = `<span style="color:white;">${description}</p>`;
 
-            const fakeInput = `${Prefix}${name}`;
-            const fakeOutput = `@Wydios ${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
+            const ExampleInput = `${Prefix}${name}`;
+            const ExampleOutput = `@Wydios <img src="img/feelsdankman.png" alt="emote" class="cmd-img" /> ${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
 
             document.getElementById("popupExample").innerHTML = 
-                `<code>Wydios: ${fakeInput}</code><br>
-                 <code>NotedBot: ${fakeOutput}</code>`;
+                `<span><code>Wydios: ${ExampleInput}</code><br></span>
+                <span><code>NotedBot: ${ExampleOutput}</code></span>`;
 
             document.getElementById("commandPopup").style.display = "block";
             document.title = `NotedBot • Cmd: ${name}`;
