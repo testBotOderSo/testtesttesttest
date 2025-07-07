@@ -1,24 +1,8 @@
 {
   "commands": {
-    "name": "Name",
-    "description": "Beschreibung",
-    "usage": "Verwendung",
-    "cooldown": "Cooldown",
-    "category": "Kategorie",
-    "permission": {
-      "label": "Berechtigung",
-      "everyone": "Jeder",
-      "vip": "VIP",
-      "moderator": "Moderator",
-      "broadcaster": "Broadcaster",
-      "dev": "Entwickler",
-      "admin": "Admin",
-      "unknown": "Unbekannt"
-    },
-    "error": "Fehler beim Laden der Commands 🫠",
-    "usageFallback": {
-      "de": "Keine Verwendung verfügbar",
-      "en": "No usage available"
-    }
+    "load": "Befehle geladen",
+    "filterPerm": "Filter nach Rechten",
+    "filterCat": "Filter nach Kategorie",
+    "noResults": "Keine passenden Befehle gefunden."
   }
 }
