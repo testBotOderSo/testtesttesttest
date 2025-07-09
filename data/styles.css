@@ -1,23 +1,30 @@
 :root {
-  --bg-dark: #05060d; /* fast schwarz */
-  --bg-light: #0a0c18; /* sehr dunkles Blau-Schwarz */
-  --accent: #1e2a6f; /* dunkles Blau */
-  --accent-glow: #2f3dbf; /* dezenter Glow */
-  --text: #ffffff;
-  --text-muted: #888a99;
-  --shadow: 0 0 8px rgba(0, 0, 0, 0.8);
-  --blur: blur(12px);
-}
+  --white: #fff;
+  --black: #000;
 
-@keyframes pulseAccent {
-  0%, 100% {
-    box-shadow: 0 0 6px var(--accent-glow);
-    color: var(--accent);
-  }
-  50% {
-    box-shadow: 0 0 10px var(--accent-glow);
-    color: #4a5bbf;
-  }
+  /* Blaue statt Lila Farben */
+  --color-primary: #6f85ff;
+  --color-primary-60: rgba(111, 133, 255, 0.6);
+  --color-primary-30: rgba(111, 133, 255, 0.3);
+  --color-secondary: #1e3a9e;
+  --color-secondary-60: rgba(30, 58, 158, 0.6);
+  --color-secondary-30: rgba(30, 58, 158, 0.3);
+
+  --color-background-light: #2c2e40;
+  --color-background: #1a1c28;
+  --color-background-dark: #0c0e16;
+
+  --color-font-light: #e0e0e0;
+  --color-font: #cfcfcf;
+  --color-font-dark: #7a7a7a;
+
+  --color-success: #28a745;
+  --color-success-dark: #186429;
+  --color-error: #ef3e3e;
+  --color-error-dark: #a70e0e;
+
+  --animation-duration: 0.2s;
+  --backdrop: blur(4px) brightness(50%);
 }
 
 * {
@@ -26,118 +33,73 @@
   box-sizing: border-box;
 }
 
+html {
+  font-size: 62.5%;
+  color-scheme: dark;
+}
+
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at top left, var(--bg-light), var(--bg-dark));
-  color: var(--text);
-  line-height: 1.6;
-}
-
-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  backdrop-filter: var(--blur);
-  background-color: rgba(5, 6, 13, 0.75); /* dunkler und dichter */
-  padding: 10px 30px;
+  width: 100%;
+  min-height: 100dvh;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #111;
+  flex-direction: column;
+  color: var(--color-font);
+  background: linear-gradient(145deg, #000 0, #0f1020 100%);
+  background-attachment: fixed;
+  font-family: "Roboto", "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 1.8rem;
+  hyphens: auto;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
-.logo img {
-  height: 40px;
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  display: block;
+  filter: blur(100px);
+  background-image: linear-gradient(var(--color-primary), var(--color-secondary));
+  animation: rotate 30s ease-in-out alternate infinite;
+  z-index: -1;
 }
 
-nav ul {
+body::before {
+  top: 30%;
+  left: 10%;
+  width: 500px;
+  height: 500px;
+  max-width: 60%;
+  max-height: 60%;
+  opacity: 0.15;
+}
+
+body::after {
+  bottom: 0;
+  right: 0;
+  width: 300px;
+  height: 300px;
+  max-width: 40%;
+  max-height: 40%;
+  opacity: 0.05;
+}
+
+main {
   display: flex;
-  list-style: none;
-  gap: 20px;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 1.6rem;
+  width: 100%;
+  max-width: 111.2rem;
+  margin: 0 auto;
 }
 
-nav ul li a {
-  color: var(--text);
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s ease;
-  animation: none; /* kein Blinken mehr */
-}
-
-nav ul li a:hover {
-  color: var(--accent-glow);
-  box-shadow: 0 0 12px var(--accent-glow);
-}
-
-.container {
-  max-width: 960px;
-  margin: 60px auto;
-  padding: 20px;
-}
-
-.hero {
-  text-align: center;
-  margin-bottom: 50px;
-}
-.hero h1 {
-  font-size: 3rem;
-  color: var(--accent);
-  animation: pulseAccent 8s infinite;
-}
-.hero p {
-  font-size: 1.2rem;
-  color: var(--text-muted);
-}
-
-.features {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 25px;
-  margin-top: 40px;
-}
-.feature-box {
-  background: var(--bg-light);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  transition: 0.3s ease;
-}
-.feature-box:hover {
-  transform: scale(1.02);
-  box-shadow: 0 0 14px var(--accent-glow);
-}
-.feature-box h3 {
-  margin-bottom: 10px;
-  color: var(--accent);
-}
-.feature-box p {
-  color: var(--text-muted);
-  font-size: 14px;
-}
-
-.getting-started {
-  margin-top: 50px;
-  padding: 20px;
-  background: var(--bg-light);
-  border-left: 4px solid var(--accent);
-  border-radius: 8px;
-}
-.getting-started h2 {
-  margin-bottom: 10px;
-  color: var(--accent);
-}
-.getting-started p {
-  color: var(--text-muted);
-  font-size: 14px;
-}
-
-footer {
-  margin-top: 80px;
-  padding: 20px;
-  text-align: center;
-  font-size: 13px;
-  color: var(--text-muted);
-  border-top: 1px solid #111;
-  opacity: 0.6;
+/* KEIN GLOW MEHR: */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-primary);
+  font-weight: 700;
+  text-shadow: none;
+  animation: none;
 }
 
