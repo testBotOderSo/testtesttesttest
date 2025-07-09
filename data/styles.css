@@ -1,11 +1,23 @@
 :root {
-  --bg-dark: #0e0c1f;
-  --bg-light: #1a1830;
-  --accent: #9146FF;
+  --bg-dark: #0b0e1f;
+  --bg-light: #121937;
+  --accent: #2a3b8f; 
+  --accent-glow: #4058d6; 
   --text: #ffffff;
   --text-muted: #bbbbbb;
   --shadow: 0 0 20px rgba(0, 0, 0, 0.6);
   --blur: blur(12px);
+}
+
+@keyframes pulseAccent {
+  0%, 100% {
+    box-shadow: 0 0 8px var(--accent-glow);
+    color: var(--accent);
+  }
+  50% {
+    box-shadow: 0 0 20px var(--accent-glow);
+    color: #7a8bf0;
+  }
 }
 
 * {
@@ -16,7 +28,7 @@
 
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: radial-gradient(circle at top left, #1e0038, #0e0c1f);
+  background: radial-gradient(circle at top left, var(--bg-light), var(--bg-dark));
   color: var(--text);
   line-height: 1.6;
 }
@@ -48,11 +60,14 @@ nav ul li a {
   color: var(--text);
   text-decoration: none;
   font-weight: bold;
-  transition: 0.2s ease;
+  transition: 0.3s ease;
+  animation: pulseAccent 4s infinite;
 }
 
 nav ul li a:hover {
-  color: var(--accent);
+  color: var(--accent-glow);
+  box-shadow: 0 0 15px var(--accent-glow);
+  animation: none;
 }
 
 .container {
@@ -68,6 +83,7 @@ nav ul li a:hover {
 .hero h1 {
   font-size: 3rem;
   color: var(--accent);
+  animation: pulseAccent 5s infinite;
 }
 .hero p {
   font-size: 1.2rem;
@@ -89,11 +105,12 @@ nav ul li a:hover {
 }
 .feature-box:hover {
   transform: scale(1.02);
-  box-shadow: 0 0 20px #9146FF99;
+  box-shadow: 0 0 20px var(--accent-glow);
 }
 .feature-box h3 {
   margin-bottom: 10px;
   color: var(--accent);
+  animation: pulseAccent 6s infinite;
 }
 .feature-box p {
   color: var(--text-muted);
@@ -110,6 +127,7 @@ nav ul li a:hover {
 .getting-started h2 {
   margin-bottom: 10px;
   color: var(--accent);
+  animation: pulseAccent 6s infinite;
 }
 .getting-started p {
   color: var(--text-muted);
@@ -125,4 +143,3 @@ footer {
   border-top: 1px solid #222;
   opacity: 0.6;
 }
-
