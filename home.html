@@ -5,17 +5,87 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title id="dynamicTitle">NotedBot • Home</title>
   <link rel="icon" href="img/notedbotlogo.png" type="image/png" />
-  <meta name="theme-color" content="#252222" />
-  <meta name="author" content="wydios" />
-  <meta name="description" content="Not just another Twitch bot • powerful commands, custom filters & 7TV integration." />
-  <meta property="og:title" content="NotedBot • Home" />
-  <meta property="og:type" content="website" />
-  <meta property="og:description" content="Not just another Twitch bot • powerful commands, custom filters & 7TV integration." />
-  <meta property="og:image" content="https://notedbot.de/img/notedbotlogo.png" />
-  <meta property="og:url" content="https://notedbot.de" />
   <link rel="stylesheet" href="data/styles.css" />
-</head>
+  <style>
+    /* Unsichtbarer Scrollbar */
+    body::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
 
+    /* Navigation Hover Effekt */
+    .navigation ul li a {
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.3s;
+    }
+    .navigation ul li a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      background-color: currentColor;
+      transition: width 0.3s ease-in-out;
+    }
+    .navigation ul li a:hover::after {
+      width: 100%;
+    }
+    .navigation ul li a[href*="api"] {
+      color: #48ff48;
+    }
+    .navigation ul li a[href*="api"]:hover::after {
+      background-color: #48ff48;
+    }
+
+    /* Twitch-Style Chat */
+    .chat-box {
+      background: #18181b;
+      border-radius: 8px;
+      padding: 16px;
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: 'Segoe UI', sans-serif;
+    }
+    .chat-msg {
+      margin-bottom: 6px;
+      line-height: 1.4;
+      font-size: 1.5rem;
+      white-space: nowrap;
+    }
+    .user1 { color: #a970ff; }
+    .user2 { color: #10b981; }
+    .user3 { color: #06b6d4; }
+
+    /* Dev Blog Stil anders */
+    .dev-blog {
+      background: linear-gradient(135deg, #2a2a35, #1f1f29);
+      padding: 25px;
+      border-radius: 16px;
+      border-left: 5px solid #f472b6;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    .blog-post p {
+      background-color: #1e1e28;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 6px;
+      font-size: 1.4rem;
+      color: #ddd;
+    }
+
+    /* Footer nur sichtbar beim Scroll */
+    footer {
+      margin-top: 100px;
+      text-align: center;
+      opacity: 0.6;
+      padding: 20px;
+      font-size: 1.2rem;
+      background-color: #0a0a0f;
+    }
+  </style>
+</head>
 <body>
   <header class="top-bar">
     <div class="logo">
@@ -23,11 +93,11 @@
     </div>
     <nav class="navigation">
       <ul>
-        <li><a onclick="alert('🫠 You are already on the page')">Home</a></li>
+        <li><a href="#">Home</a></li>
         <li><a href="commands">Commands</a></li>
-        <li><a onclick="alert('🫠 Erm not found i guess? haha')">FAQ</a></li>
-        <li><a href="https://api.notedbot.de/v1" style="color: #48ff48;">API</a></li>
-        <li><a onclick="alert('🫠 Erm not found i guess? haha')" style="color: #9146FF;">Login with Twitch</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="https://api.notedbot.de/v1">API</a></li>
+        <li><a href="#login">Login with Twitch</a></li>
       </ul>
     </nav>
   </header>
@@ -63,8 +133,8 @@
     <a href="https://twitch.tv/wydios" target="_blank">
       <img src="img/twitch.png" alt="Twitch" height="30" />
     </a>
+    <p>&copy; 2025 NotedBot | Made with ❤ by Wydios</p>
   </footer>
 </body>
 </html>
-
 
