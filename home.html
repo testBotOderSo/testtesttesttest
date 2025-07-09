@@ -1,55 +1,70 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title id="dynamicTitle">NotedBot • Home</title>
-    <link rel="icon" href="img/notedbotlogo.png" type="image/png">
-
-    <meta name="theme-color" content="#252222"/>
-    <meta name="author" content="wydios"/>
-    <meta name="description" content="Not just another Twitch bot • powerful commands, custom filters & 7TV integration." />
-    <meta property="og:title" content="NotedBot • Home" />
-    <meta property="og:type" content="website" />
-    <meta property="og:description" content="Not just another Twitch bot • powerful commands, custom filters & 7TV integration." />
-    <meta property="og:image" content="https://notedbot.de/img/notedbotlogo.png" />
-    <meta property="og:url" content="https://notedbot.de" />
-
-    <meta name="theme-color" content="#252222">
-    <meta name="author" content="wydios"/>
-    <meta property="og:title" content="NotedBot • Home"/>
-    <meta property="og:type" content="website"/>
-
-    <link rel="stylesheet" href="data/styles.css"/>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="dynamicTitle">NotedBot • Home</title>
+  <link rel="icon" href="img/notedbotlogo.png" type="image/png" />
+  <meta name="theme-color" content="#252222" />
+  <meta name="author" content="wydios" />
+  <meta name="description" content="Not just another Twitch bot • powerful commands, custom filters & 7TV integration." />
+  <meta property="og:title" content="NotedBot • Home" />
+  <meta property="og:type" content="website" />
+  <meta property="og:description" content="Not just another Twitch bot • powerful commands, custom filters & 7TV integration." />
+  <meta property="og:image" content="https://notedbot.de/img/notedbotlogo.png" />
+  <meta property="og:url" content="https://notedbot.de" />
+  <link rel="stylesheet" href="data/styles.css" />
 </head>
+
 <body>
-    <div class="container">
-        <div class="logo">
-            <a href="home"><img src="img/notedbot.gif" alt="NotedBot Logo"></a>
-        </div>
-        <div class="navigation">
-            <h1 id="title">
-                <img src="img/notedbotlogo.png" alt="NotedBot Logo">
-                <span style="color: #0036d8;">NotedBot</span>
-            </h1>
-            <ul>
-                <li><a onclick="alert('🫠 You are already on the page')" style="color: #4876ff;">Home </a></li>
-                <li><a href="commands" style="color: #4876ff;"> Commands</a></li>
-                <li><a onclick="alert('🫠 Erm not found i guess? haha')" style="color: #4876ff;"> FAQ</a></li>
-                <li><a href="https://api.notedbot.de/v1" style="color: #48ff48;"> Api</a></li>
-                <li><a onclick="alert('🫠 Erm not found i guess? haha')" style="color: #9146FF;"> Login With Twitch</a></li>
-            </ul>
-        </div>
+  <header class="top-bar">
+    <div class="logo">
+      <a href="home"><img src="img/notedbot.gif" alt="NotedBot Logo" height="40" /></a>
+    </div>
+    <nav class="navigation">
+      <ul>
+        <li><a onclick="alert('🫠 You are already on the page')">Home</a></li>
+        <li><a href="commands">Commands</a></li>
+        <li><a onclick="alert('🫠 Erm not found i guess? haha')">FAQ</a></li>
+        <li><a href="https://api.notedbot.de/v1" style="color: #48ff48;">API</a></li>
+        <li><a onclick="alert('🫠 Erm not found i guess? haha')" style="color: #9146FF;">Login with Twitch</a></li>
+      </ul>
+    </nav>
+  </header>
 
-        <main>
-            <h1>🚧 The site is under construction🚧</h1>
-        </main>
+  <main class="main-layout">
+    <section class="intro">
+      <h1>NotedBot</h1>
+      <p>Ein Twitch Chat Bot wie jeder andere – nur besser 😎</p>
+    </section>
 
-    <footer>
-        <a href="https://twitch.tv/wydios" target="_blank">
-            <img src="img/twitch.png" alt="Twitch"/>
-        </a>
-    </footer>
+    <section class="demo-chat">
+      <h2>Live Chat Demo 💬</h2>
+      <div class="chat-box">
+        <div class="chat-msg user1">[TTV_Luigi]: !uptime</div>
+        <div class="chat-msg user2">[Nightbot]: Der Stream läuft seit 2h23m 🔥</div>
+        <div class="chat-msg user3">[Viewer42]: !discord</div>
+        <div class="chat-msg user1">[TTV_Luigi]: Let's gooo NotedBot 💜</div>
+        <div class="chat-msg user2">[Mod_Bot]: Kein Spam pls 😡</div>
+      </div>
+    </section>
+
+    <section class="dev-blog">
+      <h2>Dev Blog 👨‍💻</h2>
+      <div class="blog-post">
+        <p><strong>Update 1.2:</strong> Chat Demo + Login UI hinzugefügt ✅</p>
+        <p><strong>Next:</strong> Twitch OAuth live testen & Commands editor 😈</p>
+        <p><strong>WIP:</strong> Backend-Logs mit WebSocket 👨‍💻</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a href="https://twitch.tv/wydios" target="_blank">
+      <img src="img/twitch.png" alt="Twitch" height="30" />
+    </a>
+  </footer>
 </body>
 </html>
+
 
