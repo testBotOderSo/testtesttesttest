@@ -1,28 +1,21 @@
 document.addEventListener("DOMContentLoaded", () => {
   const chatBox = document.querySelector(".chat-box");
 
-  const header = document.createElement("div");
-  header.className = "chat-header";
-  header.innerHTML = `
-    <div class="chat-header-indicator"></div>
-    <div class="chat-header-title">Demo Chat</div>
-  `;
-  chatBox.appendChild(header);
-
   const messages = [
-    "Wydios: und Welchen Neuen Bot gibst heute?",
-    "DasHeiligeKlo: Also er soll NotedBot heißen",
-    "NotedBot: <img src='img/peepoHappy.png' alt='peepoHappy' class='chat-emote' /> 🩵 Thanks for adding me, you can see my commands here ➜ <a href='https://www.notedbot.de/commands' target='_blank' class='chat-link'>www.notedbot.de/commands</a> • The default prefix is ' ! ' • Default language is ' de ' • if you want the Language English write !channel lang en And you want Block another Lanauge Write !channel lang off",
-    "xNot_Lenny: Let's gooo NotedBot",
-    "fossabot: Das wars o7"
+    "BotPilot: Ey Chat wollt Hir was cooles sehen?",
+    "DasHeiligeKlo: <img src='img/hmhm.gif' alt='hmhm' class='chat-emote' /> was denn?",
+    "NotedBot: <img src='img/peepoHappy.png' alt='peepoHappy' class='chat-emote' /> 🩵 Thanks for adding me, you can see my commands here ➜ <a href='https://www.notedbot.de/commands' target='_blank' class='chat-link'>www.notedbot.de/commands</a>",
+    "xNot_Lenny: <img src='img/pag.gif' alt='pag' class='chat-emote' /> NotedBot jetzt auch hier?",
+    "ohne_flex: !afk Muss kurz weg ",
+    'NotedBot: ➜ @ohne_flex ist jetzt Afk "Muss Kurz weg" ⏱️'
   ];
 
   const userColors = {
-    "Wydios": "var(--accent-primary)",
-    "DasHeiligeKlo": "var(--text-secondary)",
-    "NotedBot": "var(--accent-primary)",
-    "xNot_Lenny": "var(--accent-pink)",
-    "fossabot": "var(--accent-primary)"
+    "BotPilot": "#ff4d4d",  
+    "DasHeiligeKlo": "#aaa",  
+    "NotedBot": "#00C3FF",  
+    "xNot_Lenny": "#ff4d4d", 
+    "ohne_flex": "#FFD700"
   };
 
   let i = 0;
@@ -39,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const [usernameRaw, ...contentParts] = messages[i].split(":");
     const username = usernameRaw.trim();
     const content = contentParts.join(":" ).trim();
-    const userColor = userColors[username] || "var(--text-primary)";
+    const userColor = userColors[username] || "#ffffff";
 
     msg.innerHTML = `
       <span class="chat-time">${time}</span>
