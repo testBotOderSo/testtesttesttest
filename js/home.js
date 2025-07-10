@@ -8,11 +8,15 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="chat-header-title">Demo Chat</div>
   `;
   chatBox.appendChild(header);
+  
+  const chatBox = document.createElement("div");
+  chatBox.className = "chat-box";
+  chatDemo.appendChild(chatBox);
 
   const messages = [
     "Wydios: und Welchen Neuen Bot gibst heute?",
     "DasHeiligeKlo: Also er soll NotedBot heißen",
-    "NotedBot: <img src='img/peepoHappy.png' alt='peepoHappy' style='height: 1.2em; vertical-align: middle;' /> 🩵 Thanks for adding me, you can see my commands here ➜ <a href='https://www.notedbot.de/commands' target='_blank'>www.notedbot.de/commands</a> • The default prefix is ' ! ' • Default language is ' de ' • if you want the Language English write !channel lang en And you want Block another Lanauge Write !channel lang off",
+    "NotedBot: <img src='img/peepoHappy.png' alt='peepoHappy' class='chat-emote' /> 🩵 Thanks for adding me, you can see my commands here ➜ <a href='https://www.notedbot.de/commands' target='_blank' class='chat-link'>www.notedbot.de/commands</a> • The default prefix is ' ! ' • Default language is ' de ' • if you want the Language English write !channel lang en And you want Block another Lanauge Write !channel lang off",
     "xNot_Lenny: Let's gooo NotedBot",
     "fossabot: Das wars o7"
   ];
@@ -38,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const [usernameRaw, ...contentParts] = messages[i].split(":");
     const username = usernameRaw.trim();
-    const content = contentParts.join(":").trim();
+    const content = contentParts.join(":" ).trim();
     const userColor = userColors[username] || "var(--text-primary)";
 
     msg.innerHTML = `
