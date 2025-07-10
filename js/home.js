@@ -1,4 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const features = [
+    {
+      title: "Notis",
+      text: "Automatisierte Nachrichten, Begrüßungen und mehr."
+    },
+    {
+      title: "Channel Management",
+      text: "Steuere Sprache, Befehle, Mod-Rechte direkt im Chat."
+    },
+    {
+      title: "Sonstiges",
+      text: "Custom Commands, Integrationen und vieles mehr."
+    }
+  ];
+
+  features.forEach((feature, i) => {
+    const container = document.getElementById(`feature-${i+1}`);
+    if(container){
+      container.innerHTML = `
+        <h3 style="color: var(--accent-primary);">${feature.title}</h3>
+        <p style="color: var(--text-secondary);">${feature.text}</p>
+      `;
+    }
+  });
+
+  const gettingStarted = document.getElementById("getting-started");
+  if(gettingStarted){
+    gettingStarted.innerHTML = `
+      <h2 style="color: var(--text-primary); margin-bottom: 1rem;">Erste Schritte</h2>
+      <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">
+        Füge NotedBot zu deinem Kanal hinzu, nutze <code>!commands</code> und richte deine Channel-Einstellungen direkt über den Chat oder unsere Web-API ein.
+      </p>
+    `;
+  }
+  
   const chatBox = document.querySelector(".chat-box");
 
   const messages = [
