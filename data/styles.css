@@ -1,23 +1,23 @@
 :root {
-            --bg-primary: #0a0a0f;
-            --bg-secondary: #131318;
-            --bg-tertiary: #1a1a22;
-            --bg-card: #1e1e28;
-            --bg-glass: rgba(255, 255, 255, 0.02);
-            --accent-primary: #8b5cf6;
-            --accent-secondary: #06b6d4;
-            --accent-tertiary: #10b981;
-            --accent-pink: #f472b6;
-            --accent-orange: #fb923c;
-            --text-primary: #ffffff;
-            --text-secondary: #a1a1aa;
-            --text-muted: #71717a;
-            --border-primary: rgba(255, 255, 255, 0.1);
-            --border-glow: rgba(139, 92, 246, 0.3);
-            --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.15);
-            --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
-            --gradient-secondary: linear-gradient(135deg, #f472b6 0%, #fb923c 100%);
-            --gradient-bg: linear-gradient(135deg, #0a0a0f 0%, #131318 50%, #1a1a22 100%);
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #131318;
+  --bg-tertiary: #1a1a22;
+  --bg-card: #1e1e28;
+  --bg-glass: rgba(255, 255, 255, 0.02);
+  --accent-primary: #8b5cf6;
+  --accent-secondary: #06b6d4;
+  --accent-tertiary: #10b981;
+  --accent-pink: #f472b6;
+  --accent-orange: #fb923c;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --border-primary: rgba(255, 255, 255, 0.1);
+  --border-glow: rgba(139, 92, 246, 0.3);
+  --shadow-glow: 0 0 20px rgba(139, 92, 246, 0.15);
+  --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #06b6d4 100%);
+  --gradient-secondary: linear-gradient(135deg, #f472b6 0%, #fb923c 100%);
+  --gradient-bg: linear-gradient(135deg, #0a0a0f 0%, #131318 50%, #1a1a22 100%);
 }
 
 * {
@@ -31,8 +31,8 @@ body {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  color: var(--color-font);
-  background: linear-gradient(145deg, #000 0, #0f1020 100%);
+  color: var(--text-primary);
+  background: var(--gradient-bg);
   background-attachment: fixed;
   font-family: "Roboto", "Trebuchet MS", Helvetica, sans-serif;
   font-size: 1.8rem;
@@ -43,34 +43,36 @@ body {
 }
 
 .container {
-    max-width: 800px;
-    margin: 20px auto;
-    background: #121212; 
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+  max-width: 800px;
+  margin: 20px auto;
+  background: #121212; 
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
 }
 
 .logo {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .navigation {
-    text-align: center;
-    margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
+
 .navigation ul {
-    list-style-type: none; 
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-    display: flex; 
-    gap: 20px; 
+  list-style-type: none; 
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  display: flex; 
+  gap: 20px; 
 }
+
 .navigation ul li {
-    display: inline; 
+  display: inline; 
 }
 
 .navigation ul li a {
@@ -101,11 +103,10 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  color: var(--color-primary);
+  color: var(--text-primary);
   font-weight: 700;
-  text-shadow: none;
-  animation: none;
 }
+
 .fade-in {
   opacity: 0;
   transform: translateY(20px);
@@ -116,5 +117,28 @@ h1, h2, h3, h4, h5, h6 {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.chat-box {
+  background: var(--bg-card);
+  padding: 10px;
+  border-radius: 6px;
+  max-height: 300px;
+  overflow-y: auto;
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.chat-msg {
+  margin-bottom: 8px;
+  opacity: 0;
+  animation: fadeInChat 0.5s ease forwards;
+}
+
+@keyframes fadeInChat {
+  to {
+    opacity: 1;
   }
 }
