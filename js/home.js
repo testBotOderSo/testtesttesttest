@@ -41,8 +41,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "DasHeiligeKlo: <img src='img/hmhm.gif' alt='hmhm' class='chat-emote' /> was denn?",
     "NotedBot: <img src='img/peepoHappy.png' alt='peepoHappy' class='chat-emote' /> 🩵 Thanks for adding me, you can see my commands here ➜ <a href='https://www.notedbot.de/commands' target='_blank' class='chat-link'>www.notedbot.de/commands</a>",
     "xNot_Lenny: <img src='img/pag.png' alt='pag' class='chat-emote' /> NotedBot jetzt auch hier?",
-    "ohne_flex: !afk Muss kurz weg ",
-    'NotedBot: ➜ @ohne_flex ist jetzt Afk "Muss Kurz weg" ⏱️'
+    "ohne_flex: !user Wydios",
+    "NotedBot: Wydios • id: 798723114 • Affiliate • 7tv Color: Winter Snowfall • Follower: 992 • Badge: Minecraft 15th Anniversary Celebration • Bio: was gibt's? • Created on: 06/01/2022 | <img src='img/PartyParrot.gif' alt='PartyParrot' class='chat-emote' />"
   ];
 
   const userColors = {
