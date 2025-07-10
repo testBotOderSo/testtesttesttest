@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const chatBox = document.querySelector(".chat-box");
 
   const messages = [
-    "BotPilot: Ey Chat wollt Hir was cooles sehen?",
+    "DemoChat: Ey Chat wollt Hir was cooles sehen?",
     "DasHeiligeKlo: <img src='img/hmhm.gif' alt='hmhm' class='chat-emote' /> was denn?",
     "NotedBot: <img src='img/peepoHappy.png' alt='peepoHappy' class='chat-emote' /> 🩵 Thanks for adding me, you can see my commands here ➜ <a href='https://www.notedbot.de/commands' target='_blank' class='chat-link'>www.notedbot.de/commands</a>",
     "xNot_Lenny: <img src='img/pag.gif' alt='pag' class='chat-emote' /> NotedBot jetzt auch hier?",
@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ];
 
   const userColors = {
-    "BotPilot": "#ff4d4d",  
+    "DemoChat": "#ff4d4d",  
     "DasHeiligeKlo": "#aaa",  
     "NotedBot": "#00C3FF",  
     "xNot_Lenny": "#ff4d4d", 
