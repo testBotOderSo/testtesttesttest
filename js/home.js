@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const messages = [
     "Wydios: und Welchen Neuen Bot gibst heute?",
     "DasHeiligeKlo: Also er soll NotedBot heißen",
-    "NotedBot: peepoHappy 🩵 Thanks for adding me, you can see my commands here ➜ www.notedbot.de/commands • The default prefix is ' ! ' • Default language is ' de ' • if you want the Language English write !channel lang en And you want Block another Lanauge Write !channel lang off",
+    "NotedBot: <a href='img/peepoHappy.png' type='image/png'></a> 🩵 Thanks for adding me, you can see my commands here ➜ www.notedbot.de/commands • The default prefix is ' ! ' • Default language is ' de ' • if you want the Language English write !channel lang en And you want Block another Lanauge Write !channel lang off",
     "xNot_Lenny: Let's gooo NotedBot",
     "fossabot: Das wars o7"
   ];
