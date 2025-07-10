@@ -1,6 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
   const chatBox = document.querySelector(".chat-box");
 
+  const header = document.createElement("div");
+  header.className = "chat-header";
+  header.innerHTML = `
+    <div class="chat-header-indicator"></div>
+    <div class="chat-header-title">Demo Chat</div>
+  `;
+  chatBox.appendChild(header);
+
   const messages = [
     "Wydios: und Welchen Neuen Bot gibst heute?",
     "DasHeiligeKlo: Also er soll NotedBot heißen",
@@ -34,9 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const userColor = userColors[username] || "var(--text-primary)";
 
     msg.innerHTML = `
-      <span style="color: var(--text-muted); font-size: 0.9rem; font-weight: 600; min-width: 40px; display: inline-block;">${time}</span>
-      <span style="color: ${userColor}; font-size: 0.9rem; font-weight: 600;"> ${username}:</span>
-      <span style="color: var(--text-primary); font-size: 0.9rem;"> ${content}</span>
+      <span class="chat-time">${time}</span>
+      <span class="chat-user" style="color: ${userColor};"> ${username}:</span>
+      <span class="chat-text"> ${content}</span>
     `;
 
     chatBox.appendChild(msg);
