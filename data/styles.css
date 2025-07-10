@@ -335,3 +335,12 @@ span {
 .blog-post strong {
   color: var(--accent-orange);
 }
+.navigation ul li a:hover::after {
+      width: 100%;
+    }
+    .navigation ul li a[href*="api"] {
+      color: #48ff48;
+    }
+    .navigation ul li a[href*="api"]:hover::after {
+      background-color: #48ff48;
+    }
