@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     i++;
-    setTimeout(addMessage, 1000);
+    setTimeout(addMessage, 1500);
   }
 
   setTimeout(addMessage, 1000);
