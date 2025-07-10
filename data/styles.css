@@ -172,7 +172,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .feature-card {
-  background: var(--bg-card);
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
   padding: 1.5rem;
   border-radius: 1rem;
   box-shadow: none;
