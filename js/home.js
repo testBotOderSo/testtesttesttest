@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "DemoChat: Ey Chat wollt Hir was cooles sehen?",
     "DasHeiligeKlo: <img src='img/hmhm.gif' alt='hmhm' class='chat-emote' /> was denn?",
     "NotedBot: <img src='img/peepoHappy.png' alt='peepoHappy' class='chat-emote' /> 🩵 Thanks for adding me, you can see my commands here ➜ <a href='https://www.notedbot.de/commands' target='_blank' class='chat-link'>www.notedbot.de/commands</a>",
-    "xNot_Lenny: <img src='img/pag.gif' alt='pag' class='chat-emote' /> NotedBot jetzt auch hier?",
+    "xNot_Lenny: <img src='img/pag.png' alt='pag' class='chat-emote' /> NotedBot jetzt auch hier?",
     "ohne_flex: !afk Muss kurz weg ",
     'NotedBot: ➜ @ohne_flex ist jetzt Afk "Muss Kurz weg" ⏱️'
   ];
