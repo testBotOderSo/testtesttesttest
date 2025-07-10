@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="data/styles.css" />
 </head>
 <body>
-  <header class="top-bar fade-in">
+  <header class="top-bar fade-in" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;">
     <div class="logo">
       <a href="home"><img src="img/notedbot.gif" alt="NotedBot Logo" height="40" /></a>
     </div>
@@ -24,25 +24,47 @@
   </header>
 
   <main class="main-layout fade-in">
-    <section class="intro">
-      <h1>NotedBot</h1>
-      <p>Ein Twitch Chat Bot wie jeder andere – nur besser</p>
+    <section class="intro" style="text-align: center; margin: 4rem auto;">
+      <h1 style="color: var(--accent-primary); font-size: 3rem;">NotedBot</h1>
+      <p style="color: var(--text-secondary); font-size: 1.2rem; margin-top: 1rem;">NotedBot – ein Twitch Chat Bot wie jeder andere … oder doch nicht?</p>
     </section>
 
-    <section class="demo-chat">
-      <h2>Live Chat Demo 💬</h2>
+    <section class="demo-chat" style="margin-top: 2rem;">
+      <h2 style="display: flex; align-items: center; gap: 10px; color: var(--text-primary);">
+        <span style="height: 10px; width: 10px; background-color: var(--accent-tertiary); border-radius: 50%; display: inline-block;"></span>
+        Demo Chat
+      </h2>
       <div class="chat-box"></div>
+    </section>
+
+    <section class="features fade-in" style="margin-top: 5rem; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem;">
+      <div class="feature-card" style="background: var(--bg-card); padding: 1.5rem; border-radius: 1rem; box-shadow: var(--shadow-glow);">
+        <h3 style="color: var(--accent-primary);">Notis</h3>
+        <p style="color: var(--text-secondary);">Automatisierte Nachrichten, Begrüßungen und mehr.</p>
+      </div>
+      <div class="feature-card" style="background: var(--bg-card); padding: 1.5rem; border-radius: 1rem; box-shadow: var(--shadow-glow);">
+        <h3 style="color: var(--accent-primary);">Channel Management</h3>
+        <p style="color: var(--text-secondary);">Steuere Sprache, Befehle, Mod-Rechte direkt im Chat.</p>
+      </div>
+      <div class="feature-card" style="background: var(--bg-card); padding: 1.5rem; border-radius: 1rem; box-shadow: var(--shadow-glow);">
+        <h3 style="color: var(--accent-primary);">Sonstiges</h3>
+        <p style="color: var(--text-secondary);">Custom Commands, Integrationen und vieles mehr.</p>
+      </div>
+    </section>
+
+    <section class="getting-started fade-in" style="margin-top: 5rem; padding: 0 2rem; text-align: center;">
+      <h2 style="color: var(--text-primary); margin-bottom: 1rem;">Erste Schritte</h2>
+      <p style="color: var(--text-secondary); max-width: 600px; margin: 0 auto;">Füge NotedBot zu deinem Kanal hinzu, nutze <code>!commands</code> und richte deine Channel-Einstellungen direkt über den Chat oder unsere Web-API ein.</p>
     </section>
   </main>
 
-  <footer class="fade-in">
+  <footer class="fade-in" style="margin-top: 5rem; text-align: center; padding: 2rem; border-top: 1px solid var(--border-primary);">
     <a href="https://twitch.tv/wydios" target="_blank">
       <img src="img/twitch.png" alt="Twitch" height="30" />
     </a>
-    <p>&copy; 2025 NotedBot | Made with ❤ by Wydios</p>
+    <p style="color: var(--text-muted); margin-top: 1rem;">&copy; 2025 NotedBot | Made with ❤ by Wydios</p>
   </footer>
 
   <script src="js/home.js"></script>
 </body>
 </html>
-
