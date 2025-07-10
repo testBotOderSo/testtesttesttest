@@ -16,15 +16,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const now = new Date();
     const time = now.toTimeString().slice(0, 5);
+
     const msg = document.createElement("div");
     msg.className = `chat-msg user${(i % 3) + 1}`;
-    msg.textContent = `${time} ${messages[i]}`;
+
+    const [username, ...contentParts] = messages[i].split(":");
+    const content = contentParts.join(":").trim();
+
+    msg.innerHTML = `
+      <span style="color: var(--text-muted); font-size: 0.8rem; font-weight: 500; min-width: 40px;">${time}</span>
+      <span style="color: var(--accent-secondary); font-weight: 600;"> ${username}:</span>
+      <span style="color: var(--text-primary);"> ${content}</span>
+    `;
 
     chatBox.appendChild(msg);
     chatBox.scrollTop = chatBox.scrollHeight;
 
     i++;
-    setTimeout(addMessage, 2000);
+    setTimeout(addMessage, 1000);
   }
 
   setTimeout(addMessage, 1000);
