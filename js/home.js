@@ -8,10 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
     <div class="chat-header-title">Demo Chat</div>
   `;
   chatBox.appendChild(header);
-  
-  const chatBox = document.createElement("div");
-  chatBox.className = "chat-box";
-  chatDemo.appendChild(chatBox);
 
   const messages = [
     "Wydios: und Welchen Neuen Bot gibst heute?",
