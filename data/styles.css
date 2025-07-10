@@ -140,6 +140,10 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 1.4rem;
   line-height: 1.6;
   color: var(--text-primary);
+  scrollbar-width: none;
+}
+.chat-box::-webkit-scrollbar {
+  display: none;
 }
 
 .chat-msg {
