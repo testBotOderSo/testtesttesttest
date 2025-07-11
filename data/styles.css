@@ -183,7 +183,11 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid transparent;
   transition: all 0.3s ease;
 }
-
+.features-title h2 {
+  color: var(--text-light);
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
 .feature-card:hover {
   animation: glow-blink 1.5s infinite ease-in-out;
   border: 1px solid var(--accent-primary);
