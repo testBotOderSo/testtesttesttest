@@ -41,30 +41,43 @@ body {
     scroll-behavior: smooth;
     overflow-y: scroll;
     overflow-x: hidden;
+    z-index: 0;
+    overflow: hidden;
 }
 body::before {
     content: "";
     position: fixed;
-    bottom: -100px;
-    right: -100px;
+    top: 0;
+    left: 0;
     width: 300px;
     height: 300px;
     background: radial-gradient(circle, var(--accent-primary), transparent 70%);
-    animation: float-glow 10s ease-in-out infinite;
+    filter: blur(80px);
+    opacity: 0.3;
     pointer-events: none;
-    z-index: 0;
-    filter: blur(50px);
-    opacity: 0.4;
+    animation: wander-glow 20s ease-in-out infinite;
+    z-index: -1;
 }
-        @keyframes float-glow {
+@keyframes wander-glow {
     0% {
-        transform: translate(0, 0);
+        top: 0;
+        left: 0;
+    }
+    25% {
+        top: 0;
+        left: calc(100% - 300px);
     }
     50% {
-        transform: translate(-30px, -30px);
+        top: calc(100% - 300px);
+        left: calc(100% - 300px);
+    }
+    75% {
+        top: calc(100% - 300px);
+        left: 0;
     }
     100% {
-        transform: translate(0, 0);
+        top: 0;
+        left: 0;
     }
 }
     </style>
