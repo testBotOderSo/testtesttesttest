@@ -67,7 +67,6 @@ body {
   text-align: center;
   margin-bottom: 20px;
 }
-
 .navigation ul {
   list-style-type: none; 
   justify-content: center;
@@ -77,11 +76,9 @@ body {
   display: flex; 
   gap: 20px; 
 }
-
 .navigation ul li {
   display: inline; 
 }
-
 .navigation ul li a {
   position: relative;
   color: var(--text-secondary);
@@ -89,7 +86,6 @@ body {
   font-weight: 500;
   transition: color 0.3s ease;
 }
-
 .navigation ul li a::after {
   content: '';
   position: absolute;
@@ -100,11 +96,9 @@ body {
   background: var(--accent-primary);
   transition: width 0.3s ease;
 }
-
 .navigation ul li a:hover {
   color: var(--accent-primary);
 }
-
 .navigation ul li a:hover::after {
   width: 100%;
 }
@@ -119,7 +113,6 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateY(20px);
   animation: fadeInUp 1.2s ease-out forwards;
 }
-
 @keyframes fadeInUp {
   0% {
     opacity: 0;
@@ -152,7 +145,6 @@ h1, h2, h3, h4, h5, h6 {
 .chat-box::-webkit-scrollbar {
   display: none;
 }
-
 .chat-msg {
   margin-bottom: 8px;
   opacity: 0;
@@ -192,4 +184,30 @@ h1, h2, h3, h4, h5, h6 {
   animation: glow-blink 1.5s infinite ease-in-out;
   border: 1px solid var(--accent-primary);
   transform: translateY(-4px);
+}
+
+.blog-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.blog-entry {
+  background: var(--bg-glass);
+  backdrop-filter: blur(20px);
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border-primary);
+  color: var(--text-light);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+.blog-entry h3 {
+  color: var(--accent-primary);
+  margin-bottom: 1rem;
+}
+.blog-entry p {
+  font-size: 1rem;
+  line-height: 1.6;
 }
