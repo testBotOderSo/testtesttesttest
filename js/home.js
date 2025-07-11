@@ -86,4 +86,38 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   setTimeout(addMessage, 1000);
+
+  const devBlogEntries = [
+    {
+      title: "🎉 Willkommen im Dev Blog!",
+      content: "Hier erfährst du alles über neue Features, Bugfixes und geplante Updates zu NotedBot. Bleib dran!",
+      date: "11. Juli 2025"
+    },
+    {
+      title: "🛠 Neue Filter-Funktion online",
+      content: "Ab sofort kannst du eigene Filterregeln für Wörter und Usergruppen erstellen – inkl. Echtzeit-Reaktion im Chat.",
+      date: "10. Juli 2025"
+    }
+  ];
+
+  function renderDevBlog() {
+    const container = document.getElementById("dev-blog-entries");
+    if (!container) return;
+
+    devBlogEntries.forEach(entry => {
+      const div = document.createElement("div");
+      div.classList.add("blog-entry");
+
+      div.innerHTML = `
+        <h3>${entry.title}</h3>
+        <p>${entry.content}</p>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Posted: ${entry.date}</p>
+      `;
+
+      container.appendChild(div);
+    });
+  }
+
+  renderDevBlog();
+  
 });
