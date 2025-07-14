@@ -20,7 +20,8 @@
     <meta property="og:title" content="NotedBot • Home"/>
     <meta property="og:type" content="website"/>
 
-    <link rel="stylesheet" href="data/styles.css"/>
+    <link rel="stylesheet" href="data/testStyles.css"/>
+    <link rel="stylesheet" href="data/all.min.css">
 </head>
 <body>
     <header class="top-bar fade-in" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;">
@@ -31,48 +32,88 @@
             <ul>
                 <li><a href="commands">Commands</a></li>
                 <li><a href="#faq">FAQ</a></li>
-                <li><a href="https://api.notedbot.de/v1" style="color: #48ff48;">API</a></li>
-                <li><a href="#login">Login with Twitch</a></li>
+                <li><a href="https://api.notedbot.de/v1" class="link-api">API</a></li>
+                <li><a id="login-btn" class="link-twitch" href="#">Login with Twitch</a></li>
             </ul>
         </nav>
+        <div class="menu-toggle" id="menu-toggle">☰</div>
     </header>
 
     <main class="main-layout fade-in">
         <section class="intro" style="text-align: center; margin: 4rem auto;">
-            <h1 class="fade-in delay-1" style="color: var(--logo-text); font-size: 3rem;">NotedBot</h1>
-            <p class="fade-in delay-2" style="color: var(--text-light); font-size: 1.2rem; margin-top: 1rem;">NotedBot a Twitch chat bot like any other… or not?</p>
+            <h1 class="notedBot">NotedBot</h1>
+            <p id="intro-text" style="color: var(--text-primary); font-size: 1.2rem; margin-top: 1rem;"></p>
         </section>
 
         <div class="chat-demo">
+            <section class="features-title" style="text-align: center; margin-top: 2rem;">
+                <h2 style="color: var(--accent-primary); font-size: 2rem;">Demo Chat:</h2>
+            </section>
             <div class="chat-box"></div>
         </div>
         <section class="features-title" style="text-align: center; margin-top: 2rem;">
-            <h2 class="fade-in delay-3" style="color: var(--text-light); font-size: 2rem;">Features</h2>
+            <h2 style="color: var(--accent-primary); font-size: 2rem;">Features:</h2>
         </section>
         <section class="features fade-in" style="margin-top: 5rem; padding: 0 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2rem;">
             <div class="feature-card" id="feature-1"></div>
             <div class="feature-card" id="feature-2"></div>
             <div class="feature-card" id="feature-3"></div>
+            <div class="feature-card" id="feature-4"></div>
+            <div class="feature-card" id="feature-5"></div>
         </section>
 
-        <section class="getting-started fade-in" style="margin-top: 5rem; padding: 0 2rem; text-align: center;">
-            <div id="getting-started"></div>
+        <section class="fade-in" style="margin-top: 5rem; padding: 0 2rem; text-align: center;">
+            <div id="start-text" style="color: var(--text-primary); font-size: 1.2rem; margin-top: 1rem;"></div>
+            <div class="start-card">
+                <div id="start-description" style="font-size: 1.5rem;"></div>
+            </div>
         </section>
     </main>
 
     <section class="dev-blog fade-in" style="margin-top: 5rem; padding: 0 2rem;">
-        <h2 class="fade-in delay-4" style="text-align: center; color: var(--text-light); margin-bottom: 2rem;">Dev Blog</h2>
-        <div id="dev-blog-entries" class="blog-container">
-        </div>
+        <h2 style="text-align: center; color: var(--accent-primary); margin-bottom: 2rem;">Dev Blog:</h2>
+        <div id="dev-blog-card" class="blog-container"></div>
     </section>
     
-    <footer class="fade-in" style="margin-top: 5rem; text-align: center; padding: 2rem; border-top: 1px solid var(--border-primary);">
-        <a href="https://twitch.tv/wydios" target="_blank">
-            <img src="img/twitch.png" alt="Twitch" height="30" /><p style="color: 9146FF">Twitch</p>
-        </a>
-        <p style="color: var(--text-muted); margin-top: 1rem;">&copy; 2025 NotedBot | Made with ❤ by Wydios</p>
+    <footer class="fade-in" style="font-size: 1rem; margin-top: 5rem; text-align: center; padding: 2rem; border-top: 1px solid var(--border-primary);">
+        <div style="display: inline-flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
+            <a href="https://twitch.tv/wydios" target="_blank" rel="noopener noreferrer" title="Twitch" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <i class="fab fa-twitch" style="color: var(--color-twitch); font-size: 1.5rem;"></i>
+                <p style="color: var(--color-twitch); margin: 0;">Twitch</p>
+            </a>
+            <a href="https://youtube.com/@wydios" target="_blank" rel="noopener noreferrer" title="YouTube" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <i class="fab fa-youtube" style="color: #FF0000; font-size: 1.5rem;"></i>
+                <p style="color: #FF0000; margin: 0;">YouTube</p>
+            </a>
+            <a href="https://github.com/wydios" target="_blank" rel="noopener noreferrer" title="GitHub" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <i class="fab fa-github" style="color: #fff; font-size: 1.5rem;"></i>
+                <p style="color: #fff; margin: 0;">GitHub</p>
+            </a>
+            <a href="https://discord.gg/7ngxfFYxY4" target="_blank" rel="noopener noreferrer" title="Discord" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <i class="fab fa-discord" style="color: #7289da; font-size: 1.5rem;"></i>
+                <p style="color: #7289da; margin: 0;">Discord</p>
+            </a>
+        </div>
+
+        <p style="color: var(--text-primary);">&copy; 2025 <a href="home" target="_blank" style="color: var(--logo-text);">NotedBot.de</a> • The site/bot was developed with 🩵 by <a href="https://github.com/Wydios" target="_blank" style="color: var(--logo-text);">Wydios</a></p>
+        <p style="color: var(--text-muted);">notedbot.de has no legal affiliation with Twitch Interactive</p>
+
+        <div style="margin-top: 2rem;">
+            <p style="color: var(--text-primary); margin-bottom: 1rem;">💙 Supporter:</p>
+            <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <img src="img/lucasWat.gif" alt="Lucas19961" class="chat-emote" style="border-radius: 50%; width: 48px; height: 48px;">
+                    <span style="color: var(--text-primary); font-weight: bold;">Lucas19961</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.8rem;">
+                    <img src="img/marcelL.png" alt="marcelL" class="chat-emote" style="border-radius: 50%; width: 48px; height: 48px;">
+                    <span style="color: var(--text-primary); font-weight: bold;">Marcel</span>
+                </div>
+            </div>
+        </div>
     </footer>
 
-    <script src="js/home.js"></script>
+    <script src="js/language.js"></script>
+    <script type="module" src="js/home.js"></script>
 </body>
 </html>
