@@ -429,6 +429,11 @@ code {
     color: var(--text-primary);
     transition: color 0.3s ease;
   }
+.link-with-icon img {
+  display: inline-block;
+  vertical-align: middle;
+  max-height: 20px;
+}
   .link-with-icon::after {
     content: "";
     position: absolute;
