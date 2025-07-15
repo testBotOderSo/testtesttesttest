@@ -21,7 +21,12 @@
 --logo-text: #0036d8;
 --color-api: #48ff48;
 --color-twitch: #9146FF;
-
+--color-lucas: #9146FF;
+--color-marcel: #9146FF;
+--color-lilb: #9146FF;
+--color-rsbx: #9146FF;
+--color-wydios: #9146FF;
+    
 --border-primary: rgba(255, 255, 255, 0.1);
 --border-glow: rgba(59, 130, 246, 0.3);
 --shadow-glow: 0 0 20px rgba(59, 130, 246, 0.15);
@@ -422,6 +427,10 @@ code {
     gap: 0.5rem;
     position: relative;
     color: var(--text-primary);
+    vertical-align: middle;
+  }
+  .link-with-icon img {
+    display: block;
   }
   .link-with-icon::after {
     content: '';
@@ -430,9 +439,14 @@ code {
     bottom: -2px;
     height: 2px;
     width: 0%;
-    background-color: var(--logo-text);
+    background-color: currentColor;
     transition: width 0.2s ease;
   }
   .link-with-icon:hover::after {
     width: 100%;
   }
+  .lucas-hover { color: var(--color-lucas); }
+  .maersux-hover { color: var(--color-maersux); }
+  .lilb-hover { color: var(--color-lilb); }
+  .rsbx-hover { color: var(--color-rsbx); }
+  .wydios-hover { color: var(--color-ydios); }
