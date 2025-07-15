@@ -1,88 +1,167 @@
+<!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title id="dynamicTitle">NotedBot • Home</title>
-    <link rel="icon" href="img/notedbotlogo.png" type="image/png">
-
+    <title>NotedBot • v1 Api</title>
+    <link rel="icon" href="img/notedbotlogo.png" type="image/png
+    
     <meta name="theme-color" content="#252222"/>
     <meta name="author" content="wydios"/>
-    <meta name="description" content="Not just another Twitch bot • powerful commands, custom filters & 7TV integration." />
-    <meta property="og:title" content="NotedBot • Home" />
+    <meta name="description" content="Explore NotedBot's V1 API • access commands, shorten URLs, and 7TV integrations with ease." />
+    <meta property="og:title" content="NotedBot • v1 Api" />
     <meta property="og:type" content="website" />
-    <meta property="og:description" content="Not just another Twitch bot • powerful commands, custom filters & 7TV integration." />
+    <meta property="og:description" content="Explore NotedBot's V1 API • access commands, shorten URLs, and 7TV integrations with ease." />
     <meta property="og:image" content="https://notedbot.de/img/notedbotlogo.png" />
-    <meta property="og:url" content="https://notedbot.de" />
-
-    <meta name="theme-color" content="#252222">
-    <meta name="author" content="wydios"/>
-    <meta property="og:title" content="NotedBot • Home"/>
-    <meta property="og:type" content="website"/>
-
+    <meta property="og:url" content="https://api.notedbot.de/v1" 
+    
+    <link rel="stylesheet" href="data/styles.css"/>
+	
     <style>
-        * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    position: relative;
-    width: 100%;
-    min-height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    color: var(--color-font);
-    background: linear-gradient(145deg, #000 0, #0f1020 100%);
-    background-attachment: fixed;
-    font-family: "Roboto", "Trebuchet MS", Helvetica, sans-serif;
-    font-size: 1.8rem;
-    hyphens: auto;
-    scroll-behavior: smooth;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    z-index: 0;
-    overflow: hidden;
-}
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, #3b82f6, transparent 70%);
-    filter: blur(80px);
-    opacity: 0.5;
-    pointer-events: none;
-    animation: wander-glow 20s ease-in-out infinite;
-    z-index: -1;
-}
-@keyframes wander-glow {
-    0% {
-        top: 0;
-        left: 0;
-    }
-    25% {
-        top: 0;
-        left: calc(100% - 300px);
-    }
-    50% {
-        top: calc(100% - 300px);
-        left: calc(100% - 300px);
-    }
-    75% {
-        top: calc(100% - 300px);
-        left: 0;
-    }
-    100% {
-        top: 0;
-        left: 0;
-    }
-}
-    </style>
+		h1, h2 {
+			color:rgb(30, 48, 210);
+			text-align: center;
+		}
+		.endpoint {
+			background: #121212;
+			border: 1px solid #333;
+			border-radius: 8px;
+			padding: 20px;
+			margin-bottom: 20px;
+			color: #87cefa;
+			box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+		}
+		code, pre {
+			background: #1a1a1a;
+			border-radius: 6px;
+			padding: 0.5rem;
+			color: #b9bbbe;
+			font-family: Consolas, monospace;
+			white-space: pre-wrap;
+			word-wrap: break-word;
+		}
+		pre {
+            max-height: 300px;
+            overflow-y: auto;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            padding: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            background: #1a1a1a;
+            border-radius: 6px;
+            color: #b9bbbe;
+            font-family: Consolas, monospace;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+		a {
+			color: #0036d8;
+			text-decoration: none;
+		}
+		a:hover {
+			text-decoration: underline;
+		}
+		footer {
+			text-align: center;
+			margin-top: 2rem;
+			opacity: 0.6;
+			font-size: 0.9rem;
+			color: #b9bbbe;
+		}
+	</style>
 </head>
-    <body>
-  <p>Hi</p>
+<body>
+	<div class="container
+        <div class="logo">
+            <a href="home"><img src="img/notedbot.gif" alt="NotedBot Logo" /></a>
+        </div>
+        <h1><span style="color: #0036d8;">NotedBot Api</span></h
+		<p style="text-align:center; margin-bottom: 2rem; color: #7289da; font-size: 1.2rem;">
+            👋 Welcome to the <strong>NotedBot API</strong><br>
+            Explore all available endpoints and start building cool stuff.
+        </
+        <h1><img src="/img/notedbotlogo.png"> Bot-Stuff</h
+		<div class="endpoint">
+		    <h2>get Shorter Url</h2>
+			    <p>Shorten a URL with NotedBot's shortener service.</p>
+			    <p><strong>Usage:</strong></p>
+			    <code>GET /short?url=https://example.com</code>
+		    	<p><strong>Example Response:</strong></p>
+			    <pre>{
+                	"original": "https://example.com",
+                	"short": "https://s.notedbot.de/abc12",
+                	"message": "Thanks for Using NotedBot Api 💙"
+                }</pre>
+		</div>
+        
+        <h1><img src="https://cdn.7tv.app/emote/01GB1M9688000AZXHZ8HNEZSXW/1x.avif"> 7tv</h
+        <div class="endpoint">
+            <h2>get User</h2>
+                <p>Displays general information about a 7tv User.</p>
+                <p><strong>Usage:</strong></p>
+                <code>GET /7tv/user?twitchID=123456789</code>
+                <p><strong>Example Response:</strong></p>
+            <pre>{
+                "error": false,
+                "data": {"data": {"users": {"userByConnection": {"id": "..."}}}} And more data...},
+                "message": "Thanks for Using NotedBot API 💙"
+            }</pre>
+        </di
+        <div class="endpoint">
+            <h2>get ID</h2>
+                <p>Gives you the 7tv Id of a user.</p>
+                <p><strong>Usage:</strong></p>
+                <code>GET /7tv/id?twitchID=123456789</code>
+                <p><strong>Example Response:</strong></p>
+            <pre>{
+                "error": false,
+                "data": "04K7NRD8Z1009LXA7TVWQ6MM9YB",
+                "message": "Thanks for Using NotedBot API 💙"
+            }</pre>
+        </di
+        <div class="endpoint">
+            <h2>get Subage</h2>
+                <p>Shows how long you a user 7TV Sub is.</p>
+                <p><strong>Usage:</strong></p>
+                <code>GET /7tv/subage?twitchID=123456789</code>
+                <p><strong>Example Response:</strong></p>
+            <pre>{
+                "error": false,
+                "data": {"data": {"users": {"userByConnection": {"id":"..."}}}}} And more data...},
+                "message": "Thanks for Using NotedBot API 💙"
+            }</pre>
+        </di
+        <h1><img src="https://cdn.betterttv.net/emote/54fab7d2633595ca4c713abf/1x.webp"> Bttv</h1>
+        
+        <div class="endpoint">
+            <h2>get ID</h2>
+                <p>Gives you the Bttv Id of a user.</p>
+                <p><strong>Usage:</strong></p>
+                <code>GET /bttv/id?twitchID=123456789</code>
+                <p><strong>Example Response:</strong></p>
+            <pre>{
+                "error": false,
+                "data": "8a3cde29f9b4c7d5e1fa9021",
+                "message": "Thanks for Using NotedBot API 💙"
+            }</pre>
+        </di
+        <h1><img src="https://static-cdn.jtvnw.net/emoticons/v2/65/default/dark/1.0"> Ffz</h
+        <div class="endpoint">
+            <h2>get ID</h2>
+                <p>Gives you the Ffz Id of a user.</p>
+                <p><strong>Usage:</strong></p>
+                <code>GET /ffz/id?username=test123</code>
+                <p><strong>Example Response:</strong></p>
+            <pre>{
+                "error": false,
+                "data": "3622156",
+                "message": "Thanks for Using NotedBot API 💙"
+            }</pre>
+        </di
+		<footer style="text-align:center; margin-bottom: 2rem; color: #7289da;; font-size: 1.2rem;">
+			This API runs stable 24/7 ☁️ • Created by <a href="https://github.com/Wydios" target="_blank"><strong>Wydios</strong></a> 🚀 • Powered by Express
+		</footer>
+	</div>
 </body>
 </html>
