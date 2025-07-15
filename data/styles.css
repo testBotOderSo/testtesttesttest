@@ -25,7 +25,7 @@
 --color-marcel: #9146FF;
 --color-lilb: #9146FF;
 --color-rsbx: #9146FF;
---color-wydios: #9146FF;
+--color-wydios: #f472b6;
     
 --border-primary: rgba(255, 255, 255, 0.1);
 --border-glow: rgba(59, 130, 246, 0.3);
@@ -427,26 +427,23 @@ code {
     gap: 0.5rem;
     position: relative;
     color: var(--text-primary);
-    vertical-align: middle;
-  }
-  .link-with-icon img {
-    display: block;
+    transition: color 0.3s ease;
   }
   .link-with-icon::after {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     bottom: -2px;
     height: 2px;
     width: 0%;
-    background-color: currentColor;
-    transition: width 0.2s ease;
+    background-color: transparent;
+    transition: width 0.4s ease, background-color 0.4s ease;
   }
   .link-with-icon:hover::after {
     width: 100%;
   }
-  .lucas-hover { color: var(--color-lucas); }
-  .maersux-hover { color: var(--color-marcel); }
-  .lilb-hover { color: var(--color-lilb); }
-  .rsbx-hover { color: var(--color-rsbx); }
-  .wydios-hover { color: var(--color-ydios); }
+  .lucas-hover:hover::after { background-color: var(--color-lucas); }
+  .maersux-hover:hover::after { background-color: var(--color-marcel); }
+  .lilb-hover:hover::after { background-color: var(--color-lilb); }
+  .rsbx-hover:hover::after { background-color: var(--color-rsbx); }
+  .wydios-hover:hover::after { background-color: var(--color-wydios); }
