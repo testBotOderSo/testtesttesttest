@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <table style="width:100%; border-collapse: collapse;">
             <thead>
               <tr>
-                <th style="width: 60%; text-align:left; border-bottom:1px solid #666; padding: 6px 8px;">Stat</th>
+                <th style="width: 60%; text-align:left; border-bottom:1px solid #666; padding: 6px 8px;">Command</th>
                 <th style="text-align:left; border-bottom:1px solid #666; padding: 6px 8px;">Count</th>
               </tr>
             </thead>
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         data.request.forEach(req => {
             const card = document.createElement("div");
-            card.style.border = "1px solid var(--border-primary)";
+            card.style.border = "1px solid var(--accent-primary)";
             card.style.padding = "1rem";
             card.style.borderRadius = "8px";
             card.style.backgroundColor = "var(--bg-glass)";
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 ${isDev && req.methods ? `
                     <details style="margin-top:0.5rem;">
                         <summary style="cursor:pointer; font-weight:500; opacity:0.8;">Methoden</summary>
-                        <pre style="background:#ffffff08; padding:0.5rem; border-radius:4px; white-space:pre-wrap; font-size:0.9rem; margin-top:0.5rem;">
+                        <pre style="background:var(--bg-glass); padding:0.5rem; border-radius:4px; white-space:pre-wrap; font-size:0.9rem; margin-top:0.5rem;">
                     ${Object.entries(req.methods).map(([k, v]) => `${k}: ${v}`).join("\n")}
                     </pre>
                 </details>` : ""}
