@@ -30,9 +30,9 @@ function pingUptime(seconds) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const topStats = document.getElementById("topStats");        // neuer Container oben
-  const bottomLeft = document.getElementById("bottomLeft");    // links unten
-  const bottomRight = document.getElementById("bottomRight");  // rechts unten (top commands)
+  const topStats = document.getElementById("topStats");        // oben: Channels, Commands, Uptime
+  const bottomLeft = document.getElementById("bottomLeft");    // unten links: AFK etc.
+  const bottomRight = document.getElementById("bottomRight");  // unten rechts: Top Commands Tabelle
 
   import("./twitch.js").then(({ getUserID }) => {
     const userID = getUserID();
@@ -62,17 +62,27 @@ document.addEventListener("DOMContentLoaded", async () => {
         topStats.appendChild(commandsEl);
         topStats.appendChild(uptimeEl);
 
-        // Unten links: AFK, Reminders, Messages, Users
-        const bottomLeftHtml = `
-          <p>😴 AFK Nutzer: <strong>${data.afk}</strong></p>
-          <p>⏰ Reminders: <strong>${data.reminders}</strong></p>
-          <p>💬 Nachrichten: <strong>${data.messages}</strong></p>
-          <p>👤 Users: <strong>${data.user}</strong></p>
+        // Unten links: Tabelle mit AFK, Reminders, Messages, Users (alle in --text-secondary)
+        const leftTableHtml = `
+          <table style="width:100%; border-collapse: collapse; color: var(--text-secondary);">
+            <thead>
+              <tr>
+                <th style="text-align:left; border-bottom:1px solid #666;">Stat</th>
+                <th style="text-align:left; border-bottom:1px solid #666;">Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>😴 AFK Nutzer</td><td>${data.afk}</td></tr>
+              <tr><td>⏰ Reminders</td><td>${data.reminders}</td></tr>
+              <tr><td>💬 Nachrichten</td><td>${data.messages}</td></tr>
+              <tr><td>👤 Users</td><td>${data.user}</td></tr>
+            </tbody>
+          </table>
         `;
-        bottomLeft.innerHTML = bottomLeftHtml;
+        bottomLeft.innerHTML = leftTableHtml;
 
-        // Unten rechts: Top 5 Commands als Tabelle
-        let tableHtml = `<table style="width:100%; border-collapse: collapse;">
+        // Unten rechts: Top 5 Commands als Tabelle mit --text-secondary auch
+        let tableHtml = `<table style="width:100%; border-collapse: collapse; color: var(--text-secondary);">
           <thead>
             <tr>
               <th style="text-align:left; border-bottom:1px solid #666;">Trigger</th>
@@ -100,3 +110,4 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
   });
 });
+
