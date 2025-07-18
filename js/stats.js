@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           block.style.textAlign = "center";
           block.style.flex = "1";
           block.style.color = "var(--text-primary)";
-          block.style.userSelect = "none";
+          block.style.userSelect = "text";
           block.innerHTML = `
             <h2 style="font-size:1.8rem; margin-bottom: 0.2rem;">${title}</h2>
             <p style="font-size:2.5rem; font-weight: 700; margin: 0;">${value}</p>
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const createTableSection = (title, rows) => `
           <h3 style="margin-bottom:0.5rem; color: var(--text-primary); font-size:1.5rem;">${title}</h3>
-          <table style="width:100%; border-collapse: collapse;">
+          <table style="width:100%; border-collapse: collapse; color: var(--text-primary);">
             <thead>
               <tr>
                 <th style="width: 60%; text-align:left; border-bottom:1px solid #666; padding: 6px 8px;">Command</th>
@@ -120,7 +120,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 ${isDev && req.methods ? `
                     <details style="margin-top:0.5rem;">
                         <summary style="cursor:pointer; font-weight:500; opacity:0.8;">Methoden</summary>
-                        <pre style="background:var(--bg-glass); padding:0.5rem; border-radius:4px; white-space:pre-wrap; font-size:0.9rem; margin-top:0.5rem;">
+                        <pre style="padding:0.5rem; border-radius:4px; white-space:pre-wrap; font-size:0.9rem; margin-top:0.5rem;">
                     ${Object.entries(req.methods).map(([k, v]) => `${k}: ${v}`).join("\n")}
                     </pre>
                 </details>` : ""}
