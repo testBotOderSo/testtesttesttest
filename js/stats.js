@@ -87,10 +87,10 @@ document.addEventListener("DOMContentLoaded", async () => {
         `;
 
         const userRows = [
-          ["😴 AFK Nutzer", data.afk],
-          ["⏰ Reminders", data.reminders],
-          ["💬 Nachrichten", data.messages],
-          ["👤 Users", data.user],
+            ["😴 AFK Users", data.afk],
+            ["⏰ Aktive Reminders", data.reminders],
+            ["💬 Logged Messages", data.messages],
+            ["👤 Users", data.user],
         ];
         bottomLeft.innerHTML = createTableSection("User Infos", userRows);
 
@@ -106,27 +106,27 @@ document.addEventListener("DOMContentLoaded", async () => {
         grid.style.gap = "1rem";
 
         data.request.forEach(req => {
-          const card = document.createElement("div");
-          card.style.border = "1px solid var(--border-primary)";
-          card.style.padding = "1rem";
-          card.style.borderRadius = "8px";
-          card.style.backgroundColor = "#ffffff10"; // heller
-          card.style.color = "var(--text-primary)";
-          card.style.boxShadow = "0 0 4px #00000022";
+            const card = document.createElement("div");
+            card.style.border = "1px solid var(--border-primary)";
+            card.style.padding = "1rem";
+            card.style.borderRadius = "8px";
+            card.style.backgroundColor = "var(--bg-glass)";
+            card.style.color = "var(--text-primary)";
+            card.style.boxShadow = "var(--border-primary)";
 
-          card.innerHTML = `
-            <h3 style="margin:0 0 0.5rem 0;">${req.type}</h3>
-            <p style="margin:0 0 0.5rem 0;"><strong>Requests:</strong> ${req.count}</p>
-            ${isDev && req.methods ? `
-              <details style="margin-top:0.5rem;">
-                <summary style="cursor:pointer; font-weight:500; opacity:0.8;">Methoden</summary>
-                <pre style="background:#ffffff08; padding:0.5rem; border-radius:4px; white-space:pre-wrap; font-size:0.9rem; margin-top:0.5rem;">
-${Object.entries(req.methods).map(([k, v]) => `${k}: ${v}`).join("\n")}
-                </pre>
-              </details>` : ""}
-          `;
+            card.innerHTML = `
+                <h3 style="margin:0 0 0.5rem 0;">${req.type}</h3>
+                <p style="margin:0 0 0.5rem 0;"><strong>Requests:</strong> ${req.count}</p>
+                ${isDev && req.methods ? `
+                    <details style="margin-top:0.5rem;">
+                        <summary style="cursor:pointer; font-weight:500; opacity:0.8;">Methoden</summary>
+                        <pre style="background:#ffffff08; padding:0.5rem; border-radius:4px; white-space:pre-wrap; font-size:0.9rem; margin-top:0.5rem;">
+                    ${Object.entries(req.methods).map(([k, v]) => `${k}: ${v}`).join("\n")}
+                    </pre>
+                </details>` : ""}
+            `;
 
-          grid.appendChild(card);
+            grid.appendChild(card);
         });
 
         requestStats.appendChild(grid);
