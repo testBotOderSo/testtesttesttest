@@ -91,7 +91,7 @@ export function getDisplayName() {
 };
 
 export function getUserID() {
-    return localStorage.getItem("user_id") || "798723114";
+    return localStorage.getItem("user_id") || "34623";
 };
 
 export function isLoggedIn() {
