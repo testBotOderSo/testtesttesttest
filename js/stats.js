@@ -69,12 +69,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         const createTableSection = (title, rows) => `
           <h3 style="margin-bottom:0.5rem; color: var(--text-primary); font-size:1.5rem;">${title}</h3>
           <table style="width:100%; border-collapse: collapse; color: var(--text-primary);">
-            <thead>
-              <tr>
-                <th style="width: 60%; text-align:left; border-bottom:1px solid #666; padding: 6px 8px;">Command</th>
-                <th style="text-align:left; border-bottom:1px solid #666; padding: 6px 8px;">Count</th>
-              </tr>
-            </thead>
             <tbody>
               ${rows.map(([label, value]) => `
                 <tr>
