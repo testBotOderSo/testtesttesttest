@@ -1,216 +1,58 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NotedBot • v1 Api</title>
-    <link rel="icon" href="img/notedbotlogo.png" type="image/png">
-    
-    <meta name="theme-color" content="#252222"/>
-    <meta name="author" content="wydios"/>
-    <meta name="description" content="Explore NotedBot's V1 API • access commands, shorten URLs, and 7TV integrations with ease." />
-    <meta property="og:title" content="NotedBot • v1 Api" />
-    <meta property="og:type" content="website" />
-    <meta property="og:description" content="Explore NotedBot's V1 API • access commands, shorten URLs, and 7TV integrations with ease." />
-    <meta property="og:image" content="https://notedbot.de/img/notedbotlogo.png" />
-    <meta property="og:url" content="https://api.notedbot.de/v1" />
-    
-    <link rel="stylesheet" href="data/styles.css"/>
-	
-    <style>
-		h1, h2 {
-			color:rgb(30, 48, 210);
-			text-align: center;
-		}
-		.endpoint {
-			background: #121212;
-			border: 1px solid #333;
-			border-radius: 8px;
-			padding: 20px;
-			margin-bottom: 20px;
-			color: #87cefa;
-			box-shadow: 0 4px 6px rgba(0,0,0,0.5);
-		}
-		code, pre {
-			background: #1a1a1a;
-			border-radius: 6px;
-			padding: 0.5rem;
-			color: #b9bbbe;
-			font-family: Consolas, monospace;
-			white-space: pre-wrap;
-			word-wrap: break-word;
-		}
-		pre {
-            max-height: 300px;
-            overflow-y: auto;
-            overflow-x: auto;
-            white-space: pre-wrap;
-            padding: 1rem;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            background: #1a1a1a;
-            border-radius: 6px;
-            color: #b9bbbe;
-            font-family: Consolas, monospace;
-            word-wrap: break-word;
-            word-break: break-word;
-        }
-		a {
-			color: #0036d8;
-			text-decoration: none;
-		}
-		a:hover {
-			text-decoration: underline;
-		}
-		footer {
-			text-align: center;
-			margin-top: 2rem;
-			opacity: 0.6;
-			font-size: 0.9rem;
-			color: #b9bbbe;
-		}
-	</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NotedBot • Stats</title>
+  <link rel="icon" href="img/notedbotlogo.png" type="image/png">
+  <meta name="theme-color" content="#252222"/>
+  <meta name="description" content="Live stats for NotedBot: channels, users, uptime and more!" />
+  <link rel="stylesheet" href="data/styles.css"/>
 </head>
-<body style="color: var(--text-primary);">
-	<div class="container
-        <div class="logo">
-            <a href="home"><img src="img/notedbot.gif" alt="NotedBot Logo" /></a>
-        </div>
-        <h1><span style="color: #0036d8;">NotedBot Api</span></h1>
-<p style="text-align: center; margin-bottom: 2rem; color: #7289da; font-size: 1.2rem;">
-    👋 Welcome to the <strong>NotedBot API</strong><br>
-    Explore all available endpoints and start building cool stuff.
-</p>
-<h1><img src="/img/notedbotlogo.png" style="height: 1.6rem;"> Bot-Stuff</h1>
-		<div class="endpoint">
-		    <h2>get Shorter Url</h2>
-			    <p>Shorten a URL with NotedBot's shortener service.</p>
-			    <p><strong>Usage:</strong></p>
-			    <code>GET /short?url=https://example.com</code>
-		    	<p><strong>Example Response:</strong></p>
-			    <pre>{
-                	"original": "https://example.com",
-                	"short": "https://s.notedbot.de/abc12",
-                	"message": "Thanks for Using NotedBot Api 💙"
-                }</pre>
-		</div>
-        
-        <h1><img src="https://cdn.7tv.app/emote/01GB1M9688000AZXHZ8HNEZSXW/1x.avif"> 7tv</h
-        <div class="endpoint">
-            <h2>get User</h2>
-                <p>Displays general information about a 7tv User.</p>
-                <p><strong>Usage:</strong></p>
-                <code>GET /7tv/user?twitchID=123456789</code>
-                <p><strong>Example Response:</strong></p>
-            <pre>{
-                "error": false,
-                "data": {"data": {"users": {"userByConnection": {"id": "..."}}}} And more data...},
-                "message": "Thanks for Using NotedBot API 💙"
-            }</pre>
-        </di
-        <div class="endpoint">
-            <h2>get ID</h2>
-                <p>Gives you the 7tv Id of a user.</p>
-                <p><strong>Usage:</strong></p>
-                <code>GET /7tv/id?twitchID=123456789</code>
-                <p><strong>Example Response:</strong></p>
-            <pre>{
-                "error": false,
-                "data": "04K7NRD8Z1009LXA7TVWQ6MM9YB",
-                "message": "Thanks for Using NotedBot API 💙"
-            }</pre>
-        </di
-        <div class="endpoint">
-            <h2>get Subage</h2>
-                <p>Shows how long you a user 7TV Sub is.</p>
-                <p><strong>Usage:</strong></p>
-                <code>GET /7tv/subage?twitchID=123456789</code>
-                <p><strong>Example Response:</strong></p>
-            <pre>{
-                "error": false,
-                "data": {"data": {"users": {"userByConnection": {"id":"..."}}}}} And more data...},
-                "message": "Thanks for Using NotedBot API 💙"
-            }</pre>
-        </di
-        <h1><img src="https://cdn.betterttv.net/emote/54fab7d2633595ca4c713abf/1x.webp" style="height: 1.6rem;"> Bttv</h1>
-        
-        <div class="endpoint">
-            <h2>get ID</h2>
-                <p>Gives you the Bttv Id of a user.</p>
-                <p><strong>Usage:</strong></p>
-                <code>GET /bttv/id?twitchID=123456789</code>
-                <p><strong>Example Response:</strong></p>
-            <pre>{
-                "error": false,
-                "data": "8a3cde29f9b4c7d5e1fa9021",
-                "message": "Thanks for Using NotedBot API 💙"
-            }</pre>
-        </di
-        <h1><img src="https://static-cdn.jtvnw.net/emoticons/v2/65/default/dark/1.0"> Ffz</h
-        <div class="endpoint">
-            <h2>get ID</h2>
-                <p>Gives you the Ffz Id of a user.</p>
-                <p><strong>Usage:</strong></p>
-                <code>GET /ffz/id?username=test123</code>
-                <p><strong>Example Response:</strong></p>
-            <pre>{
-                "error": false,
-                "data": "3622156",
-                "message": "Thanks for Using NotedBot API 💙"
-            }</pre>
-	</div>
-<footer class="fade-in" style="font-size: 1rem; margin-top: 5rem; text-align: center; padding: 2rem; border-top: 1px solid var(--border-primary);">
-        <div style="display: inline-flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
-            <a href="https://twitch.tv/wydios" target="_blank" rel="noopener noreferrer" title="Twitch" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
-                <i class="fab fa-twitch" style="color: var(--color-twitch); font-size: 1.5rem;"></i>
-                <p style="color: var(--color-twitch); margin: 0;">Twitch</p>
-            </a>
-            <a href="https://youtube.com/@wydios" target="_blank" rel="noopener noreferrer" title="YouTube" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
-                <i class="fab fa-youtube" style="color: #FF0000; font-size: 1.5rem;"></i>
-                <p style="color: #FF0000; margin: 0;">YouTube</p>
-            </a>
-            <a href="https://github.com/wydios" target="_blank" rel="noopener noreferrer" title="GitHub" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
-                <i class="fab fa-github" style="color: #fff; font-size: 1.5rem;"></i>
-                <p style="color: #fff; margin: 0;">GitHub</p>
-            </a>
-            <a href="https://discord.gg/7ngxfFYxY4" target="_blank" rel="noopener noreferrer" title="Discord" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
-                <i class="fab fa-discord" style="color: #7289da; font-size: 1.5rem;"></i>
-                <p style="color: #7289da; margin: 0;">Discord</p>
-            </a>
-        </div>
+<body>
+  <header class="top-bar fade-in" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;">
+    <div class="logo">
+      <a href="home"><img src="img/notedbot.gif" alt="NotedBot Logo" height="40" /></a>
+    </div>
+    <nav class="navigation">
+      <ul>
+        <li><a href="commands">Commands</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="https://api.notedbot.de/v1" class="link-api">API</a></li>
+        <li><a id="login-btn" class="link-twitch" href="#">Login with Twitch</a></li>
+      </ul>
+    </nav>
+    <div class="menu-toggle" id="menu-toggle">☰</div>
+  </header>
 
-        <p style="color: var(--text-primary);">
-            &copy; 2025 
-            <a href="home" target="_blank" style="color: var(--logo-text);">NotedBot.de</a> • 
-                The site/bot was developed with 🩵 by 
-            <a href="https://twitch.tv/wydios" target="_blank" class="link-with-icon wydios-hover">
-                <img src="img/support/wydios.gif" alt="Wydios" class="chat_emote" style="border-radius: 50%; max-height: 20px;">
-                Wydios
-            </a>
-        </p>
+  <main class="main-layout fade-in" style="padding: 2rem;">
+    <section class="intro" style="text-align: center; margin: 2rem auto;">
+      <h1 class="notedBot">📊 Bot Stats</h1>
+      <p style="color: var(--text-secondary); font-size: 1.2rem;">Live-Daten direkt aus dem Cockpit 🚀</p>
+    </section>
 
-        <div style="margin-top: 2rem;">
-            <p style="color: var(--text-primary); margin-bottom: 1rem;">💙 Supporter:</p>
-            <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
-                <a href="https://twitch.tv/lucas19961" target="_blank" rel="noopener noreferrer" class="link-with-icon lucas-hover">
-                    <img src="img/support/lucas.gif" alt="Lucas19961" class="chat-emote" style="border-radius: 50%; max-height: 20px;">
-                    LUCAS19961
-                </a>
-                <a href="https://twitch.tv/maersux" target="_blank" rel="noopener noreferrer" class="link-with-icon maersux-hover">
-                    <img src="img/support/marcel.gif" alt="maersux" class="chat-emote" style="border-radius: 50%; max-height: 20px;">
-                    maersux
-                </a>
-                <a href="https://twitch.tv/lilb_lxryer" target="_blank" rel="noopener noreferrer" class="link-with-icon lilb-hover">
-                    <img src="img/support/lilb.gif" alt="lilb_lxryer" class="chat-emote" style="border-radius: 50%; max-height: 20px;">
-                    lilb_lxryer
-                </a>
-                <a href="https://twitch.tv/rsbxdev" target="_blank" rel="noopener noreferrer" class="link-with-icon rsbx-hover">
-                    <img src="img/support/leon.gif" alt="rsbxDev" class="chat-emote" style="border-radius: 50%; max-height: 20px;">
-                    rsbxDev
-                </a>
-            </div>
-        </div>
-    </footer>
-	</div>
+    <section id="statsDisplay" class="features"></section>
+
+    <section class="fade-in" style="margin-top: 4rem; text-align: center;">
+      <h2 style="color: var(--accent-primary);">Top Commands 🧠</h2>
+      <div id="topCommands" style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;"></div>
+    </section>
+  </main>
+
+  <footer class="fade-in" style="font-size: 1rem; margin-top: 5rem; text-align: center; padding: 2rem; border-top: 1px solid var(--border-primary);">
+    <p style="color: var(--text-primary);">&copy; 2025 <a href="home" target="_blank" style="color: var(--logo-text);">NotedBot.de</a></p>
+  </footer>
+
+  <script type="module" src="js/stats.js"></script>
+  <script>
+    const menuToggle = document.getElementById("menu-toggle");
+    const navigation = document.querySelector(".navigation");
+
+    if (menuToggle && navigation) {
+      menuToggle.addEventListener("click", () => {
+        navigation.classList.toggle("open");
+      });
+    }
+  </script>
 </body>
 </html>
