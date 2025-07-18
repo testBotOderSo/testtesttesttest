@@ -2,31 +2,54 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8" />
-<title>Flaggenfarben Text Test</title>
+<title>Flaggen-Rand pro Buchstabe</title>
 <style>
   body {
     background-color: black;
     color: white;
     font-family: Arial, sans-serif;
-  }
-  .flag-de {
-    background: linear-gradient(90deg, black, red, gold);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-size: 3em;
     font-weight: bold;
-    font-size: 2em;
   }
-  .flag-us {
-    background: linear-gradient(90deg, red, #222, blue);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: bold;
-    font-size: 2em;
+  .letter {
+    color: white;
+    padding: 0 2px;
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: black; /* default fallback */
   }
 </style>
 </head>
 <body>
-  <p>Deutsch: <span class="flag-de">Deutsch</span></p>
-  <p>English: <span class="flag-us">English</span></p>
+
+<p>Deutsch: <span id="de-text"></span></p>
+<p>English: <span id="us-text"></span></p>
+
+<script>
+  const deColors = ['gold', 'red', 'black'];
+  const usColors = ['blue', 'white', 'red'];
+
+  function setColoredBorderText(id, text, colors) {
+    const container = document.getElementById(id);
+    container.innerHTML = ''; // clear
+
+    for(let i = 0; i < text.length; i++) {
+      const span = document.createElement('span');
+      span.textContent = text[i];
+      span.classList.add('letter');
+      
+      // Zyklische Farbe fürs Umranden (andersrum = reverse Reihenfolge)
+      // z.B. bei Deutsch gold bei erstem Buchstaben am Ende, rot vor gold usw.
+      // Wir machen reverse loop mit modulo:
+      const colorIndex = colors.length - 1 - (i % colors.length);
+      span.style.webkitTextStrokeColor = colors[colorIndex];
+      
+      container.appendChild(span);
+    }
+  }
+
+  setColoredBorderText('de-text', 'Deutsch', deColors);
+  setColoredBorderText('us-text', 'English', usColors);
+</script>
+
 </body>
 </html>
