@@ -5,76 +5,145 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title id="dynamicTitle">NotedBot • Commands</title>
     <link rel="icon" href="img/notedbotlogo.png" type="image/png">
+
+    <meta name="theme-color" content="#252222"/>
+    <meta name="author" content="wydios"/>
+    <meta name="description" content="Check out all available NotedBot commands and filter by permission or category!" />
+    <meta property="og:title" content="NotedBot • Commands" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Check out all available NotedBot commands and filter by permission or category!" />
+    <meta property="og:image" content="https://notedbot.de/img/notedbotlogo.png" />
+    <meta property="og:url" content="https://notedbot.de/commands" />
+
     <link rel="stylesheet" href="data/styles.css"/>
+    <link rel="stylesheet" href="data/all.min.css">
 </head>
 <body>
-    <div class="container">
+    <header class="top-bar fade-in" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;">
         <div class="logo">
-            <a href="home"><img src="img/notedbot.gif" alt="NotedBot Logo"></a>
+            <a href="home"><img src="img/notedbot.gif" alt="NotedBot Logo" height="40" /></a>
         </div>
-        <div class="navigation">
-            <h1 id="title">
-                <img src="img/notedbotlogo.png" alt="NotedBot Logo">
-                <span style="color: #0036d8;"><div id="notedbotColor">NotedBot</div> Commands</span>
-            </h1>
+        <nav class="navigation">
             <ul>
-                <li><a href="home" style="color: #4876ff;">Home </a></li>
-                <li><a onclick="alert('🫠 ➜ Hello')" style="color: #4876ff;"> Commands</a></li>
+                <li><a href="home">Home</a></li>
+                <li><a onclick="alert('🫠 You are already on the page')">Commands</a></li>
+                <li><a onclick="alert('🫠 Erm not found i guess? haha')">FAQ</a></li>
+                <li><a href="https://api.notedbot.de/v1" class="link-api">API</a></li>
+                <li><a onclick="alert('🫠 Erm not found i guess? haha')" class="link-twitch">Login with Twitch</a></li>
             </ul>
-        </div>
+        </nav>
+        <div class="menu-toggle" id="menu-toggle">☰</div>
+    </header>
 
-        <main>
-            <section id="filter">
-                <select id="permFilter">
-                    <option value="">😎 Permissions</option>
-                    <option value="jeder">Jeder</option>
-                    <option value="vip">VIP</option>
-                    <option value="mod">Mod</option>
-                    <option value="broadcaster">Broadcaster</option>
-                    <option value="dev">Dev</option>
-                    <option value="admin">Admin</option>
-                </select>
+    <main class="main-layout fade-in" style="padding: 2rem;">
+        <section class="intro" style="text-align: center; margin: 2rem auto;">
+            <h1 class="notedBot">Commands</h1>
+            <p id="intro-text" style="color: var(--text-primary); font-size: 1.2rem; margin-top: 1rem;"></p>
+        </section>
 
-                <select id="categoryFilter">
-                    <option value="">📂 Kategorien</option>
-                    <option value="7tv">7TV</option>
-                    <option value="utils">Utils</option>
-                    <option value="twitch">Twitch</option>
-                    <option value="beta">Beta</option>
-                    <option value="fun">Fun</option>
-                    <option value="notis">Notis</option>
-                </select>
-            </section>
-            <section id="commandsList"></section>
-        </main>
-    </div>
+        <section class="fade-in" style="margin-top: 3rem;">
+            <div id="topBar" style="display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;">
+                <input id="searchInput" type="search" placeholder="Search commands..." autocomplete="off" style="flex: 1; max-width: 600px; padding: 0.75rem 1rem; border-radius: 8px; border: 1px solid var(--border-primary); background: var(--bg-tertiary); color: var(--text-primary); font-size: 1rem;"/>
+            
+                <section id="filter" style="display: flex; gap: 0.5rem;">
+                    <select id="permFilter" style="background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-primary); padding: 0.5rem 1rem; border-radius: 8px; font-weight: bold; font-size: 1rem;">
+                        <option value="">Permissions</option>
+                        <option value="0">😎 Everyone</option>
+                        <option value="1">💎 VIP</option>
+                        <option value="2">⚔️ Mod</option>
+                        <option value="3">🎥 Broadcaster</option>
+                        <option value="4">👨‍💻 Dev</option>
+                        <option value="5">🔧 Admin</option>
+                    </select>
 
-    <div id="langSwitch" style="position: fixed; top: 10px; right: 10px; z-index: 999;">
-        <button onclick="switchLanguage('de')">🇩🇪</button>
-        <button onclick="switchLanguage('en')">🇬🇧</button>
-    </div>
+                    <select id="categoryFilter" style="background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border-primary); padding: 0.5rem 1rem; border-radius: 8px; font-weight: bold; font-size: 1rem;">
+                        <option value="">Category</option>
+                        <option value="7tv">👾 7TV</option>
+                        <option value="utils">⚙️ Utils</option>
+                        <option value="twitch">📺 Twitch</option>
+                        <option value="beta">🧪 Beta</option>
+                        <option value="fun">😂 Fun</option>
+                        <option value="notis">⛏️ Notis</option>
+                        <option value="normal">🔹Normal</option>
+                    </select>
+                </section>
+            </div>
+            
+            <section id="commandsList" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;"></section>
+        </section>
+    </main>
 
-    <div id="commandPopup" class="command-popup" style="display: none;">
-        <span class="close-btn" onclick="document.getElementById('commandPopup').style.display = 'none'; document.title = 'NotedBot • Commands';">&times;</span>
+    <div id="commandPopup" class="command-popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--bg-card); color: var(--text-primary); padding: 2rem; border: 1px solid var(--border-primary); border-radius: 20px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7); z-index: 1000; max-width: 600px; width: 90%; backdrop-filter: blur(20px);">
+        <span class="close-btn" onclick="document.getElementById('commandPopup').style.display = 'none'; document.title = 'NotedBot • Commands';" style="position: absolute; top: 1rem; right: 1.5rem; font-size: 1.5rem; color: var(--text-secondary); cursor: pointer;">&times;</span>
         <div class="command-popup-content">
-            <h2 id="popupTitle"></h2>
-            <p id="popupAliases"></p>
-            <p id="popupUsage"></p>
-            <p id="popupPerm"></p>
-            <p id="popupCooldown"></p>
-            <p id="popupCategory"></p>
-            <p id="popupDescription"></p>
-            <div id="popupExample" style="margin-top: 15px;"></div>
+            <h2 id="popupTitle" style="color: var(--accent-primary); margin-bottom: 1rem;"></h2>
+            <p id="popupAliases" style="margin: 0.5rem 0; color: var(--text-secondary);"></p>
+            <p id="popupUsage" style="margin: 0.5rem 0; color: var(--text-primary);"></p>
+            <p id="popupPerm" style="margin: 0.5rem 0; color: var(--text-secondary);"></p>
+            <p id="popupCooldown" style="margin: 0.5rem 0; color: var(--text-secondary);"></p>
+            <p id="popupCategory" style="margin: 0.5rem 0; color: var(--text-secondary);"></p>
+            <p id="popupDescription" style="margin: 0.5rem 0; color: var(--text-primary);"></p>
+            <div id="popupExample" style="margin-top: 1rem;"></div>
         </div>
     </div>
 
-    <!-- <footer>
-        <a href="https://twitch.tv/wydios" target="_blank">
-            <img src="img/twitch.png" alt="Twitch"/>
-        </a>
+    <footer class="fade-in" style="font-size: 1rem; margin-top: 5rem; text-align: center; padding: 2rem; border-top: 1px solid var(--border-primary);">
+        <div style="display: inline-flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
+            <a href="https://twitch.tv/wydios" target="_blank" rel="noopener noreferrer" title="Twitch" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <i class="fab fa-twitch" style="color: var(--color-twitch); font-size: 1.5rem;"></i>
+                <p style="color: var(--color-twitch); margin: 0;">Twitch</p>
+            </a>
+            <a href="https://youtube.com/@wydios" target="_blank" rel="noopener noreferrer" title="YouTube" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <i class="fab fa-youtube" style="color: #FF0000; font-size: 1.5rem;"></i>
+                <p style="color: #FF0000; margin: 0;">YouTube</p>
+            </a>
+            <a href="https://github.com/wydios" target="_blank" rel="noopener noreferrer" title="GitHub" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <i class="fab fa-github" style="color: #fff; font-size: 1.5rem;"></i>
+                <p style="color: #fff; margin: 0;">GitHub</p>
+            </a>
+            <a href="https://discord.gg/7ngxfFYxY4" target="_blank" rel="noopener noreferrer" title="Discord" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <i class="fab fa-discord" style="color: #7289da; font-size: 1.5rem;"></i>
+                <p style="color: #7289da; margin: 0;">Discord</p>
+            </a>
+        </div>
+
+        <p style="color: var(--text-primary);">&copy; 2025 <a href="home" target="_blank" style="color: var(--logo-text);">NotedBot.de</a> • The site/bot was developed with 🩵 by <a href="https://github.com/Wydios" target="_blank" style="color: var(--logo-text);">Wydios</a></p>
+        <p style="color: var(--text-muted);">notedbot.de has no legal affiliation with Twitch Interactive</p>
+        <div style="margin-top: 2rem;">
+            <p style="color: var(--text-primary); margin-bottom: 1rem;">❤️ Supporter:</p>
+            <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+                <a href="https://twitch.tv/lucas19961" target="_blank" rel="noopener noreferrer" class="link-with-icon lucas-hover">
+                    <img src="img/support/lucas.gif" alt="Lucas19961" class="chat-emote" style="border-radius: 50%; max-height: 20px;">
+                    LUCAS19961
+                </a>
+                <a href="https://twitch.tv/maersux" target="_blank" rel="noopener noreferrer" class="link-with-icon maersux-hover">
+                    <img src="img/support/marcel.gif" alt="maersux" class="chat-emote" style="border-radius: 50%; max-height: 20px;">
+                    maersux
+                </a>
+                <a href="https://twitch.tv/lilb_lxryer" target="_blank" rel="noopener noreferrer" class="link-with-icon lilb-hover">
+                    <img src="img/support/lilb.gif" alt="lilb_lxryer" class="chat-emote" style="border-radius: 50%; max-height: 20px;">
+                    lilb_lxryer
+                </a>
+                <a href="https://twitch.tv/rsbxdev" target="_blank" rel="noopener noreferrer" class="link-with-icon rsbx-hover">
+                    <img src="img/support/leon.gif" alt="rsbxDev" class="chat-emote" style="border-radius: 50%; max-height: 20px;">
+                    rsbxDev
+                </a>
+            </div>
+        </div>
+   
     </footer>
-    -->
+
     <script src="js/language.js"></script>
-    <script src="js/commands.js"></script>
+    <script type="module" src="js/commands.js"></script>
+    <script>
+        const menuToggle = document.getElementById("menu-toggle");
+        const navigation = document.querySelector(".navigation");
+    
+            if (menuToggle && navigation) {
+                menuToggle.addEventListener("click", () => {
+                navigation.classList.toggle("open");
+            });
+        }
+    </script>
 </body>
 </html>
