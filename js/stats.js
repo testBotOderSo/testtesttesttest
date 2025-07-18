@@ -31,8 +31,9 @@ function pingUptime(seconds) {
 
 document.addEventListener("DOMContentLoaded", async () => {
   const topStats = document.getElementById("topStats");        // oben: Channels, Commands, Uptime
-  const bottomLeft = document.getElementById("bottomLeft");    // unten links: AFK etc.
-  const bottomRight = document.getElementById("bottomRight");  // unten rechts: Top Commands Tabelle
+  const bottomLeft = document.getElementById("bottomLeft");    // unten links: User Infos
+  const bottomRight = document.getElementById("bottomRight");  // unten rechts: Top Commands
+  const requestStats = document.getElementById("requestStats"); // requests unten
 
   import("./twitch.js").then(({ getUserID }) => {
     const userID = getUserID();
@@ -43,65 +44,100 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (json.error) throw new Error("API Error");
         const data = json.data;
 
-        // Oben: Channels, Commands, Uptime
+        // Oben: Channels, Commands, Uptime - alle gleich groß mit Überschrift
+        const createStatBlock = (title, value) => {
+          const block = document.createElement("div");
+          block.style.textAlign = "center";
+          block.style.flex = "1";
+          block.style.color = "var(--text-primary)";
+          block.style.userSelect = "none";
+          block.innerHTML = `
+            <h2 style="font-size:1.8rem; margin-bottom: 0.2rem;">${title}</h2>
+            <p style="font-size:2.5rem; font-weight: 700; margin: 0;">${value}</p>
+          `;
+          return block;
+        };
+
+        // Channels
+        const channelsBlock = createStatBlock("Channels", data.channels);
+        // Used Commands
+        const commandsBlock = createStatBlock("Used Commands", data.executeCommands);
+        // Uptime (wird live upgedatet)
+        const uptimeBlock = createStatBlock("Uptime", "--:--:--");
         const uptimeUpdater = pingUptime(data.uptime);
-        const uptimeEl = document.createElement("div");
-        uptimeEl.className = "stat-large";
-        uptimeEl.innerHTML = `<h2>Uptime</h2><p class="stat-value">--:--:--</p>`;
-        uptimeUpdater(uptimeEl.querySelector(".stat-value"));
+        uptimeUpdater(uptimeBlock.querySelector("p"));
 
-        const channelsEl = document.createElement("div");
-        channelsEl.className = "stat-large";
-        channelsEl.innerHTML = `<h2>Channels</h2><p class="stat-value">${data.channels}</p>`;
+        topStats.style.display = "flex";
+        topStats.style.gap = "2rem";
+        topStats.appendChild(channelsBlock);
+        topStats.appendChild(commandsBlock);
+        topStats.appendChild(uptimeBlock);
 
-        const commandsEl = document.createElement("div");
-        commandsEl.className = "stat-large";
-        commandsEl.innerHTML = `<h2>Used Commands</h2><p class="stat-value">${data.executeCommands}</p>`;
-
-        topStats.appendChild(channelsEl);
-        topStats.appendChild(commandsEl);
-        topStats.appendChild(uptimeEl);
-
-        // Unten links: Tabelle mit AFK, Reminders, Messages, Users (alle in --text-secondary)
-        const leftTableHtml = `
-          <table style="width:100%; border-collapse: collapse; color: var(--text-secondary);">
+        // Unten links: User Infos Tabelle mit --text-secondary
+        bottomLeft.style.color = "var(--text-secondary)";
+        bottomLeft.innerHTML = `
+          <h3 style="margin-bottom:0.5rem; color: var(--text-primary); font-size:1.5rem;">User Infos</h3>
+          <table style="width:100%; border-collapse: collapse; color: inherit;">
             <thead>
               <tr>
-                <th style="text-align:left; border-bottom:1px solid #666;">Stat</th>
-                <th style="text-align:left; border-bottom:1px solid #666;">Count</th>
+                <th style="text-align:left; border-bottom:1px solid #666; padding: 6px 8px;">Stat</th>
+                <th style="text-align:left; border-bottom:1px solid #666; padding: 6px 8px;">Count</th>
               </tr>
             </thead>
             <tbody>
-              <tr><td>😴 AFK Nutzer</td><td>${data.afk}</td></tr>
-              <tr><td>⏰ Reminders</td><td>${data.reminders}</td></tr>
-              <tr><td>💬 Nachrichten</td><td>${data.messages}</td></tr>
-              <tr><td>👤 Users</td><td>${data.user}</td></tr>
+              <tr><td style="padding:6px 8px;">😴 AFK Nutzer</td><td style="padding:6px 8px;">${data.afk}</td></tr>
+              <tr><td style="padding:6px 8px;">⏰ Reminders</td><td style="padding:6px 8px;">${data.reminders}</td></tr>
+              <tr><td style="padding:6px 8px;">💬 Nachrichten</td><td style="padding:6px 8px;">${data.messages}</td></tr>
+              <tr><td style="padding:6px 8px;">👤 Users</td><td style="padding:6px 8px;">${data.user}</td></tr>
             </tbody>
           </table>
         `;
-        bottomLeft.innerHTML = leftTableHtml;
 
-        // Unten rechts: Top 5 Commands als Tabelle mit --text-secondary auch
-        let tableHtml = `<table style="width:100%; border-collapse: collapse; color: var(--text-secondary);">
-          <thead>
-            <tr>
-              <th style="text-align:left; border-bottom:1px solid #666;">Trigger</th>
-              <th style="text-align:left; border-bottom:1px solid #666;">Usage</th>
-            </tr>
-          </thead>
-          <tbody>`;
+        // Unten rechts: Top 5 Commands Tabelle mit --text-secondary
+        bottomRight.style.color = "var(--text-secondary)";
+        bottomRight.innerHTML = `
+          <h3 style="margin-bottom:0.5rem; color: var(--text-primary); font-size:1.5rem;">Top 5 Commands</h3>
+          <table style="width:100%; border-collapse: collapse; color: inherit;">
+            <thead>
+              <tr>
+                <th style="text-align:left; border-bottom:1px solid #666; padding: 6px 8px;">Trigger</th>
+                <th style="text-align:left; border-bottom:1px solid #666; padding: 6px 8px;">Usage</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${data.topCommands.map(cmd => `
+                <tr>
+                  <td style="padding:6px 8px;">${cmd.command}</td>
+                  <td style="padding:6px 8px;">${cmd.count}</td>
+                </tr>`).join("")}
+            </tbody>
+          </table>
+        `;
 
-        data.topCommands.forEach(cmd => {
-          tableHtml += `
-            <tr>
-              <td style="padding:4px 8px; border-bottom:1px solid #333;">${cmd.command}</td>
-              <td style="padding:4px 8px; border-bottom:1px solid #333;">${cmd.count}</td>
-            </tr>
+        // Requests Sektion mit dev check
+        requestStats.innerHTML = `<h2 style="color: var(--accent-primary); margin-bottom:1rem;">Requests</h2>`;
+        const isDev = data.devs.some(dev => dev.twitchid === userID);
+
+        const grid = document.createElement("div");
+        grid.style.display = "grid";
+        grid.style.gridTemplateColumns = "repeat(auto-fit, minmax(200px, 1fr))";
+        grid.style.gap = "1rem";
+
+        data.request.forEach(req => {
+          const card = document.createElement("div");
+          card.style.border = "1px solid var(--border-primary)";
+          card.style.padding = "1rem";
+          card.style.borderRadius = "6px";
+          card.style.backgroundColor = "var(--background-secondary)";
+          card.innerHTML = `
+            <h3 style="margin-top:0;">${req.type}</h3>
+            <p><strong>Requests:</strong> ${req.count}</p>
+            ${isDev && req.methods ? `<details><summary style="cursor:pointer; user-select:none;">Methoden</summary><pre style="white-space: pre-wrap; margin-top:0.5rem;">${JSON.stringify(req.methods, null, 2)}</pre></details>` : ""}
           `;
+          grid.appendChild(card);
         });
 
-        tableHtml += "</tbody></table>";
-        bottomRight.innerHTML = tableHtml;
+        requestStats.appendChild(grid);
 
       })
       .catch(err => {
@@ -110,4 +146,3 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
   });
 });
-
