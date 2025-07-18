@@ -30,12 +30,9 @@ function pingUptime(seconds) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-  const statsDisplay = document.getElementById("statsDisplay");
-  const topCommands = document.getElementById("topCommands");
-  const requestStats = document.getElementById("requestStats");
-
-  const introText = document.querySelector(".intro p");
-  if (introText) introText.textContent = "Alle Daten vom Bot 🧠";
+  const topStats = document.getElementById("topStats");        // neuer Container oben
+  const bottomLeft = document.getElementById("bottomLeft");    // links unten
+  const bottomRight = document.getElementById("bottomRight");  // rechts unten (top commands)
 
   import("./twitch.js").then(({ getUserID }) => {
     const userID = getUserID();
@@ -46,88 +43,60 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (json.error) throw new Error("API Error");
         const data = json.data;
 
-        // Top-Level Stats
-        const topRow = document.createElement("div");
-        topRow.className = "feature-toprow";
-        topRow.style = "display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap;";
-
+        // Oben: Channels, Commands, Uptime
+        const uptimeUpdater = pingUptime(data.uptime);
         const uptimeEl = document.createElement("div");
-        uptimeEl.innerHTML = `<h3>Uptime</h3><p class="feature-content"></p>`;
-        const updateFn = pingUptime(data.uptime);
-        updateFn(uptimeEl.querySelector(".feature-content"));
+        uptimeEl.className = "stat-large";
+        uptimeEl.innerHTML = `<h2>Uptime</h2><p class="stat-value">--:--:--</p>`;
+        uptimeUpdater(uptimeEl.querySelector(".stat-value"));
 
         const channelsEl = document.createElement("div");
-        channelsEl.innerHTML = `<h3>Channels</h3><p>${data.channels}</p>`;
+        channelsEl.className = "stat-large";
+        channelsEl.innerHTML = `<h2>Channels</h2><p class="stat-value">${data.channels}</p>`;
 
         const commandsEl = document.createElement("div");
-        commandsEl.innerHTML = `<h3>Commands</h3><p>${data.executeCommands}</p>`;
+        commandsEl.className = "stat-large";
+        commandsEl.innerHTML = `<h2>Used Commands</h2><p class="stat-value">${data.executeCommands}</p>`;
 
-        topRow.append(uptimeEl, channelsEl, commandsEl);
-        statsDisplay.appendChild(topRow);
+        topStats.appendChild(channelsEl);
+        topStats.appendChild(commandsEl);
+        topStats.appendChild(uptimeEl);
 
-        // 🏆 Top Commands
-        const topCmdHeader = document.createElement("h2");
-        topCmdHeader.textContent = "Top 5 Commands";
-        topCmdHeader.style = "margin-top: 3rem; color: var(--accent-primary); text-align: center;";
-        statsDisplay.appendChild(topCmdHeader);
+        // Unten links: AFK, Reminders, Messages, Users
+        const bottomLeftHtml = `
+          <p>😴 AFK Nutzer: <strong>${data.afk}</strong></p>
+          <p>⏰ Reminders: <strong>${data.reminders}</strong></p>
+          <p>💬 Nachrichten: <strong>${data.messages}</strong></p>
+          <p>👤 Users: <strong>${data.user}</strong></p>
+        `;
+        bottomLeft.innerHTML = bottomLeftHtml;
 
-        const topLine = document.createElement("div");
-        topLine.style = "display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; font-size: 1.1rem;";
+        // Unten rechts: Top 5 Commands als Tabelle
+        let tableHtml = `<table style="width:100%; border-collapse: collapse;">
+          <thead>
+            <tr>
+              <th style="text-align:left; border-bottom:1px solid #666;">Trigger</th>
+              <th style="text-align:left; border-bottom:1px solid #666;">Usage</th>
+            </tr>
+          </thead>
+          <tbody>`;
+
         data.topCommands.forEach(cmd => {
-          const span = document.createElement("span");
-          span.innerHTML = `<strong>${cmd.command}</strong>: ${cmd.count}`;
-          topLine.appendChild(span);
-        });
-        statsDisplay.appendChild(topLine);
-
-        // 📊 Weitere Stats
-        const extraStats = [
-          { label: "Nachrichten", value: data.messages },
-          { label: "Aktive Reminders", value: data.reminders },
-          { label: "Aktive AFKs", value: data.afk },
-          { label: "Users", value: data.user }
-        ];
-
-        const extraRow = document.createElement("div");
-        extraRow.style = "margin-top: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;";
-
-        extraStats.forEach(stat => {
-          const card = document.createElement("div");
-          card.className = "feature-card";
-          card.innerHTML = `<h3>${stat.label}</h3><p>${stat.value}</p>`;
-          extraRow.appendChild(card);
-        });
-
-        statsDisplay.appendChild(extraRow);
-
-        // 🔍 Requests
-        const isDev = data.devs.some(dev => dev.twitchid === userID);
-
-        const reqHeader = document.createElement("h2");
-        reqHeader.textContent = "Requests";
-        reqHeader.style = "margin-top: 4rem; text-align: center; color: var(--accent-primary);";
-        requestStats.appendChild(reqHeader);
-
-        const reqGrid = document.createElement("div");
-        reqGrid.style = "margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;";
-
-        data.request.forEach(req => {
-          const div = document.createElement("div");
-          div.className = "command-bubble";
-          div.innerHTML = `
-            <h3>${req.type}</h3>
-            <p>Requests: <strong>${req.count}</strong></p>
-            ${isDev && req.methods ? `<details><summary>Methoden</summary><pre>${JSON.stringify(req.methods, null, 2)}</pre></details>` : ""}
+          tableHtml += `
+            <tr>
+              <td style="padding:4px 8px; border-bottom:1px solid #333;">${cmd.command}</td>
+              <td style="padding:4px 8px; border-bottom:1px solid #333;">${cmd.count}</td>
+            </tr>
           `;
-          reqGrid.appendChild(div);
         });
 
-        requestStats.appendChild(reqGrid);
+        tableHtml += "</tbody></table>";
+        bottomRight.innerHTML = tableHtml;
+
       })
       .catch(err => {
-        statsDisplay.innerHTML = "<p style='color: red;'>Fehler beim Laden der Stats 😵</p>";
+        topStats.innerHTML = "<p style='color: red;'>Fehler beim Laden der Stats 😵</p>";
         console.error("TypeError: Da ist was falsch lass uns das mal anschauen🤓", err);
       });
   });
 });
-
