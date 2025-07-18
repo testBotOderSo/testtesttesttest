@@ -4,10 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NotedBot • Stats</title>
-  <link rel="icon" href="img/notedbotlogo.png" type="image/png">
-  <meta name="theme-color" content="#252222"/>
+  <link rel="icon" href="img/notedbotlogo.png" type="image/png" />
+  <meta name="theme-color" content="#252222" />
   <meta name="description" content="Live stats for NotedBot: channels, users, uptime and more!" />
-  <link rel="stylesheet" href="data/styles.css"/>
+  <link rel="stylesheet" href="data/styles.css" />
 </head>
 <body>
   <header class="top-bar fade-in" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;">
@@ -31,23 +31,13 @@
       <p style="color: var(--text-primary); font-size: 1.2rem;">Alle Daten vom Bot</p>
     </section>
 
-    <section id="statsDisplay" class="features"></section>
+    <section id="topStats" style="display:flex; gap:2rem; justify-content:center; margin-bottom:2rem;"></section>
 
-    <section class="fade-in" style="margin-top: 4rem; text-align: center;">
-      <h2 style="color: var(--accent-primary);">Top Commands</h2>
-      <div id="topCommands" style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;"></div>
+    <section style="display:flex; gap:2rem;">
+      <div id="bottomLeft" style="flex:1; font-size:1.2rem; color: var(--text-secondary);"></div>
+      <div id="bottomRight" style="flex:1;"></div>
     </section>
-  <section id="topStats" style="display:flex; gap:2rem; justify-content:center; margin-bottom:2rem;"></section>
-<section id="topStats" style="display:flex; gap:2rem; justify-content:center; margin-bottom:2rem;"></section>
 
-<section style="display:flex; gap:2rem;">
-  <div id="bottomLeft" style="flex:1;"></div>
-  <div id="bottomRight" style="flex:1;"></div>
-</section>
-<section style="display:flex; gap:2rem;">
-  <div id="bottomLeft" style="flex:1; font-size:1.2rem; color: var(--text-primary);"></div>
-  <div id="bottomRight" style="flex:1;"></div>
-</section>
     <section class="fade-in" style="margin-top: 4rem; text-align: center;">
       <h2 style="color: var(--accent-primary);">Requests</h2>
       <div id="requestStats" style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;"></div>
@@ -71,3 +61,4 @@
   </script>
 </body>
 </html>
+
