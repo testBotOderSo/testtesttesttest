@@ -1,7 +1,8 @@
 const Prefix = "!";
+const Lang = "de";
 
 async function fetchCommands() {
-    const res = await fetch("https://api.notedbot.de/v1/bot/commands");
+    const res = await fetch("https://api.notedbot.de/v1/bot/commands", { cache: "no-store" });
     const data = await res.json();
     return Array.isArray(data.commands) ? data.commands : [];
 };
@@ -30,21 +31,21 @@ function formatUsage(text) {
 
 function parsePermission(id) {
     switch (id) {
-        case 0: return translate("commands.permission.everyone");
-        case 1: return translate("commands.permission.vip");
-        case 2: return translate("commands.permission.moderator");
-        case 3: return translate("commands.permission.broadcaster");
-        case 4: return translate("commands.permission.dev");
-        case 5: return translate("commands.permission.admin");
+        case "0": return translate("commands.permission.everyone");
+        case "1": return translate("commands.permission.vip");
+        case "2": return translate("commands.permission.moderator");
+        case "3": return translate("commands.permission.broadcaster");
+        case "4": return translate("commands.permission.dev");
+        case "5": return translate("commands.permission.admin");
         default: return translate("commands.permission.unknown");
     }
 };
 
 function renderCommand(cmd) {
-    const aliases = cmd.aliases?.length ? `(${cmd.aliases.join(", ")})` : "";
+    const aliases = cmd.aliases?.length ? `(Alias: ${cmd.aliases.join(", ")})` : "";
     const img = cmd.link? `<img src="${cmd.link}" alt="emote" class="cmd-img" />` : "";
-    const description = langCode === "de" ? cmd.descriptionDE : cmd.descriptionUS;
-    const usageRaw = langCode === "de" ? cmd.usageDE : cmd.usageUS;
+    const description = Lang === "de" ? cmd.descriptionDE : cmd.descriptionUS;
+    const usageRaw = Lang === "de" ? cmd.usageDE : cmd.usageUS;
     const usage = formatUsage(usageRaw);
     
     return `
@@ -52,8 +53,8 @@ function renderCommand(cmd) {
             <div class="command-header">
                 <strong>${Prefix}${cmd.name} ${aliases}</strong> ${img}
             </div>
-            <p>${description}</p>
-            <button class="open-modal"
+            <p>${translate("commands.description")}: ${description}</p>
+            <button class="open-modal cmd-btn"
                 data-name="${cmd.name}"
                 data-aliases="${cmd.aliases.join(", ")}"
                 data-usage="${usage}"
@@ -62,15 +63,16 @@ function renderCommand(cmd) {
                 data-cooldown="${cmd.cooldown || 0}"
                 data-description="${description}"
                 data-image="${cmd.link || ""}"
-            >📘 Details anzeigen</button>
+            >${translate("commands.more")}</button>
         </div>`;
 };
 
 async function renderCommands() {
     const list = document.getElementById("commandsList");
-    const perm = document.getElementById("permFilter").value.toLowerCase();
+    const perm = document.getElementById("permFilter").value;
     const cat = document.getElementById("categoryFilter").value.toLowerCase();
-    
+    const search = document.getElementById("searchInput").value.toLowerCase();
+
     const rawCommands = await fetchCommands();
     if (!rawCommands || rawCommands.length === 0) {
         return list.innerHTML = `<i>${translate("command.error.noCommands")}</i>`;
@@ -79,12 +81,20 @@ async function renderCommands() {
     const mergedCommands = mergeCommands(rawCommands);
 
     const filtered = mergedCommands.filter(c => {
-        const matchPerm = !perm || parsePermission(c.permission).toLowerCase() === perm;
-        const matchCat = !cat || c.category?.toLowerCase() === cat;
-        return matchPerm && matchCat;
+        const permNum = perm === "" ? null : Number(perm);
+        const matchPerm = !permNum || c.permission === permNum;
+
+        const matchCat = !cat || (c.category && c.category.toLowerCase() === cat);
+
+        const searchInName = c.name.toLowerCase().includes(search);
+        const searchInAliases = c.aliases?.some(alias => alias.toLowerCase().includes(search)) || false;
+        const matchSearch = !search || searchInName || searchInAliases;
+
+        return matchPerm && matchCat && matchSearch;
     });
 
-    list.innerHTML = filtered.map(renderCommand).join("") || `<i>${translate("commands.noResults")}</i>`;
+    list.innerHTML = filtered.map(renderCommand).join("") || `<i>${translate("commands.error.noResults")}</i>`;
+    setSearchPlaceholder();
 
     document.querySelectorAll(".open-modal").forEach(btn => {
         btn.addEventListener("click", () => {
@@ -99,21 +109,26 @@ async function renderCommands() {
             const imageUrl = btn.dataset.image;
             const imgTag = imageUrl ? `<img src="${imageUrl}" alt="emote" class="cmd-img" />` : "";
 
-            document.getElementById("popupTitle").innerText = `Command: ${Prefix}${name} ${imgTag}`;
-            document.getElementById("popupAliases").innerHTML = `<strong>Aliases:</strong> ${aliases}`;
-            document.getElementById("popupUsage").innerHTML = `<strong>Usage:</strong> ${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
-            document.getElementById("popupPerm").innerHTML = `<strong>Perms:</strong> ${parsePermission(perm)}`;
-            document.getElementById("popupCooldown").innerHTML = `<strong>Cooldown:</strong> ${cooldown}s`;
-            document.getElementById("popupCategory").innerHTML = `<strong>Category:</strong> ${category}`;
-            document.getElementById("popupDescription").innerHTML = `<strong>Description:</strong> ${description}`;
+            document.getElementById("popupTitle").innerHTML = `<span style='color:var(--accent-primary);font-weight:700;'>Command:</span> <span style='color:var(--text-primary);'>${Prefix}${name}</span> ${imgTag}`;
+            document.getElementById("popupAliases").innerHTML = `<span class='popup-label'>Aliases:</span> <span class='popup-value'>${aliases}</span>`;
+            document.getElementById("popupUsage").innerHTML = `<span class='popup-label'>Usage:</span> <span class='popup-value'>${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}</span>`;
+            document.getElementById("popupPerm").innerHTML = `<span class='popup-label'>Perms:</span> <span class='popup-value'>${parsePermission(perm)}</span>`;
+            document.getElementById("popupCooldown").innerHTML = `<span class='popup-label'>Cooldown:</span> <span class='popup-value'>${cooldown}s</span>`;
+            document.getElementById("popupCategory").innerHTML = `<span class='popup-label'>Category:</span> <span class='popup-value'>${category}</span>`;
+            document.getElementById("popupDescription").innerHTML = `<div class='popup-divider'></div><div class='popup-description'><span class='popup-label'>Description:</span> <span class='popup-value'>${description}</span></div><div class='popup-divider'></div>`;
 
-            const ExampleInput = `${Prefix}${name}`;
-            const ExampleOutput = `@Wydios <img src="img/feelsdankman.png" alt="feelsdankman" class="cmd-img" /> ➜ ${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}`;
-
-            document.getElementById("popupExample").innerHTML = 
-                `Example:<br>
-                <code>Wydios: ${ExampleInput}<br> 
-                NotedBot: ${ExampleOutput}</code>`;
+            const currentLang = document.getElementById("langSelect").value || Lang;
+            
+            const imgPath = `img/examples/${currentLang}/${name}.png`;
+            const img = new Image();
+            img.onload = function() {
+                const exampleImg = `<img src="${imgPath}" alt="example" class="cmd-img" />`;
+                document.getElementById("popupExample").innerHTML = `<div class='popup-examples-title'>Example Response:</div><div class='popup-examples-box'>${exampleImg}</div>`;
+            };
+            img.onerror = function() {
+                document.getElementById("popupExample").innerHTML = `<div class='popup-examples-title'>Example Response:</div><div class='popup-examples-box'><span style="color: var(--text-secondary); font-style: italic;">No example</span></div>`;
+            };
+            img.src = imgPath;
 
             document.getElementById("commandPopup").style.display = "block";
             document.title = `NotedBot • Cmd: ${name}`;
@@ -121,13 +136,63 @@ async function renderCommands() {
     });
 };
 
-async function main() {
-    const langCode = navigator.language.startsWith("de") ? "de" : "en";
-    await loadLanguage(langCode);
-    renderCommands();
+function setSearchPlaceholder() {
+    const input = document.getElementById("searchInput");
+    input.placeholder = translate("commands.search") || `${Lang === "de" ? "Suchen nach einem" : "Search for a"} Command?`;
 };
 
-document.getElementById("permFilter").onchange = renderCommands;
-document.getElementById("categoryFilter").onchange = renderCommands;
+async function switchLanguage(lang) {
+    if (lang !== Lang) {
+        Lang = lang;
+        await loadLanguage(Lang);
+        setSearchPlaceholder();
+        await renderCommands();
+        document.getElementById("langSelect").value = Lang;
+        document.title = "NotedBot • Commands";
+    }
+};
+
+function getUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        category: params.get("category") || "",
+        perm: params.get("perm") || "",
+        search: params.get("search") || ""
+    };
+};
+
+function updateUrlParams() {
+    const perm = document.getElementById("permFilter").value;
+    const cat = document.getElementById("categoryFilter").value;
+    const search = document.getElementById("searchInput").value;
+
+    const params = new URLSearchParams();
+    if (cat) params.set("category", cat);
+    if (perm) params.set("perm", perm);
+    if (search) params.set("search", search);
+
+    const newUrl = `${window.location.pathname}?${params.toString()}`;
+    window.history.replaceState(null, "", newUrl);
+};
+
+async function main() {
+    await loadLanguage(Lang);
+    setSearchPlaceholder();
+
+    const params = getUrlParams();
+
+    document.getElementById("categoryFilter").value = params.category;
+    document.getElementById("permFilter").value = params.perm;
+    document.getElementById("searchInput").value = params.search;
+
+    renderCommands();
+
+    document.getElementById("langSelect").value = Lang;
+};
+
+document.getElementById("searchInput").addEventListener("input", () => { renderCommands(); updateUrlParams() });
+document.getElementById("langSelect").addEventListener("change", e => { switchLanguage(e.target.value) });
+document.getElementById("permFilter").addEventListener("change", () => { renderCommands(); updateUrlParams() });
+document.getElementById("categoryFilter").addEventListener("change", () => { renderCommands(); updateUrlParams() });
 
 main();
