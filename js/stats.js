@@ -66,25 +66,25 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         topStats.append(channelsBlock, commandsBlock, uptimeBlock);
 
-        const createTableSection = (title, rows) => `
-          <h3 style="margin-bottom:0.5rem; color: var(--text-primary); font-size:1.5rem;">${title}</h3>
-          <table style="width:100%; border-collapse: collapse; color: var(--text-primary);">
-            <thead>
-              <tr>
-                <th style="width: 60%; text-align:left; border-bottom:1px solid #666; padding: 6px 8px;"></th>
-                <th style="text-align:left; border-bottom:1px solid #666; padding: 6px 8px;"></th>
-              </tr>
-            </thead>
-            <tbody>
-              ${rows.map(([label, value]) => `
-                <tr>
-                  <td style="padding:6px 8px;">${label}</td>
-                  <td style="padding:6px 8px;">${value}</td>
-                </tr>
-              `).join("")}
-            </tbody>
-          </table>
-        `;
+         const createTableSection = (title, rows) => `
+  <h3 style="margin-bottom:0.5rem; color: var(--text-primary); font-size:1.5rem;">${title}</h3>
+  <table style="width:100%; border-collapse: collapse; color: var(--text-primary);">
+    <thead>
+      <tr>
+        <th style="width: 60%; text-align:left; border-bottom:1px solid #666; padding: 6px 8px;"></th>
+        <th style="text-align:left; border-bottom:1px solid #666; padding: 6px 8px;"></th>
+      </tr>
+    </thead>
+    <tbody>
+      ${rows.map(([label, value]) => `
+        <tr>
+          <td style="padding:6px 8px; border-bottom: 1px solid #444;">${label}</td>
+          <td style="padding:6px 8px; border-bottom: 1px solid #444;">${value}</td>
+        </tr>
+      `).join("")}
+    </tbody>
+  </table>
+`;
 
         const userRows = [
             ["😴 AFK Users", data.afk],
