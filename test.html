@@ -1,64 +1,126 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NotedBot • Stats</title>
-  <link rel="icon" href="img/notedbotlogo.png" type="image/png" />
-  <meta name="theme-color" content="#252222" />
-  <meta name="description" content="Live stats for NotedBot: channels, users, uptime and more!" />
-  <link rel="stylesheet" href="data/styles.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title id="dynamicTitle">NotedBot • Home</title>
+    <link rel="icon" href="img/notedbotlogo.png" type="image/png">
+
+    <meta name="theme-color" content="#252222"/>
+    <meta name="author" content="wydios"/>
+    <meta name="description" content="Live stats for NotedBot: channels, users, uptime and more." />
+    <meta property="og:title" content="NotedBot • Status" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Live stats for NotedBot: channels, users, uptime and more." />
+    <meta property="og:image" content="https://notedbot.de/img/notedbotlogo.png" />
+    <meta property="og:url" content="https://notedbot.de" />
+
+    <meta name="theme-color" content="#252222">
+    <meta name="author" content="wydios"/>
+    <meta property="og:title" content="NotedBot • Status"/>
+    <meta property="og:type" content="website"/>
+
+    <link rel="stylesheet" href="data/styles.css"/>
+    <link rel="stylesheet" href="data/all.min.css">
 </head>
 <body>
-  <header class="top-bar fade-in" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;">
-    <div class="logo">
-      <a href="home"><img src="img/notedbot.gif" alt="NotedBot Logo" height="40" /></a>
-    </div>
-    <nav class="navigation">
-      <ul>
-        <li><a href="commands">Commands</a></li>
-        <li><a href="#faq">FAQ</a></li>
-        <li><a href="https://api.notedbot.de/v1" class="link-api">API</a></li>
-        <li><a id="login-btn" class="link-twitch" href="#">Login with Twitch</a></li>
-      </ul>
-    </nav>
-    <div class="menu-toggle" id="menu-toggle">☰</div>
-  </header>
+    <header class="top-bar fade-in" style="display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem;">
+        <div class="logo">
+            <a href="home"><img src="img/notedbot.gif" alt="NotedBot Logo" height="40" /></a>
+        </div>
+        <nav class="navigation">
+            <ul>
+                <li><a href="commands">Commands</a></li>
+                <li><a onclick="alert('🫠 You are already on the page')">Status</a></li>
+                <li><a href="https://api.notedbot.de/v1" class="link-api">API</a></li>
+                <li><a id="login-btn" class="link-twitch" href="#">Login with Twitch</a></li>
+            </ul>
+        </nav>
+        <div class="menu-toggle" id="menu-toggle">☰</div>
+    </header>
 
-  <main class="main-layout fade-in" style="padding: 2rem;">
-    <section class="intro" style="text-align: center; margin: 2rem auto;">
-      <h1 class="notedBot">Stats</h1>
-      <p style="color: var(--text-primary); font-size: 1.2rem;">Alle Daten vom Bot</p>
-    </section>
+    <main class="main-layout fade-in" style="padding: 2rem;">
+        <section class="intro" style="text-align: center; margin: 2rem auto;">
+            <h1 class="notedBot">Stats</h1>
+            <p id="intro-text" style="color: var(--text-primary); font-size: 1.2rem;"></p>
+        </section>
 
-    <section id="topStats" style="display:flex; gap:2rem; justify-content:center; margin-bottom:2rem;"></section>
+        <section id="topStats" style="display:flex; gap:2rem; justify-content:center; margin-bottom:2rem;"></section>
 
-    <section style="display:flex; gap:2rem;">
-      <div id="bottomLeft" style="flex:1; font-size:1.2rem; color: var(--text-secondary);"></div>
-      <div id="bottomRight" style="flex:1;"></div>
-    </section>
+        <section style="display:flex; gap:2rem;">
+            <div id="bottomLeft" style="flex:1; font-size:1.2rem; color: var(--text-secondary);"></div>
+            <div id="bottomRight" style="flex:1;"></div>
+        </section>
 
-    <section class="fade-in" style="margin-top: 4rem; text-align: center;">
-      <h2 style="color: var(--accent-primary);">Requests</h2>
-      <div id="requestStats" style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;"></div>
-    </section>
-  </main>
+        <section class="fade-in" style="margin-top: 4rem; text-align: center;">
+            <h2 style="color: var(--accent-primary);">Requests</h2>
+            <div id="requestStats" style="margin-top: 2rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;"></div>
+        </section>
+    </main>
 
-  <footer class="fade-in" style="font-size: 1rem; margin-top: 5rem; text-align: center; padding: 2rem; border-top: 1px solid var(--border-primary);">
-    <p style="color: var(--text-primary);">&copy; 2025 <a href="home" target="_blank" style="color: var(--logo-text);">NotedBot.de</a></p>
-  </footer>
+    <footer class="fade-in" style="font-size: 1rem; margin-top: 5rem; text-align: center; padding: 2rem; border-top: 1px solid var(--border-primary);">
+        <div style="display: inline-flex; gap: 2rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.5rem;">
+            <a href="https://twitch.tv/wydios" target="_blank" rel="noopener noreferrer" title="Twitch" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <i class="fab fa-twitch" style="color: var(--color-twitch); font-size: 1.5rem;"></i>
+                <p style="color: var(--color-twitch); margin: 0;">Twitch</p>
+            </a>
+            <a href="https://youtube.com/@wydios" target="_blank" rel="noopener noreferrer" title="YouTube" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <i class="fab fa-youtube" style="color: #FF0000; font-size: 1.5rem;"></i>
+                <p style="color: #FF0000; margin: 0;">YouTube</p>
+            </a>
+            <a href="https://github.com/wydios" target="_blank" rel="noopener noreferrer" title="GitHub" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <i class="fab fa-github" style="color: #fff; font-size: 1.5rem;"></i>
+                <p style="color: #fff; margin: 0;">GitHub</p>
+            </a>
+            <a href="https://discord.gg/7ngxfFYxY4" target="_blank" rel="noopener noreferrer" title="Discord" style="text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;">
+                <i class="fab fa-discord" style="color: #7289da; font-size: 1.5rem;"></i>
+                <p style="color: #7289da; margin: 0;">Discord</p>
+            </a>
+        </div>
 
-  <script type="module" src="js/stats.js"></script>
-  <script>
-    const menuToggle = document.getElementById("menu-toggle");
-    const navigation = document.querySelector(".navigation");
+        <p style="color: var(--text-primary);">
+            &copy; 2025 
+            <a href="home" target="_blank" style="color: var(--logo-text);">NotedBot.de</a> • 
+                The site/bot was developed with 💙 by 
+            <a href="https://twitch.tv/wydios" target="_blank" class="link-with-icon wydios-hover">
+                <img src="img/support/wydios.gif" alt="Wydios" class="chat_emote" style="border-radius: 50%; max-height: 20px;">
+                Wydios
+            </a>
+        </p>
 
-    if (menuToggle && navigation) {
-      menuToggle.addEventListener("click", () => {
-        navigation.classList.toggle("open");
-      });
-    }
-  </script>
+        <div style="margin-top: 2rem;">
+            <p style="color: var(--text-primary); margin-bottom: 1rem;">❤️ Supporter:</p>
+            <div style="display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
+                <a href="https://twitch.tv/lucas19961" target="_blank" rel="noopener noreferrer" class="link-with-icon lucas-hover">
+                    <img src="img/support/lucas.gif" alt="Lucas19961" class="chat-emote" style="border-radius: 50%; max-height: 20px;">
+                    LUCAS19961
+                </a>
+                <a href="https://twitch.tv/maersux" target="_blank" rel="noopener noreferrer" class="link-with-icon maersux-hover">
+                    <img src="img/support/marcel.gif" alt="maersux" class="chat-emote" style="border-radius: 50%; max-height: 20px;">
+                    maersux
+                </a>
+                <a href="https://twitch.tv/lilb_lxryer" target="_blank" rel="noopener noreferrer" class="link-with-icon lilb-hover">
+                    <img src="img/support/lilb.gif" alt="lilb_lxryer" class="chat-emote" style="border-radius: 50%; max-height: 20px;">
+                    lilb_lxryer
+                </a>
+                <a href="https://twitch.tv/rsbxdev" target="_blank" rel="noopener noreferrer" class="link-with-icon rsbx-hover">
+                    <img src="img/support/leon.gif" alt="rsbxDev" class="chat-emote" style="border-radius: 50%; max-height: 20px;">
+                    rsbxDev
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module" src="js/stats.js"></script>
+    <script>
+        const menuToggle = document.getElementById("menu-toggle");
+        const navigation = document.querySelector(".navigation");
+
+        if (menuToggle && navigation) {
+        menuToggle.addEventListener("click", () => {
+            navigation.classList.toggle("open");
+        });
+        }
+    </script>
 </body>
 </html>
-
