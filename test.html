@@ -2,54 +2,40 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8" />
-<title>Flaggen-Rand pro Buchstabe</title>
+<title>Flaggenfarben mit Rand Test</title>
 <style>
   body {
     background-color: black;
     color: white;
     font-family: Arial, sans-serif;
-    font-size: 3em;
-    font-weight: bold;
+    padding: 2rem;
   }
-  .letter {
-    color: white;
-    padding: 0 2px;
-    -webkit-text-stroke-width: 1.5px;
-    -webkit-text-stroke-color: black; /* default fallback */
+  .flag-text {
+    font-weight: bold;
+    font-size: 3em;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* Weißer Rand mit Text-Shadow in 4 Richtungen */
+    text-shadow:
+      -1px -1px 0 #fff,
+       1px -1px 0 #fff,
+      -1px  1px 0 #fff,
+       1px  1px 0 #fff;
+  }
+  .de {
+    background: linear-gradient(90deg, black, red, gold);
+  }
+  .us {
+    background: linear-gradient(90deg, red, white, blue);
   }
 </style>
 </head>
 <body>
 
-<p>Deutsch: <span id="de-text"></span></p>
-<p>English: <span id="us-text"></span></p>
-
-<script>
-  const deColors = ['gold', 'red', 'black'];
-  const usColors = ['blue', 'white', 'red'];
-
-  function setColoredBorderText(id, text, colors) {
-    const container = document.getElementById(id);
-    container.innerHTML = ''; // clear
-
-    for(let i = 0; i < text.length; i++) {
-      const span = document.createElement('span');
-      span.textContent = text[i];
-      span.classList.add('letter');
-      
-      // Zyklische Farbe fürs Umranden (andersrum = reverse Reihenfolge)
-      // z.B. bei Deutsch gold bei erstem Buchstaben am Ende, rot vor gold usw.
-      // Wir machen reverse loop mit modulo:
-      const colorIndex = colors.length - 1 - (i % colors.length);
-      span.style.webkitTextStrokeColor = colors[colorIndex];
-      
-      container.appendChild(span);
-    }
-  }
-
-  setColoredBorderText('de-text', 'Deutsch', deColors);
-  setColoredBorderText('us-text', 'English', usColors);
-</script>
+<p>Deutsch: <span class="flag-text de">Deutsch</span></p>
+<p>English: <span class="flag-text us">English</span></p>
 
 </body>
 </html>
+
