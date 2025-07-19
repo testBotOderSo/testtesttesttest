@@ -113,23 +113,10 @@
 
     <script src="js/language.js"></script>
     <script type="module" src="js/status.js"></script>
-    <script type="module">
-        import { loginWithTwitch, getStoredLang } from "./js/twitch.js";
-
-        const Lang = getStoredLang();
-        await loadLanguage(Lang);
-
-        const clientID = "lqy023ndpqdrpuzpz0mqvcxek37uxg";
-        const redirectUri = "https://notedbot.de";
-
-        const navLogin = document.getElementById("login-btn");
-        if (navLogin) {
-            navLogin.addEventListener("click", () => loginWithTwitch(clientID, redirectUri));
-        }
-
+    <script">
         const startText = document.getElementById("intro-text");
         if (startText) {
-            startText.innerHTML = translate("status.title");
+            startText.innerHTML = "hi";
         }
 
         const menuToggle = document.getElementById("menu-toggle");
