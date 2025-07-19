@@ -69,7 +69,7 @@ async function loadStats() {
             block.style.background = "var(--bg-glass)";
             block.style.borderRadius = "12px";
             block.style.padding = "1rem";
-            block.style.boxShadow = "0 0 5px rgba(0,0,0,0.2)";
+            block.style.boxShadow = "var(--bg-glass)";
             block.innerHTML = `
                 <h2 style="font-size:1.3rem; margin-bottom: 0.3rem;">${title}</h2>
                 <p style="font-size:2rem; font-weight: 700; margin: 0;">${value}</p>
@@ -77,10 +77,10 @@ async function loadStats() {
             return block;
         };
 
-        const channelsBlock = createStatBlock("📺 Channels", data.channels);
-        const commandsBlock = createStatBlock("⚡ Used Commands", data.executeCommands);
-        const allCommandsBlock = createStatBlock("📚 All Commands", data.allCommands);
-        const uptimeBlock = createStatBlock("⏱️ Uptime", "--:--:--");
+        const channelsBlock = createStatBlock("Channels", data.channels);
+        const commandsBlock = createStatBlock("Used Commands", data.executeCommands);
+        const allCommandsBlock = createStatBlock("All Commands", data.allCommands);
+        const uptimeBlock = createStatBlock("Uptime", "--:--:--");
 
         topStats.append(channelsBlock, commandsBlock, allCommandsBlock, uptimeBlock);
 
@@ -120,8 +120,11 @@ async function loadStats() {
         ];
         bottomLeft.innerHTML = createTableSection("User Infos", userRows);
 
-        const medalEmojis = ["🥇", "🥈", "🥉", "4️⃣", "5️⃣"];
-        const topCommandRows = data.topCommands.map((cmd, i) => [`${medalEmojis[i] || i + 1}`, `${cmd.command} (${cmd.count})`]);
+        const medalEmojis = ["🥇", "🥈", "🥉"];
+        const topCommandRows = data.topCommands.map((cmd, i) => {
+            const rank = i < 3 ? `${medalEmojis[i]} ${cmd.command}` : `${i + 1}. ${cmd.command}`;
+            return [rank, cmd.count];
+        });
         bottomRight.innerHTML = createTableSection("Top 5 Commands", topCommandRows);
 
         const isDev = data.devs.some(dev => dev.twitchid === userID);
