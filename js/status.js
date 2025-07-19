@@ -66,10 +66,10 @@ async function loadStats() {
             block.style.flex = "1 1 180px";
             block.style.color = "var(--text-primary)";
             block.style.userSelect = "text";
-            block.style.background = "var(--bg-glass)";
+            block.style.background = "none";
             block.style.borderRadius = "12px";
             block.style.padding = "1rem";
-            block.style.boxShadow = "var(--bg-glass)";
+            block.style.boxShadow = "var(--border-primary)";
             block.innerHTML = `
                 <h2 style="font-size:1.3rem; margin-bottom: 0.3rem;">${title}</h2>
                 <p style="font-size:2rem; font-weight: 700; margin: 0;">${value}</p>
@@ -122,8 +122,8 @@ async function loadStats() {
 
         const medalEmojis = ["🥇", "🥈", "🥉"];
         const topCommandRows = data.topCommands.map((cmd, i) => {
-            const rank = i < 3 ? `${medalEmojis[i]} ${cmd.command}` : `${i + 1}. ${cmd.command}`;
-            return [rank, cmd.count];
+            const label = i < 3 ? `${medalEmojis[i]} ${cmd.command}` : cmd.command;
+            return [label, cmd.count];
         });
         bottomRight.innerHTML = createTableSection("Top 5 Commands", topCommandRows);
 
