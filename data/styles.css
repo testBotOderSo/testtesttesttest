@@ -133,6 +133,12 @@ body {
 .navigation ul li a.link-twitch::after {
     background: var(--color-twitch);
 }
+.navigation ul li a.link-status:hover {
+    color: var(--color-lilb);
+}
+.navigation ul li a.link-status::after {
+    background: var(--color-lilb);
+}
 .menu-toggle {
     display: none;
     font-size: 2.8rem;
@@ -598,3 +604,28 @@ code {
 .lilb-hover:hover::after { background-color: var(--color-lilb); }
 .rsbx-hover:hover::after { background-color: var(--color-rsbx); }
 .wydios-hover:hover::after { background-color: var(--color-wydios); }
+
+#bottomLeft, #bottomMiddle, #bottomRight {
+        flex: 1 1 300px;
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        min-width: 280px;
+      }
+      section > div table {
+        width: 100%;
+        border-collapse: collapse;
+        color: var(--text-primary);
+        font-size: 1.1rem;
+      }
+      section > div table th,
+      section > div table td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #444;
+        text-align: left;
+      }
+      section > div h3 {
+        margin-bottom: 0.5rem;
+        color: var(--text-primary);
+        font-size: 1.4rem;
+        font-weight: 600;
+      }
