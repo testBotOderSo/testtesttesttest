@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title id="dynamicTitle">NotedBot • Home</title>
+    <title id="dynamicTitle">NotedBot • Status</title>
     <link rel="icon" href="img/notedbotlogo.png" type="image/png">
 
     <meta name="theme-color" content="#252222"/>
@@ -47,9 +47,10 @@
 
         <section id="topStats" style="display:flex; gap:2rem; justify-content:center; margin-bottom:2rem;"></section>
 
-        <section style="display:flex; gap:2rem;">
-            <div id="bottomLeft" style="flex:1; font-size:1.2rem; color: var(--text-secondary);"></div>
-            <div id="bottomRight" style="flex:1;"></div>
+        <section style="display:flex; gap:2rem; justify-content: center; align-items: flex-start;">
+            <div id="bottomLeft"></div>
+            <div id="bottomMiddle"></div>
+            <div id="bottomRight"></div>
         </section>
 
         <section class="fade-in" style="margin-top: 4rem; text-align: center;">
@@ -113,10 +114,23 @@
 
     <script src="js/language.js"></script>
     <script type="module" src="js/status.js"></script>
-    <script>
+    <script type="module">
+        import { loginWithTwitch, getStoredLang } from "./js/twitch.js";
+
+        const Lang = getStoredLang();
+        await loadLanguage(Lang);
+
+        const clientID = "lqy023ndpqdrpuzpz0mqvcxek37uxg";
+        const redirectUri = "https://notedbot.de";
+
+        const navLogin = document.getElementById("login-btn");
+        if (navLogin) {
+            navLogin.addEventListener("click", () => loginWithTwitch(clientID, redirectUri));
+        }
+
         const startText = document.getElementById("intro-text");
         if (startText) {
-            startText.innerHTML = "hi";
+            startText.innerHTML = translate("status.title");
         }
 
         const menuToggle = document.getElementById("menu-toggle");
