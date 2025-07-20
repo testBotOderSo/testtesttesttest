@@ -37,6 +37,7 @@ function pingUptime(seconds) {
 async function loadStats() {
     const topStats = document.getElementById("topStats");
     const bottomLeft = document.getElementById("bottomLeft");
+    const bottomMiddle = document.getElementById("bottomMiddle");
     const bottomRight = document.getElementById("bottomRight");
     const requestStats = document.getElementById("requestStats");
 
@@ -52,6 +53,7 @@ async function loadStats() {
 
         topStats.innerHTML = "";
         bottomLeft.innerHTML = "";
+        bottomMiddle.innerHTML = "";
         bottomRight.innerHTML = "";
         requestStats.innerHTML = "";
 
@@ -120,6 +122,16 @@ async function loadStats() {
         ];
         bottomLeft.innerHTML = createTableSection("User Infos", userRows);
 
+        const notis = data.notis;
+        const notisRows = [
+            ["🏦 Total Notis", notis.total_notis],
+            ["🎁 Notis give/get", `${notis.total_give} / ${notis.total_get}`],
+            ["🏆 Gamble Wins/Loss", `${notis.total_gamble_win} / ${notis.total_gamble_lost}`],
+            ["🎰 Gamble Wins/Losses (Noti Count)", `${notis.total_gamble_win_notis} / ${notis.total_gamble_lost_notis}`],
+            ["📦 Crates Found", notis.total_kisten],
+        ];
+        bottomMiddle.innerHTML += createTableSection("Notis Stats", notisRows);
+
         const medalEmojis = ["🥇", "🥈", "🥉"];
         const topCommandRows = data.topCommands.map((cmd, i) => {
             const label = i < 3 ? `${medalEmojis[i]} ${cmd.command}` : cmd.command;
@@ -139,7 +151,7 @@ async function loadStats() {
             card.style.border = "1px solid var(--accent-primary)";
             card.style.padding = "1rem";
             card.style.borderRadius = "8px";
-            card.style.backgroundColor = "var(--bg-glass)";
+            card.style.backgroundColor = "none";
             card.style.color = "var(--text-primary)";
             card.style.boxShadow = "var(--border-primary)";
             card.innerHTML = `
