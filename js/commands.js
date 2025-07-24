@@ -113,7 +113,7 @@ async function renderCommands() {
 
             document.getElementById("popupTitle").innerHTML = `
                 <span class='popup-label'>Command:</span> 
-                <span class='popup-value'>${Prefix}${name}</span> ${imgTag}`;
+                <span class='popup-value'>${Prefix}${name} ${imgTag}</span>`;
 
             document.getElementById("popupAliases").innerHTML = `
                 <span class='popup-label'>Aliases:</span> 
