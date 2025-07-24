@@ -118,23 +118,23 @@ async function renderCommands() {
             document.getElementById("popupAliases").innerHTML = `
                 <span class='popup-label'>Aliases:</span> 
                 <span class='popup-value'>${aliases}</span>`;
-                    
+
             document.getElementById("popupUsage").innerHTML = `
                 <span class='popup-label'>Usage:</span> 
                 <span class='popup-value'>${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}</span>`;
-                    
+
             document.getElementById("popupPerm").innerHTML = `
                 <span class='popup-label'>Perms:</span> 
                 <span class='popup-value'>${parsePermission(perm)}</span>`;
-                    
+
             document.getElementById("popupCooldown").innerHTML = `
                 <span class='popup-label'>Cooldown:</span> 
                 <span class='popup-value'>${cooldown}s</span>`;
-                    
+
             document.getElementById("popupCategory").innerHTML = `
                 <span class='popup-label'>Category:</span> 
                 <span class='popup-value'>${category}</span>`;
-                    
+
             document.getElementById("popupDescription").innerHTML = `
                 <div class='popup-divider'></div>
                 <div class='popup-description'>
@@ -203,8 +203,11 @@ async function main() {
 
 document.addEventListener("click", (event) => {
     const popup = document.getElementById("commandPopup");
+    const overlay = document.getElementById("popupOverlay");
+
     if (popup.style.display === "block" && !popup.contains(event.target) && !event.target.classList.contains("open-modal")) {
         popup.style.display = "none";
+        overlay.style.display = "none";
         document.title = "NotedBot • Commands";
     }
 });
