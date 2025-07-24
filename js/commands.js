@@ -154,6 +154,7 @@ async function renderCommands() {
             };
             img.src = imgPath;
 
+            document.getElementById("popupOverlay").style.display = "block";
             document.getElementById("commandPopup").style.display = "block";
             document.title = `NotedBot • Cmd: ${name}`;
         });
