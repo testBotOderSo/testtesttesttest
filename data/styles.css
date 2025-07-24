@@ -536,20 +536,6 @@ code {
 .popup-description {
     color: var(--text-primary) !important;
 }
-.popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--accent-primary);
-    z-index: 999;
-    backdrop-filter: blur(2px);
-}
-.command-popup {
-    z-index: 1000;
-    box-shadow: var(--border-primary);
-}
 
 .close-btn {
     position: absolute;
