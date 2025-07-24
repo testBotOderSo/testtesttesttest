@@ -45,15 +45,15 @@ function parsePermission(id) {
 
 function renderCommand(cmd) {
     const aliases = cmd.aliases?.length ? `(Alias: ${cmd.aliases.join(", ")})` : "";
-    const img = cmd.link? `<img src="${cmd.link}" alt="emote" class="cmd-img" style="float: right; margin-left: 0.5rem;" />` : "";
     const description = Lang === "de" ? cmd.descriptionDE : cmd.descriptionUS;
     const usageRaw = Lang === "de" ? cmd.usageDE : cmd.usageUS;
     const usage = formatUsage(usageRaw);
     
     return `
         <div class="command-bubble">
-            <div class="command-header">
-                <strong>${Prefix}${cmd.name} ${aliases}</strong> ${img}
+            <div class="cmd-header-line">
+            <strong>${Prefix}${cmd.name} ${aliases}</strong>
+                ${cmd.link ? `<img src="${cmd.link}" alt="emote" class="cmd-img-inline" />` : ""}
             </div>
             <p>${translate("commands.description")}: ${description}</p>
             <button class="open-modal cmd-btn"
@@ -111,14 +111,38 @@ async function renderCommands() {
             const imageUrl = btn.dataset.image;
             const imgTag = imageUrl ? `<img src="${imageUrl}" alt="emote" class="cmd-img" />` : "";
 
-            document.getElementById("popupTitle").innerHTML = `<span style='color:var(--text-primary);font-weight:700;'>Command:</span> <span style='color:var(--text-primary);'>${Prefix}${name}</span> ${imgTag}`;
-            document.getElementById("popupAliases").innerHTML = `<span style='color:var(--text-primary)' class='popup-label'>Aliases:</span> <span class='popup-value'>${aliases}</span>`;
-            document.getElementById("popupUsage").innerHTML = `<span style='color:var(--text-primary)' class='popup-label'>Usage:</span> <span class='popup-value'>${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}</span>`;
-            document.getElementById("popupPerm").innerHTML = `<span style='color:var(--text-primary)' class='popup-label'>Perms:</span> <span class='popup-value'>${parsePermission(perm)}</span>`;
-            document.getElementById("popupCooldown").innerHTML = `<span style='color:var(--text-primary)' class='popup-label'>Cooldown:</span> <span class='popup-value'>${cooldown}s</span>`;
-            document.getElementById("popupCategory").innerHTML = `<span style='color:var(--text-primary)' class='popup-label'>Category:</span> <span class='popup-value'>${category}</span>`;
-            document.getElementById("popupDescription").innerHTML = `<div style='color:var(--text-primary)' class='popup-divider'></div><div class='popup-description'><span class='popup-label'>Description:</span> <span class='popup-value'>${description}</span></div><div class='popup-divider'></div>`;
-            
+            document.getElementById("popupTitle").innerHTML = `
+                <span class='popup-label'>Command:</span> 
+                <span class='popup-value'>${Prefix}${name}</span> ${imgTag}`;
+
+            document.getElementById("popupAliases").innerHTML = `
+                <span class='popup-label'>Aliases:</span> 
+                <span class='popup-value'>${aliases}</span>`;
+                    
+            document.getElementById("popupUsage").innerHTML = `
+                <span class='popup-label'>Usage:</span> 
+                <span class='popup-value'>${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}</span>`;
+                    
+            document.getElementById("popupPerm").innerHTML = `
+                <span class='popup-label'>Perms:</span> 
+                <span class='popup-value'>${parsePermission(perm)}</span>`;
+                    
+            document.getElementById("popupCooldown").innerHTML = `
+                <span class='popup-label'>Cooldown:</span> 
+                <span class='popup-value'>${cooldown}s</span>`;
+                    
+            document.getElementById("popupCategory").innerHTML = `
+                <span class='popup-label'>Category:</span> 
+                <span class='popup-value'>${category}</span>`;
+                    
+            document.getElementById("popupDescription").innerHTML = `
+                <div class='popup-divider'></div>
+                <div class='popup-description'>
+                    <span class='popup-label'>Description:</span> 
+                    <span class='popup-value'>${description}</span>
+                </div>
+                <div class='popup-divider'></div>`;
+
             const imgPath = `img/examples/${Lang}/${name}.png`;
             const img = new Image();
             img.onload = function() {
