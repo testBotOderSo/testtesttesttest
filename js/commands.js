@@ -45,7 +45,7 @@ function parsePermission(id) {
 
 function renderCommand(cmd) {
     const aliases = cmd.aliases?.length ? `(Alias: ${cmd.aliases.join(", ")})` : "";
-    const img = cmd.link? `<img src="${cmd.link}" alt="emote" class="cmd-img" />` : "";
+    const img = cmd.link? `<img src="${cmd.link}" alt="emote" class="cmd-img" style="float: right; margin-left: 0.5rem;" />` : "";
     const description = Lang === "de" ? cmd.descriptionDE : cmd.descriptionUS;
     const usageRaw = Lang === "de" ? cmd.usageDE : cmd.usageUS;
     const usage = formatUsage(usageRaw);
@@ -111,13 +111,13 @@ async function renderCommands() {
             const imageUrl = btn.dataset.image;
             const imgTag = imageUrl ? `<img src="${imageUrl}" alt="emote" class="cmd-img" />` : "";
 
-            document.getElementById("popupTitle").innerHTML = `<span style='color:var(--accent-primary);font-weight:700;'>Command:</span> <span style='color:var(--text-primary);'>${Prefix}${name}</span> ${imgTag}`;
-            document.getElementById("popupAliases").innerHTML = `<span class='popup-label'>Aliases:</span> <span class='popup-value'>${aliases}</span>`;
-            document.getElementById("popupUsage").innerHTML = `<span class='popup-label'>Usage:</span> <span class='popup-value'>${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}</span>`;
-            document.getElementById("popupPerm").innerHTML = `<span class='popup-label'>Perms:</span> <span class='popup-value'>${parsePermission(perm)}</span>`;
-            document.getElementById("popupCooldown").innerHTML = `<span class='popup-label'>Cooldown:</span> <span class='popup-value'>${cooldown}s</span>`;
-            document.getElementById("popupCategory").innerHTML = `<span class='popup-label'>Category:</span> <span class='popup-value'>${category}</span>`;
-            document.getElementById("popupDescription").innerHTML = `<div class='popup-divider'></div><div class='popup-description'><span class='popup-label'>Description:</span> <span class='popup-value'>${description}</span></div><div class='popup-divider'></div>`;
+            document.getElementById("popupTitle").innerHTML = `<span style='color:var(--text-primary);font-weight:700;'>Command:</span> <span style='color:var(--text-primary);'>${Prefix}${name}</span> ${imgTag}`;
+            document.getElementById("popupAliases").innerHTML = `<span style='color:var(--text-primary)' class='popup-label'>Aliases:</span> <span class='popup-value'>${aliases}</span>`;
+            document.getElementById("popupUsage").innerHTML = `<span style='color:var(--text-primary)' class='popup-label'>Usage:</span> <span class='popup-value'>${Prefix}${usage.includes("!") ? usage.substring(usage.indexOf("!") + 1) : usage}</span>`;
+            document.getElementById("popupPerm").innerHTML = `<span style='color:var(--text-primary)' class='popup-label'>Perms:</span> <span class='popup-value'>${parsePermission(perm)}</span>`;
+            document.getElementById("popupCooldown").innerHTML = `<span style='color:var(--text-primary)' class='popup-label'>Cooldown:</span> <span class='popup-value'>${cooldown}s</span>`;
+            document.getElementById("popupCategory").innerHTML = `<span style='color:var(--text-primary)' class='popup-label'>Category:</span> <span class='popup-value'>${category}</span>`;
+            document.getElementById("popupDescription").innerHTML = `<div style='color:var(--text-primary)' class='popup-divider'></div><div class='popup-description'><span class='popup-label'>Description:</span> <span class='popup-value'>${description}</span></div><div class='popup-divider'></div>`;
             
             const imgPath = `img/examples/${Lang}/${name}.png`;
             const img = new Image();
@@ -126,7 +126,7 @@ async function renderCommands() {
                 document.getElementById("popupExample").innerHTML = `<div class='popup-examples-title'>Example Response:</div><div class='popup-examples-box'>${exampleImg}</div>`;
             };
             img.onerror = function() {
-                document.getElementById("popupExample").innerHTML = `<div class='popup-examples-title'>Example Response:</div><div class='popup-examples-box'><span style="color: var(--text-secondary); font-style: italic;">No example</span></div>`;
+                document.getElementById("popupExample").innerHTML = `<div class='popup-examples-title'>Example Response:</div><div class='popup-examples-box'><span style="color: var(--text-primary); font-style: italic;">No example</span></div>`;
             };
             img.src = imgPath;
 
@@ -176,6 +176,14 @@ async function main() {
 
     renderCommands();
 };
+
+document.addEventListener("click", (event) => {
+    const popup = document.getElementById("commandPopup");
+    if (popup.style.display === "block" && !popup.contains(event.target) && !event.target.classList.contains("open-modal")) {
+        popup.style.display = "none";
+        document.title = "NotedBot • Commands";
+    }
+});
 
 document.getElementById("searchInput").addEventListener("input", () => { renderCommands(); updateUrlParams() });
 document.getElementById("permFilter").addEventListener("change", () => { renderCommands(); updateUrlParams() });
