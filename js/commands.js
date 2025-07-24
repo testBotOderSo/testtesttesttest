@@ -204,11 +204,8 @@ async function main() {
 
 document.addEventListener("click", (event) => {
     const popup = document.getElementById("commandPopup");
-    const overlay = document.getElementById("popupOverlay");
-
     if (popup.style.display === "block" && !popup.contains(event.target) && !event.target.classList.contains("open-modal")) {
         popup.style.display = "none";
-        overlay.style.display = "none";
         document.title = "NotedBot • Commands";
     }
 });
