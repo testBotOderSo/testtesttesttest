@@ -438,21 +438,18 @@ code {
     gap: 1rem;
     min-height: 200px;
 }
-
 .command-bubble:hover {
     transform: translateY(-4px);
     border-color: var(--accent-primary);
     box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
     animation: glow-blink 1.5s infinite ease-in-out;
 }
-
 .command-bubble h3 {
     color: var(--accent-primary);
     margin: 0;
     font-size: 1.4rem;
     font-weight: 700;
 }
-
 .command-bubble p {
     color: var(--text-secondary);
     margin: 0;
@@ -460,7 +457,6 @@ code {
     line-height: 1.5;
     flex-grow: 1;
 }
-
 .command-bubble .cmd-img {
     max-width: 100%;
     max-height: 120px;
@@ -470,7 +466,19 @@ code {
     border-radius: 8px;
     object-fit: contain;
 }
-
+.cmd-header-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+.cmd-img-inline {
+    max-height: 28px;
+    max-width: 100px;
+    height: auto;
+    width: auto;
+}
 .cmd-btn {
     background: var(--gradient-primary);
     color: var(--text-primary);
@@ -485,7 +493,6 @@ code {
     background-position: left center;
     text-shadow: 0 0 4px rgba(0, 54, 216, 0.6);
 }
-
 .cmd-btn:hover {
     transform: scale(1.05);
     background-position: right center;
@@ -508,24 +515,26 @@ code {
     width: 90%;
     backdrop-filter: blur(20px);
 }
-
 .command-popup-content h2 {
     color: var(--accent-primary);
     margin-bottom: 1rem;
     font-size: 1.8rem;
 }
-
 .command-popup-content p {
     margin: 0.5rem 0;
     line-height: 1.6;
 }
-
 .command-popup-content p:not(#popupDescription) {
     color: var(--text-secondary);
 }
-
 #popupDescription {
     color: var(--text-primary);
+}
+.popup-label,
+.popup-value,
+.popup-divider,
+.popup-description {
+    color: var(--text-primary) !important;
 }
 
 .close-btn {
