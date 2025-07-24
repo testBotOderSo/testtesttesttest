@@ -1,0 +1,122 @@
+{
+    "home": {
+        "title": {
+            "normal": "NotedBot ein Twitch Chatbot wie jeder andere … oder doch nicht?",
+            "1": "Bereit, deinen Chat auf Hyperantrieb zu bringen? 🚀",
+            "2": "Ein Bot, der mehr kann als nur !ping – versprochen ⚙️",
+            "3": "Kein Standard-Bot – NotedBot bringt die Extra-Power ⚡",
+            "4": "Nicht einfach nur ein Bot – sondern dein Alleskönner 🎯",
+            "5": "Fast wie ein Protokolldroide, nur cooler 🤖"
+        },
+        "features": {
+            "notis": "Notis ist die interne Währung von NotedBot. <br> Verdiene dir Notis durch verschiedene Aktivitäten und steige damit an die Spitze der Rangliste! <a href='https://notedbot.de/commands?category=notis' target='_blank' style='color: var(--accent-primary);'>Mehr zu Notis-Commands</a>",
+
+            "management": "Commands können mit dem Prefix <code>!</code> verwendet werden. <br> Mit dem Befehl <code>!prefix</code> lässt sich das Präfix kanalweise ändern.",
+
+            "technic": "NotedBot basiert auf modernem TypeScript-Code und wurde speziell für IRC & EventSub entwickelt. Alle Daten werden in einer SQL-Datenbank gespeichert.",
+
+            "openSource": "NotedBot stellt über eine API-Schnittstelle viele Funktionen öffentlich zur Verfügung – direkt nutzbar unter <a href='https://api.notedbot.de' target='_blank' style='color: var(--color-api);'>APIs</a>.",
+
+            "lang": "NotedBot bietet Deutsch und Englisch als Sprache für Channels und Nutzer an ➜ <code>!channel lang</code> oder <code>!lang</code>"
+        },
+        "message": {
+            "wydios": "Chat jetzt kommt was cooles",
+            "klo": "was denn?",
+            "ohne_flex": "Ich hab ein gutes Gefühl bei dieser Sache",
+            "notedbot": "Danke, dass du mich hinzugefügt hast. Meine Commands kannst du hier sehen",
+            "baysen": "Endlich eine Guter Bot"
+        },
+        "start": {
+            "title": "NotedBot hinzufügen:",
+            "text": "<b>Füge NotedBot zu deinem Twitch-Kanal hinzu</b>, indem du unten auf <i>'Bot hinzufügen'</i> klickst. <br><br> NotedBot bietet dir coole Features wie 🔧 <b>Custom Commands</b>, 💬 <b>Chat-Interaktionen</b> und sogar <b>7TV-Integration</b>. <br><br> Falls du Fragen hast, Bugs findest oder Hilfe brauchst, <a href='https://twitch.tv/wydios' target='_blank' style='color: var(--logo-text);'>schreib mir direkt auf Twitch</a><br>",
+            "bot": "Bot hinzufügen"
+        },
+        "blog": {
+            "performance": "NotedBot hat vorher viele Anfragen gestellt. Durch den Einsatz mehrerer Promises und eines Caching-Systems läuft die Verarbeitung jetzt deutlich effizienter.",
+            "websocket": "NotedBot hat jetzt eine WebSocket Verbindung zu Twitch, Was auch Neue Commands mit sich bringt z. B. <code>!livemsg</code> und <code>!liveping</code>. <a href='https://notedbot.de/commands?search=live' target='_blank' style='color: var(--color-marcel);'>Command Link</a>.",
+            "page": "Man kann sich nun in der Website mit seinen Twitch Acc anmelden und den Bot joinen lassen.",
+            "global": "Mit Den Command <code>!globalannounce</code> bekommst du globale News direkt in deinen Chat – z. B. neue Twitch Badges, Emotes oder frische 7TV Badges & Paints. <a href='https://notedbot.de/commands?search=globalannounce' target='_blank' style='color: var(--color-api);'>Command Link</a>.",
+            "7tv": "Neue 7tv Commands Um deinen Chat Style Up zugraden Alle Commands findest du <a href='https://notedbot.de/commands?category=7tv' target='_blank' style='color: var(--color-twitch);'>hier</a>."
+        }
+    },
+    "commands": {
+        "title": {
+            "1": "Die geheimen Tools für deinen Chat-Alltag 🧰",
+            "2": "Dein Arsenal an Commands – bereit zum Starten 🚀",
+            "3": "Ob !ping oder !notis – hier steht, was ich kann 🍷",
+            "4": "Level up deinen Chat mit den besten NotedBot Commands ✨",
+            "5": "Die wahre Macht liegt in deinen Befehlen 🔮"
+        },
+        "description": "Beschreibung",
+        "search": "🔎 Suchen nach einem Command?",
+        "more": "Mehr Infos?",
+        "permission": {
+            "label": "Berechtigung",
+            "everyone": "Jeder",
+            "vip": "VIP",
+            "moderator": "Moderator",
+            "broadcaster": "Broadcaster",
+            "dev": "Entwickler",
+            "admin": "Admin",
+            "unknown": "Unbekannt"
+        },
+        "error": {
+            "noCommands": "<img src='img/apu.png' alt='joa1'> ☝️ <p style='font-weight: bold; color: red;'> Es ist ein Fehler aufgetreten",
+            "noResults": "<img src='img/apu.png' alt='joa1'> ☝️ <p style='font-weight: bold; color: red;'> Kein Command gefunden"
+        }
+    },
+    "dashboard": {
+        "join": {
+            "isChat": "NotedBot ist Schon ihn Deinen Channel",
+            "error": "Fehler beim Joinen Deines Channels",
+            "success": "NotedBot ist Jetzt ihn deinen Channel"
+        },
+        "part": {
+            "isNotChat": "NotedBot ist nicht ihn Deinen Channel",
+            "error": "Fehler beim Leaven Deines Channels",
+            "confirm": "Bist du dir Sicher NotedBot aus deinen Channel zu Entfernen? Es Werden Samtliche Daten gelöscht",
+            "success": "NotedBot hat deinen Channel verlassen"
+        },
+        "welcome": "Wilkommen",
+        "channel": {
+            "prefix": "Prefix",
+            "lang": "Sprache",
+            "blockedCmds": "Geblocked Commands",
+            "customCmds": "Custom Commands",
+            "joined": "Joined am",
+            "more": "Mehr Links"
+        },
+        "user": {
+            "info": "User Stats",
+            "lang": "Sprache",
+            "perms": "Rechte",
+            "oldNames": "Alte Namen",
+            "noOldNames": "Kein Altere Namen gefunden",
+            "firstSeen": "Zum Ersten Mal gesehen"
+        },
+        "noInChat": "NotedBot ist nicht ihn Deinen Channel Bitte Log dich ein und Lasse ihn Joinen :D",
+        "token": {
+            "no": "Ich Hab keine Token von dir Logg dich Bitte einmal neu ein",
+            "expired": "Dein Token ist abgelaufen dich Bitte einmal neu ein"
+        },
+        "settings": {
+            "success": "Settings wurde geupdatet",
+            "failed": "Settings könnte nicht geupdatet werden",
+            "customCommand": "Bitte Custom Commands als JSON-Array eingeben. Beispiel:",
+            "customCommands": "Custom Commands müssen ein gültiges JSON-Array sein! Beispiel:",
+            "blockedCommand": "Bitte Blocked Commands als kommaseparierte Liste eingeben. Beispiel:",
+            "prefixs": "Ungültiges Prefix! Erlaubte Prefixe sind:",
+            "lang": "Ungültige Sprache! Erlaubte Werte sind nur 'de' oder 'en'"
+        }
+    },
+    "stats": {
+        "title": {
+            "1": "Transparenter als ein Jedi-Geist 👻",
+            "2": "Alles offen – hier siehst du, was Sache ist 🤖",
+            "3": "Was der Bot weiß, weiß jetzt jeder 🕵️",
+            "4": "Nichts bleibt verborgen – die Notis lügen nicht 📈",
+            "5": "Der Blick hinter die Kulissen – global, live, gnadenlos 🫣"
+        },
+        "error": "<img src='img/apu.png' alt='joa1'> ☝️ <p style='font-weight: bold; color: red;'> Fehler beim Laden der Stats"
+    }
+}
