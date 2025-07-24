@@ -72,17 +72,23 @@
         </section>
     </main>
 
-    <div id="popupOverlay" class="popup-overlay" style="display: none;"></div>
-    <div id="commandPopup" class="command-popup" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--bg-card); color: var(--text-primary); padding: 2rem; border: 1px solid var(--border-primary); border-radius: 20px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7); z-index: 1000; max-width: 600px; width: 90%; backdrop-filter: blur(20px);">
-        <span class="close-btn" onclick="document.getElementById('commandPopup').style.display = 'none'; document.title = 'NotedBot • Commands';" style="position: absolute; top: 1rem; right: 1.5rem; font-size: 1.5rem; color: var(--text-secondary); cursor: pointer;">&times;</span>
-        <div class="command-popup-content">
-            <h2 id="popupTitle" style="color: var(--accent-primary); margin-bottom: 1rem;"></h2>
-            <p id="popupAliases" style="margin: 0.5rem 0; color: var(--text-secondary);"></p>
-            <p id="popupUsage" style="margin: 0.5rem 0; color: var(--text-primary);"></p>
-            <p id="popupPerm" style="margin: 0.5rem 0; color: var(--text-secondary);"></p>
-            <p id="popupCooldown" style="margin: 0.5rem 0; color: var(--text-secondary);"></p>
-            <p id="popupCategory" style="margin: 0.5rem 0; color: var(--text-secondary);"></p>
-            <p id="popupDescription" style="margin: 0.5rem 0; color: var(--text-primary);"></p>
+    <div id="commandPopup" class="command-popup" style="display: none; position: 
+        fixed; top: 50%; left: 50%; 
+        transform: translate(-50%, -50%); 
+        background: var(--bg-card); color: var(--text-primary); padding: 2rem; 
+        border: 1px solid var(--border-primary); border-radius: 20px; 
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.7); z-index: 1000; max-width: 600px; width: 90%; 
+        backdrop-filter: blur(20px);"
+    >
+        <span class="close-btn" onclick="document.getElementById('commandPopup').style.display = 'none'; document.title = 'NotedBot • Commands';" style="position: absolute; top: 1rem; right: 1.5rem; font-size: 1.5rem; cursor: pointer;">&times;</span>
+        <div class="command-popup-content" style="background: 1px solid var(--accent-primary); box-shadow: var(--border-primary); padding: 1.5rem; border-radius: 15px;">
+            <h2 id="popupTitle" style="margin-bottom: 1rem;"></h2>
+            <p id="popupAliases" style="margin: 0.5rem 0;"></p>
+            <p id="popupUsage" style="margin: 0.5rem 0; "></p>
+            <p id="popupPerm" style="margin: 0.5rem 0;"></p>
+            <p id="popupCooldown" style="margin: 0.5rem 0;"></p>
+            <p id="popupCategory" style="margin: 0.5rem 0;"></p>
+            <p id="popupDescription" style="margin: 0.5rem 0;"></p>
             <div id="popupExample" style="margin-top: 1rem;"></div>
         </div>
     </div>
